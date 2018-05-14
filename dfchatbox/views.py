@@ -137,7 +137,7 @@ def check_links(request):
 
 @require_http_methods(['GET'])
 def entry_tree(request,data):
-	return render(request,'dfchatbox/tree.html',{data:data})
+	return render(request,'dfchatbox/tree.html',{'data': data})
 
 
 #stara metoda za komunikacijo z dialogflowom
