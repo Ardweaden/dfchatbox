@@ -547,10 +547,14 @@ $(document).on("click", "#showAllEntries", function(){
     $("#showAllEntries").fadeOut(100, function(){ $(this).remove();});
     buttonIndex = localStorage.getItem("buttonIndex");
 
-    for (var i = T0; i < buttonIndex; i++) {
+    for (var i = 0; i < buttonIndex; i++) {
         var new_button = localStorage.getItem("button" + i);
         $(".socketchatbox-chatArea").append(new_button);
     }
+
+    console.log("Last button id: " + localStorage.getItem("button" + (buttonIndex - 1)).id);
+
+    //document.getElementById("btn" + (i-1) + j).scrollIntoView({behavior: "smooth"});
 });
 
 //BOX RESIZING
