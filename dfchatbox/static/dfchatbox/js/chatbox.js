@@ -543,7 +543,7 @@ $(document).on("click", ".choice_btn", function(){
 });
 
 //READDS CHOICE BUTTONS
-$(document).on("chick", "#showAllEntries", function(){
+$(document).on("click", "#showAllEntries", function(){
     $("#showAllEntries").fadeOut(100, function(){ $(this).remove();});
     buttonIndex = localStorage.getItem("buttonIndex");
 
