@@ -296,9 +296,9 @@ function communicate(message,j){
                 var keys = Object.keys(data);
                 console.log(keys);
 
-                if (response['tree_url']) {
-                    $("body").append('<iframe frameborder="0" style="overflow:hidden;height:100%;width:100%" id="URLiFrame" src="' + response['tree_url'] + '" height="100%" width="100%"></iframe>')
-                }
+                // if (response['tree_url']) {
+                //     $("body").append('<iframe frameborder="0" style="overflow:hidden;height:100%;width:100%" id="URLiFrame" src="' + response['tree_url'] + '" height="100%" width="100%"></iframe>')
+                // }
 
                 for (var k = 0; k < keys.length; k++) {
 

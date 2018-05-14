@@ -615,11 +615,12 @@ def getEntryData(answer_json):
 					if r.status_code == 200:
 						json_entries = json.loads(r.text)['composition']
 						print(json_entries)
-						json_response['tree_url'] = "/entry_tree/{}".format(str(json_entries))
+						json_response['url'] = "/entry_tree/{}".format(str(json_entries))
 						break
 
 					else:
 						answer = "Prišlo je do napake. Prosim, poskusite ponovno."
+						json_response['url'] = "http://www.rtvslo.si/"
 						break
 
 
