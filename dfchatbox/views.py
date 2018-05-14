@@ -614,9 +614,10 @@ def getEntryData(answer_json):
 
 					if r.status_code == 200:
 						json_entries = json.loads(r.text)['composition']
-						print(json_entries)
+						#print(json_entries)
 						json_entries = str(json_entries).replace("/","~")
 						json_response['url'] = "/entry_tree/{}".format(str(json_entries))
+						print("=== JSON URL of length ", len(json_response['url']) ," ===> ",json_response['url'])
 						break
 
 					else:
