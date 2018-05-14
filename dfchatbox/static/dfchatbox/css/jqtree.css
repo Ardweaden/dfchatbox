@@ -8,7 +8,6 @@
 	font-weight: normal;
 	width: 355px;
 	background-color: transparent;
-	/*background-image: url(images/rows-20px.png);*/
 }
 div.jqtree-element {
 }
@@ -43,7 +42,6 @@ ul li.jqtree_common {
 	min-height: 19px;
 	text-overflow: ellipsis;
 	list-style-type: none;
-	/*background-image: url(images/treeview-default-line.png);*/
 	background-repeat: no-repeat;
 	background-position: 0 0;
 	position: relative;
@@ -79,7 +77,7 @@ ul.jqtree_common .jqtree-toggler {
 	left: 0;
 	height: 20px;
 	width: 20px;
-	background-image: url(images/minusplus.png);
+	background-image: url(../img/minusplus.png);
 	background-repeat: no-repeat;
 	background-position: 50% 0;
 	text-indent: 100px;
