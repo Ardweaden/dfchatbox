@@ -297,25 +297,29 @@ function communicate(message,j){
                 var keys = Object.keys(data);
                 console.log(keys);
 
+                reply_others = '<button name="showAllEntries" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="showAllEntries" type="button">Prikaži vse vpise</button>'
+
+                $(".socketchatbox-chatArea").append(reply_others);
+
                 // if (response['tree_url']) {
                 //     $("body").append('<iframe frameborder="0" style="overflow:hidden;height:100%;width:100%" id="URLiFrame" src="' + response['tree_url'] + '" height="100%" width="100%"></iframe>')
                 // }
 
-                for (var k = 0; k < keys.length; k++) {
+                // for (var k = 0; k < keys.length; k++) {
 
-                    var reply_others = '<div style="padding:0;" class="socketchatbox-message-wrapper" id="wrapper' + j + i + '"><div id="holder' + j + i + '" class="socketchatbox-message socketchatbox-message-others"><span style="margin-top:1%;margin-bottom:1%;width:300px;" id="data' + j + i + '" class="socketchatbox-messageBody socketchatbox-messageBody-others">'
+                //     var reply_others = '<div style="padding:0;" class="socketchatbox-message-wrapper" id="wrapper' + j + i + '"><div id="holder' + j + i + '" class="socketchatbox-message socketchatbox-message-others"><span style="margin-top:1%;margin-bottom:1%;width:300px;" id="data' + j + i + '" class="socketchatbox-messageBody socketchatbox-messageBody-others">'
 
-                    reply_others += keys[k] + ": " + data[keys[k]] + "<br>";
+                //     reply_others += keys[k] + ": " + data[keys[k]] + "<br>";
 
 
-                    reply_others += '</span></div></div>';
+                //     reply_others += '</span></div></div>';
 
-                    $(".socketchatbox-chatArea").append(reply_others);
+                //     $(".socketchatbox-chatArea").append(reply_others);
 
-                    saveElement(reply_others);
+                //     saveElement(reply_others);
 
-                    i+=1;
-                }
+                //     i+=1;
+                // }
                 disable_input(false);
 
                 $("#inputField").focus();
@@ -415,9 +419,15 @@ function communicate(message,j){
                 //DATA GIVES OPTIONS FOR USER
 
                 for (var k = 0; k < data.length; k++) {
-                    $(".socketchatbox-chatArea").append('<button name="' + data[k]['value'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + (parseInt(data[k]['value']) + 1) + ". " + data[k]['name'] + '</button>');
+                    var new_button = '<button name="' + data[k]['value'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + (parseInt(data[k]['value']) + 1) + ". " + data[k]['name'] + '</button>';
+                    $(".socketchatbox-chatArea").append(new_button);
+
+                    localStorage.setItem("button" + k,new_button);
+
                     i += 1;
                 }
+
+                localStorage.setItem("buttonIndex",data.length);
 
                 document.getElementById("btn" + (i-1) + j).scrollIntoView({behavior: "smooth"});
             }
@@ -530,6 +540,17 @@ $(document).on("click", ".choice_btn", function(){
 
     communicate(message,j);
     j += 1;
+});
+
+//READDS CHOICE BUTTONS
+$(document).on("chick", "#showAllEntries", function(){
+    $("#showAllEntries").fadeOut(100, function(){ $(this).remove();});
+    buttonIndex = localStorage.getItem("buttonIndex");
+
+    for (var i = T0; i < buttonIndex; i++) {
+        var new_button = localStorage.getItem("button" + i);
+        $(".socketchatbox-chatArea").append(new_button);
+    }
 });
 
 //BOX RESIZING
