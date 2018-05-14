@@ -14,7 +14,7 @@
     </body>
 
     <script type="text/javascript">
-      var data = JSON.stringify({{ data }}).replace('&#39;','"');
+      var data = String({{ data }}).replace('&#39;','"');
       console.log(typeof(data));
       data = JSON.parse(data);
 
