@@ -615,7 +615,7 @@ def getEntryData(answer_json):
 					if r.status_code == 200:
 						json_entries = json.loads(r.text)['composition']
 						print(json_entries)
-						json_response['tree_url'] = "/entry_tree/{}".format(str(data))
+						json_response['tree_url'] = "/entry_tree/{}".format(str(json_entries))
 						break
 
 					else:
