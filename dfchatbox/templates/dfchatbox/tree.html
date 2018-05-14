@@ -14,11 +14,10 @@
     </body>
 
     <script type="text/javascript">
-        try:
-            //var data = String({{ data }}).replace('&#39;','"');
-            var data = {{ data }};
-            console.log(typeof(data));
-            data = JSON.parse(data);
+        //var data = String({{ data }}).replace('&#39;','"');
+        var data = {{ data }};
+        console.log(typeof(data));
+        data = JSON.parse(data);
 
 
         $(function() {
