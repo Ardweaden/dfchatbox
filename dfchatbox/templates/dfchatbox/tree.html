@@ -14,9 +14,9 @@
     </body>
 
     <script type="text/javascript">
-      var data = JSON.parse ({{ data }}.replace('&#39;','"'))
+      var data = JSON.stringify({{ data }}).replace('&#39;','"');
       console.log(typeof(data));
-      //data = JSON.parse(data);
+      data = JSON.parse(data);
 
       $(function() {
             $('#tree1').tree({
