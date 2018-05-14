@@ -16,6 +16,7 @@
     <script type="text/javascript">
         //var data = String({{ data }}).replace('&#39;','"');
         var data = {{ data|safe }}.replace(/'/g, '"');
+        console.log(data);
         console.log(typeof(data));
         data = JSON.parse(data);
         console.log(data);
