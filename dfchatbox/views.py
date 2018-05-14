@@ -137,8 +137,9 @@ def check_links(request):
 
 @require_http_methods(['GET'])
 def entry_tree(request,data):
-	print("=== DATA @ ENTRY_TREE: ===>  ", data)
-	return render(request,'dfchatbox/tree.html',{'data': data})
+	print("=== DATA @ ENTRY_TREE: ===>  ", data);
+
+	return render(request,'dfchatbox/tree.html',{'data': json.dumps(data)})
 
 
 #stara metoda za komunikacijo z dialogflowom

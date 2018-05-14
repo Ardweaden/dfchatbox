@@ -14,11 +14,14 @@
     </body>
 
     <script type="text/javascript">
-      var data = String({{ data }}).replace('&#39;','"');
-      console.log(typeof(data));
-      data = JSON.parse(data);
+        try:
+            //var data = String({{ data }}).replace('&#39;','"');
+            var data = {{ data }};
+            console.log(typeof(data));
+            data = JSON.parse(data);
 
-      $(function() {
+
+        $(function() {
             $('#tree1').tree({
                 data: parseTree(data),
             });
