@@ -297,7 +297,7 @@ function communicate(message,j){
                 var keys = Object.keys(data);
                 console.log(keys);
 
-                reply_others = '<button name="showAllEntries" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="showAllEntries" type="button">Prikaži vse vpise</button>'
+                reply_others = '<button name="showAllEntries" class="socketchatbox-messageBody socketchatbox-messageBody-me" id="showAllEntries" type="button">Prikaži vse vpise</button>'
 
                 $(".socketchatbox-chatArea").append(reply_others);
 

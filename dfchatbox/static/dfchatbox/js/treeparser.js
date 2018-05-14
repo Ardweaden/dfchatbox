@@ -77,11 +77,13 @@ function createNodePath(i,key_chain,result) {
 }
 
 function parseTree(data) {
+   console.log("@parseTree");
    var result = [];
    var keys = Object.keys(data);
 
    for (var i = 0; i < keys.length; i++) {
         key_chain = keys[i].replace("|","/").split("/");
+        console.log("    key_chain @ parseTree: .... " + key_chain);
         var value = data[keys[i]];
 
         for (var j = 0; j < result.length; j++) {
