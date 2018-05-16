@@ -25,6 +25,12 @@
       </div>
     </body>
 
+    <script src="{% static 'dfchatbox/js/jquery-2.2.1.min.js' %}"></script>
+    <script src="{% static 'dfchatbox/js/tree.jquery.js' %}"></script>
+    <script src="{% static 'dfchatbox/js/treeparser.js' %}"></script>
+    <script src="{% static 'dfchatbox/js/tableparser.js' %}"></script>
+    <script src="{% static 'dfchatbox/js/bootstrap.min.js' %}"></script>
+
     <script type="text/javascript">
         var data = {{ data|safe }}.replace(/'/g, '"');
         data = JSON.parse(data);
@@ -50,11 +56,5 @@
             });
         });
     </script>
-
-    <script src="{% static 'dfchatbox/js/jquery-2.2.1.min.js' %}"></script>
-    <script src="{% static 'dfchatbox/js/tree.jquery.js' %}"></script>
-    <script src="{% static 'dfchatbox/js/treeparser.js' %}"></script>
-    <script src="{% static 'dfchatbox/js/tableparser.js' %}"></script>
-    <script src="{% static 'dfchatbox/js/bootstrap.min.js' %}"></script>
 
 </html>
