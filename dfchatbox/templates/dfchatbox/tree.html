@@ -7,23 +7,46 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <title>Drevo vpisa</title>
         <link rel="stylesheet" href="{% static 'dfchatbox/css/jqtree.css' %}">
+        <style>
+            table, th, td {
+              font-size: 14px;
+              text-align: center;
+            }
+        </style>
     </head>
 
     <body>
       <div id="tree1"></div>
+
+      <hr style="height: 10px;background: #ccc;">
+
+      <div id="tableHolder">
+          <table id="entryTable" class="table table-bordered table-striped" style="width: 100%;">
+          </table>
+      </div>
     </body>
 
     <script type="text/javascript">
-        //var data = String({{ data }}).replace('&#39;','"');
         var data = {{ data|safe }}.replace(/'/g, '"');
-        console.log(data);
-        console.log(typeof(data));
         data = JSON.parse(data);
-        console.log(data);
+        data = parseTree(data);
+
+        tabledata = tableFromTreeWithColspan([data]);
+
+        tablearray = tabledata[0];
+        colspanMatrix = rectangulateArray(tabledata[1]);
+
+        tablee = rectangulateArray(tablearray);
+
+        widthMatrix = calculateWidth(tablee);
+
+        shownTable = tableFromArray(tablee,colspanMatrix,widthMatrix);
+
+        $("#entryTable").append(shownTable);
 
         $(function() {
             $('#tree1').tree({
-                data: parseTree(data),
+                data: data;
             });
         });
     </script>
@@ -31,5 +54,7 @@
     <script src="{% static 'dfchatbox/js/jquery-2.2.1.min.js' %}"></script>
     <script src="{% static 'dfchatbox/js/tree.jquery.js' %}"></script>
     <script src="{% static 'dfchatbox/js/treeparser.js' %}"></script>
+    <script src="{% static 'dfchatbox/js/tableparser.js' %}"></script>
+    <script src="{% static 'dfchatbox/js/bootstrap.min.js' %}"></script>
 
 </html>

@@ -149,6 +149,8 @@ function reload_session_storage() {
 
 //TAKES USER INPUT AND COMMUNICATES WITH DIALOGFLOW
 function communicate(message,j){
+    $("#showAllEntries").remove();
+    
     disable_input(true);
     typing(1,"me");
 
