@@ -4,7 +4,6 @@
 
     <head>
         <meta charset="UTF-8">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <title>Drevo vpisa</title>
         <link rel="stylesheet" href="{% static 'dfchatbox/css/jqtree.css' %}">
         <style>
@@ -29,9 +28,10 @@
     <script type="text/javascript">
         var data = {{ data|safe }}.replace(/'/g, '"');
         data = JSON.parse(data);
-        data = parseTree(data);
 
-        tabledata = tableFromTreeWithColspan([data]);
+        tree = parseTree(data);
+
+        tabledata = tableFromTreeWithColspan([tree]);
 
         tablearray = tabledata[0];
         colspanMatrix = rectangulateArray(tabledata[1]);
@@ -46,7 +46,7 @@
 
         $(function() {
             $('#tree1').tree({
-                data: data
+                data: tree
             });
         });
     </script>
