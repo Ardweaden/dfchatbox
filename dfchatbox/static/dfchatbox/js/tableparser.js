@@ -55,7 +55,7 @@ function tableFromArray(array,colspanMatrix,widthMatrix){
     for (var j = 0; j < array[i].length; j++) {
 
       if (array[i][j].length == 0) {
-        row += "<th colspan='1' width='" + widthMatrix[i][j][0] + "%'>&nbsp;</td>";
+        row += "<th class='empty' colspan='1' width='" + widthMatrix[i][j][0] + "%'>&nbsp;</td>";
       }
 
       for (var k = 0; k < array[i][j].length; k++) {
@@ -72,7 +72,14 @@ function tableFromArray(array,colspanMatrix,widthMatrix){
           colspan = 1;
         }
 
-        row += "<th colspan='" + colspan + "' width='" + widthMatrix[i][j][k] + "%'>" + array[i][j][k] + "</td>";
+        elementIndex = j + calculateShift(array[i],j);
+
+        if (array[i+1][elementIndex].length == 0) {
+          row += "<th class='value' colspan='" + colspan + "' width='" + widthMatrix[i][j][k] + "%'>" + array[i][j][k] + "</td>";
+        }
+        else {
+          row += "<th colspan='" + colspan + "' width='" + widthMatrix[i][j][k] + "%'>" + array[i][j][k] + "</td>";
+        }
       } 
 
     }

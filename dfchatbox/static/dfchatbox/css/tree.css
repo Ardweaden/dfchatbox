@@ -1,0 +1,28 @@
+table{
+	font-size: 14px;
+	font-weight: normal;
+    text-align: center;
+}
+
+th {
+	font-size: 14px;
+	font-weight: normal;
+    text-align: center;
+}
+
+td {
+	font-size: 14px;
+	font-weight: normal;
+	text-align: center;
+}
+
+.empty {
+	border: 1px solid Transparent!important;
+	background: white;
+}
+
+.value {
+	background: #d3d8ea;
+	font-size: 15px;
+	font-weight: bold;
+}
