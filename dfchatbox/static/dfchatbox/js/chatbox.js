@@ -544,12 +544,12 @@ $(document).on("click", ".choice_btn", function(){
     message2 = document.getElementById(event.target.id).innerHTML;
     message = [message1,message2];
     $(".choice_btn").fadeOut(100, function(){ $(this).remove();});
-
+    console.log("++++ USER MESSAGE ++++  >  " + message);
     communicate(message,j);
     j += 1;
 });
 
-//READDS CHOICE BUTTONS
+//READS CHOICE BUTTONS
 $(document).on("click", "#showAllEntries", function(){
     $("#showAllEntries").fadeOut(100, function(){ $(this).remove();});
     buttonIndex = localStorage.getItem("buttonIndex");
