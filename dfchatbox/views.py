@@ -472,8 +472,6 @@ def getECGResultsData(answer_json):
 	return json_response
 
 def getAllEntries(answer_json):
-	print(answer_json)
-
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
 	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
@@ -523,8 +521,6 @@ def getAllEntries(answer_json):
 		js = json.loads(r.text)
 		js = js['resultSet']
 
-		print(js)
-
 		if not len(js):
 			answer = "Podani pacient nima vpisov v sistemu."
 		else:
@@ -549,6 +545,9 @@ def getAllEntries(answer_json):
 	return json_response
 
 def getEntryData(answer_json):
+	print("===================== GET ENTRY DATA JSON =====================")
+	print(answer_json)
+	print("===============================================================")
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
 	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
