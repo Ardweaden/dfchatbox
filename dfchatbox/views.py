@@ -523,6 +523,8 @@ def getAllEntries(answer_json):
 		js = json.loads(r.text)
 		js = js['resultSet']
 
+		print(js)
+
 		if not len(js):
 			answer = "Podani pacient nima vpisov v sistemu."
 		else:
