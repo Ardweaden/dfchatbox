@@ -19,6 +19,8 @@ import requests
 import base64
 from datetime import datetime
 
+from helper_functions import organise_entries
+
 # Create your views here.
 # -*- coding: utf-8 -*-
 
@@ -530,11 +532,12 @@ def getAllEntries(answer_json):
 		else:
 			answer = "Za podanega pacienta sem našel naslednje vpise v sistemu:"
 
-			for counter,item in enumerate(js):
-				json_object['name'] = item['#0']['archetype_details']['template_id']['value']
-				json_object['value'] = str(counter)
-				json_entries.append(json_object)
-				json_object = {}
+			# for counter,item in enumerate(js):
+			# 	json_object['name'] = item['#0']['archetype_details']['template_id']['value']
+			# 	json_object['value'] = str(counter)
+			# 	json_entries.append(json_object)
+			# 	json_object = {}
+			json_entries = organise_entries(js)
 
 	else: 
 		answer = "Za podanega pacienta nisem nasel podatkov v sistemu."
