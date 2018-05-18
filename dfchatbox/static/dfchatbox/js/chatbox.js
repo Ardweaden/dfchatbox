@@ -157,6 +157,7 @@ function communicate(message,j){
     if (typeof(message) == 'object'){
         var value = message[0];
         message = message[1];
+        console.log("Value  ===  " + value + " which becomes message");
     }
 
     message = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
