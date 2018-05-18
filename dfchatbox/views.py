@@ -136,9 +136,17 @@ def check_links(request):
 			return HttpResponse(urls)
 
 @require_http_methods(['GET'])
-def entry_tree(request,data):
-	print("=== DATA @ ENTRY_TREE: ===>  ", data);
-	return render(request,'dfchatbox/tree.html',{'data': json.dumps(data)})
+def entry_tree(request):
+	dataLength = request.session['dataLength']
+	print("=== DATA @ ENTRY_TREE: ===>  ", dataLength);
+	dataList = []
+
+	for i in range(int(dataLength)):
+		dataList.append(request.session['{}'.format(i)])
+
+	print("=== DATA @ ENTRY_TREE: ===>  ", dataList);
+
+	return render(request,'dfchatbox/tree.html',{'data': json.dumps(dataList)})
 
 
 #stara metoda za komunikacijo z dialogflowom
@@ -545,9 +553,6 @@ def getAllEntries(answer_json):
 	return json_response
 
 def getEntryData(answer_json):
-	print("===================== GET ENTRY DATA JSON =====================")
-	print(answer_json)
-	print("===============================================================")
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
 	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
@@ -560,7 +565,8 @@ def getEntryData(answer_json):
 	json_entries = []
 	#json_object = {}
 
-	number = answer_json['result']['contexts'][0]['parameters']['number']
+	numberList = answer_json['result']['contexts'][0]['parameters']['numberList']
+	numberList = list(map(int,numberList[0].split(",")))
 	#ehrId = answer_json['result']['fulfillment']['data']['ehrid']
 
 	queryUrl = baseUrl + "/demographics/party/query"
@@ -599,14 +605,15 @@ def getEntryData(answer_json):
 
 		if not len(js):
 			answer = "Podani pacient nima vpisov v sistemu."
-		elif int(number) >= len(js):
+		elif max(numberList) >= len(js):
 			answer = "Izbrani vpis ne obstaja."
 		else:
 			answer = "Našel sem podatke o vpisu."
 
+			request.session['dataLength'] = len(numberList)
+
 			for counter,item in enumerate(js):
-				print(counter,number)
-				if counter == int(number):
+				if counter in numberList:
 					uid = item['#0']['uid']['value']
 
 					queryUrl = baseUrl + "/composition/"
@@ -617,11 +624,16 @@ def getEntryData(answer_json):
 
 					if r.status_code == 200:
 						json_entries = json.loads(r.text)['composition']
-						#print(json_entries)
-						json_entries = str(json_entries).replace("/","~")
-						json_response['url'] = "/entry_tree/{}".format(str(json_entries))
-						print("=== JSON URL of length ", len(json_response['url']) ," ===> ",json_response['url'])
-						break
+						print("======================== JSON ENTRIES ========================")
+						print(json_entries)
+						print("===============================================================")
+						json_response['url'] = "/entry_tree"
+						request.session[numberList.index(counter)] = json_entries
+
+						#json_entries = str(json_entries).replace("/","~")
+						#json_response['url'] = "/entry_tree/{}".format(str(json_entries))
+						#print("=== JSON URL of length ", len(json_response['url']) ," ===> ",json_response['url'])
+						#break
 
 					else:
 						answer = "Prišlo je do napake. Prosim, poskusite ponovno."
@@ -634,7 +646,8 @@ def getEntryData(answer_json):
 
 	# Generate the JSON response
 	json_response['answer'] = answer
-	json_response['data'] = json_entries
+	json_response['data'] = []
+	#json_response['data'] = json_entries
 
 	return json_response
 
