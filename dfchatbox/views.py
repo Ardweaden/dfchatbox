@@ -205,7 +205,7 @@ def webhook(request):
 		del json_response['ehrid']
 	if parameter_action == "getEntry":
 		print("getEntry")
-		json_response = getEntryData(answer_json)
+		json_response = getEntryData(request,answer_json)
 		print(json_response)
 
 	answer = json_response['answer']
