@@ -566,6 +566,7 @@ def getEntryData(request,answer_json):
 	#json_object = {}
 
 	numberList = answer_json['result']['contexts'][0]['parameters']['numberList']
+	print(numberList)
 	numberList = list(map(int,numberList[0].split(",")))
 	#ehrId = answer_json['result']['fulfillment']['data']['ehrid']
 
