@@ -19,8 +19,6 @@ import requests
 import base64
 from datetime import datetime
 
-from helper_functions import organise_entries
-
 # Create your views here.
 # -*- coding: utf-8 -*-
 
@@ -640,3 +638,24 @@ def getEntryData(answer_json):
 	json_response['data'] = json_entries
 
 	return json_response
+
+def organise_entries(entries):
+	json_entries = []
+	names = []
+	json_object = {}
+
+	for counter,item in enumerate(entries):
+		json_object_name = item['#0']['archetype_details']['template_id']['value']
+		json_object_value = str(counter)
+
+		if json_object_name in names:
+			index = names.index(json_object_name)
+			json_entries[index]['value'].append(json_object_value)
+		else:
+			json_object['name'] = json_object_name
+			json_object['value'] = [json_object_value]
+			json_entries.append(json_object)
+			names.append(json_object_name)
+			json_object = {}
+
+	return json_entries
