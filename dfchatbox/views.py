@@ -552,7 +552,7 @@ def getAllEntries(answer_json):
 
 	return json_response
 
-def getEntryData(answer_json):
+def getEntryData(request,answer_json):
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
 	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
