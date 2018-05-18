@@ -446,6 +446,11 @@ function communicate(message,j){
             catch(err){
             }
 
+            if (response['url']) {
+                console.log("This is the url: ", response['url']);
+                $("body").append('<iframe frameborder="0" style="overflow:hidden;height:100%;width:100%" id="URLiFrame" src="' + response['url'] + '" height="100%" width="100%"></iframe>')
+            }
+
             typing(0,"others");
 
             var reply_others = '<div class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + response['text_answer'] +  '</span></div></div>';

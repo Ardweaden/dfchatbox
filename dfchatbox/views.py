@@ -611,6 +611,7 @@ def getEntryData(request,answer_json):
 			answer = "Našel sem podatke o vpisu."
 
 			request.session['dataLength'] = len(numberList)
+			json_response['url'] = "/entry_tree"
 
 			for counter,item in enumerate(js):
 				if counter in numberList:
@@ -627,7 +628,6 @@ def getEntryData(request,answer_json):
 						print("======================== JSON ENTRIES ========================")
 						print(json_entries)
 						print("===============================================================")
-						json_response['url'] = "/entry_tree"
 						request.session[numberList.index(counter)] = json_entries
 
 						#json_entries = str(json_entries).replace("/","~")
