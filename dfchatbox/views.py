@@ -142,12 +142,14 @@ def check_links(request):
 
 @require_http_methods(['GET'])
 def entry_tree(request):
-	dataLength = request.session['dataLength']
+	#dataLength = request.session['dataLength']
+	dataLength = request.COOKIES['dataLength']
 	print("=== DATA @ ENTRY_TREE: ===>  ", dataLength);
 	dataList = []
 
 	for i in range(int(dataLength)):
-		dataList.append(request.session['{}'.format(i)])
+		#dataList.append(request.session['{}'.format(i)])
+		dataList.append(request.COOKIES['{}'.format(i)])
 
 	print("=== DATA @ ENTRY_TREE: ===>  ", dataList);
 
@@ -568,6 +570,8 @@ def getEntryData(request,answer_json):
 	json_response = {"responseType": "entry"}
 	searchData = []
 	json_entries = []
+
+	response = json_response
 	#json_object = {}
 
 	numberList = answer_json['result']['contexts'][0]['parameters']['numberList']
@@ -617,6 +621,7 @@ def getEntryData(request,answer_json):
 			answer = "Našel sem podatke o vpisu."
 
 			request.session['dataLength'] = len(numberList)
+			response.set_cookie("dataLength",len(numberList));
 			json_response['url'] = "/entry_tree"
 
 			for counter,item in enumerate(js):
@@ -635,6 +640,7 @@ def getEntryData(request,answer_json):
 						print(json_entries)
 						print("===============================================================")
 						request.session[numberList.index(counter)] = json_entries
+						response.set_cookie("{}".format([numberList.index(counter)],json_entries))
 
 						#json_entries = str(json_entries).replace("/","~")
 						#json_response['url'] = "/entry_tree/{}".format(str(json_entries))

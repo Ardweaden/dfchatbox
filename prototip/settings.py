@@ -130,3 +130,5 @@ STATICFILES_DIRS = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
