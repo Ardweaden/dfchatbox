@@ -208,6 +208,9 @@ function communicate(message,j){
 
     if (value) {
         message = value;
+        console.log(message);
+        console.log(typeof(message));
+        $(".socketchatbox-chatArea").append("<p>" + message + "</p>");
     }
 
     //CHECKS SESSION
