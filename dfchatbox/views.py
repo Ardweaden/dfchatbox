@@ -32,13 +32,18 @@ def index(request):
 
 		#print("user input: ", message)
 
-		url = "http://translate.dis-apps.ijs.si/translate?sentence=" + message
+		#url = "http://translate.dis-apps.ijs.si/translate?sentence=" + message
 
-		response = requests.get(url)
-		translation = response.text[1:-3]
+		# response = requests.get(url)
+		# translation = response.text[1:-3]
 
-		if translation != "":
-			message = translation
+		try:
+			int(message.replace(",",""))
+		except:
+			translation = translate(message)
+
+			if translation != "":
+				message = translation
 
 		#print(message)
 
@@ -672,3 +677,19 @@ def organise_entries(entries):
 			json_object = {}
 
 	return json_entries
+
+
+def translate(input):
+    input=input.replace(",","").replace("("," ").replace(")"," ").replace("-"," ")
+    url = "http://translate.dis-apps.ijs.si/translate?sentence="+input
+    req = requests.get(url)
+    if req.text == '{"errors": {"sentence": "Invalid text value provided"}}' or req.text[1:-3] == '':
+        output=""
+        words=input.split(" ")
+        if(len(words)>1):
+            for word in words:
+                if word:
+                    output+=translate(word)+" "
+            return output
+        return input
+    return req.text[1:-3]
