@@ -4,6 +4,7 @@ from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from django.core.cache import cache
 
 import re
 import imgkit
@@ -143,13 +144,15 @@ def check_links(request):
 @require_http_methods(['GET'])
 def entry_tree(request):
 	#dataLength = request.session['dataLength']
-	dataLength = request.COOKIES['dataLength']
+	#dataLength = request.COOKIES['dataLength']
+	dataLength = cache.get("dataLength")
 	print("=== DATA @ ENTRY_TREE: ===>  ", dataLength);
 	dataList = []
 
 	for i in range(int(dataLength)):
 		#dataList.append(request.session['{}'.format(i)])
-		dataList.append(request.COOKIES['{}'.format(i)])
+		#dataList.append(request.COOKIES['{}'.format(i)])
+		dataList.append(cache.get('{}'.format(i)))
 
 	print("=== DATA @ ENTRY_TREE: ===>  ", dataList);
 
@@ -620,8 +623,10 @@ def getEntryData(request,answer_json):
 		else:
 			answer = "Našel sem podatke o vpisu."
 
-			request.session['dataLength'] = len(numberList)
-			response.set_cookie("dataLength",len(numberList));
+			# request.session['dataLength'] = len(numberList)
+			# response.set_cookie("dataLength",len(numberList))
+			cache.set("dataLength",len(numberList),None)
+
 			json_response['url'] = "/entry_tree"
 
 			for counter,item in enumerate(js):
@@ -639,8 +644,9 @@ def getEntryData(request,answer_json):
 						print("======================== JSON ENTRIES ========================")
 						print(json_entries)
 						print("===============================================================")
-						request.session[numberList.index(counter)] = json_entries
-						response.set_cookie("{}".format([numberList.index(counter)],json_entries))
+						#request.session[numberList.index(counter)] = json_entries
+						#response.set_cookie("{}".format([numberList.index(counter)],json_entries))
+						cache.set("{}".format([numberList.index(counter)],json_entries,None)
 
 						#json_entries = str(json_entries).replace("/","~")
 						#json_response['url'] = "/entry_tree/{}".format(str(json_entries))
