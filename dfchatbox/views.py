@@ -85,7 +85,7 @@ def index(request):
 		    response_type = answer_json['result']['fulfillment']['data']['responseType']
 		    print("RESPONSE TYPE: ",response_type)
 		    url = answer_json['result']['fulfillment']['data']['url']
-		    if url[:5] != "https" and len(url) < 100:
+		    if url[:5] != "https" and url[0] !0 = "/": 
 		    	url = "https:" + url[5:]
 
 		    
