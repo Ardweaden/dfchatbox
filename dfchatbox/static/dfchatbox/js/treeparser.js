@@ -141,7 +141,7 @@ function removeFromData(key_chains,values,categories,subcategories) {
 
 function getEntryTime(key_chains,values) {
   for (var i = 0; i < key_chains.length; i++) {
-     if (key_chains[i][key_chains[i].length - 1] == "time") {
+     if (key_chains[i][key_chains[i].length - 1] == "time" || key_chains[i][key_chains[i].length - 1] == "start_time") {
       return values[i]
      }
    } 
