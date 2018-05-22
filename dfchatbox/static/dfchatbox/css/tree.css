@@ -10,10 +10,16 @@ th {
     text-align: center;
 }
 
-td {
+
+tr {
 	font-size: 14px;
 	font-weight: normal;
 	text-align: center;
+	visibility: hidden;
+}
+
+tbody:first-child {
+	visibility: visible;
 }
 
 .empty {

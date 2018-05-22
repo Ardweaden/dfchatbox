@@ -146,15 +146,18 @@ def entry_tree(request):
 	#dataLength = request.session['dataLength']
 	#dataLength = request.COOKIES['dataLength']
 	dataLength = cache.get("dataLength")
-	print("=== DATA @ ENTRY_TREE: ===>  ", dataLength);
+	cache.delete("dataLength")
+
+	print("=== DATA @ ENTRY_TREE: ===>  ", dataLength)
 	dataList = []
 
 	for i in range(int(dataLength)):
 		#dataList.append(request.session['{}'.format(i)])
 		#dataList.append(request.COOKIES['{}'.format(i)])
 		dataList.append(cache.get('{}'.format(i)))
+		cache.delete('{}'.format(i))
 
-	print("=== DATA @ ENTRY_TREE: ===>  ", dataList);
+	print("=== DATA @ ENTRY_TREE: ===>  ", dataList)
 
 	return render(request,'dfchatbox/tree.html',{'data': json.dumps(dataList)})
 
@@ -665,7 +668,7 @@ def getEntryData(request,answer_json):
 
 	# Generate the JSON response
 	json_response['answer'] = answer
-	json_response['data'] = []
+	json_response['data'] = [{"some":"data"}]
 	#json_response['data'] = json_entries
 
 	return json_response
