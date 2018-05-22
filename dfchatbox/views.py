@@ -642,11 +642,12 @@ def getEntryData(request,answer_json):
 					if r.status_code == 200:
 						json_entries = json.loads(r.text)['composition']
 						print("======================== JSON ENTRIES ========================")
+						print(numberList.index(counter))
 						print(json_entries)
 						print("===============================================================")
 						#request.session[numberList.index(counter)] = json_entries
 						#response.set_cookie("{}".format([numberList.index(counter)],json_entries))
-						cache.set("{}".format([numberList.index(counter)]),json_entries,None)
+						cache.set("{}".format(numberList.index(counter)),json_entries,None)
 
 						#json_entries = str(json_entries).replace("/","~")
 						#json_response['url'] = "/entry_tree/{}".format(str(json_entries))
