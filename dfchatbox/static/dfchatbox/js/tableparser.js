@@ -133,7 +133,6 @@ function calculateColspan(tree,colspan){
 //Converts tree to an array and generates the colspan matrix for <th> tags.
 //colspanMatrix needs to be rectangulated before usage 
 function tableFromTreeWithColspan(tree) {
-  console.log(tree);
   tableArray = [];
   colspanMatrix = [];
 
@@ -152,9 +151,6 @@ function tableFromTreeWithColspan(tree) {
 
       for (var j = 0; j < tree[i].length; j++) {
         branch.push(tree[i][j]['name']);
-        console.log(tree[i][j]['name']);
-        console.log(tree[i][j]);
-        console.log(calculateColspan([tree[i][j]],0));
         colspanBranch.push(calculateColspan([tree[i][j]],0));
 
         if (!!tree[i][j]['children']){
@@ -223,4 +219,19 @@ function calculateWidth(array) {
   }
 
   return widthMatrix
+}
+
+function sortWithIndices(toSort) {
+  for (var i = 0; i < toSort.length; i++) {
+    toSort[i] = [toSort[i], i];
+  }
+  toSort.sort(function(left, right) {
+    return left[0] < right[0] ? -1 : 1;
+  });
+  toSort.sortIndices = [];
+  for (var j = 0; j < toSort.length; j++) {
+    toSort.sortIndices.push(toSort[j][1]);
+    toSort[j] = toSort[j][0];
+  }
+  return toSort;
 }

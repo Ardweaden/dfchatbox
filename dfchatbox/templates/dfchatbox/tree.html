@@ -13,12 +13,9 @@
     <body>
       <div id="tree1"></div>
 
-      <hr style="height: 10px;background: #ccc;">
-
       <div id="tableHolder">
-          <table id="entryTable" class="table table-bordered table-striped" style="width: 100%;">
-          </table>
       </div>
+
     </body>
 
     <script src="{% static 'dfchatbox/js/jquery-2.2.1.min.js' %}"></script>
@@ -28,29 +25,43 @@
     <script src="{% static 'dfchatbox/js/bootstrap.min.js' %}"></script>
 
     <script type="text/javascript">
-        var data = {{ data|safe }}.replace(/'/g, '"');
-        data = JSON.parse(data);
+        var data = {{ data|safe }};
+        var tables = [];
+        var dates = [];
+        
+        for (var i = 0; i < data.length; i++) {
+            tree_data = data[i];
+            converted = parseTree(tree_data);
 
-        tree = parseTree(data);
+            tree = converted[0];
+            entry_time = converted[1];
 
-        tabledata = tableFromTreeWithColspan([tree]);
+            unix_time = dates.push(Date.parse(entry_time));
 
-        tablearray = tabledata[0];
-        colspanMatrix = rectangulateArray(tabledata[1]);
+            tabledata = tableFromTreeWithColspan([tree]);
 
-        tablee = rectangulateArray(tablearray);
+            tablearray = tabledata[0];
+            colspanMatrix = rectangulateArray(tabledata[1]);
 
-        widthMatrix = calculateWidth(tablee);
+            tablee = rectangulateArray(tablearray);
 
-        shownTable = tableFromArray(tablee,colspanMatrix,widthMatrix);
+            widthMatrix = calculateWidth(tablee);
 
-        $("#entryTable").append(shownTable);
+            shownTable = tableFromArray(tablee,colspanMatrix,widthMatrix);
 
-        $(function() {
-            $('#tree1').tree({
-                data: tree
-            });
-        });
+            tables.push("<table id='entryTable" + i + "' class='table table-bordered table-striped' style='width: 98%;margin-left: 1%;margin-right: 1%;'>" + shownTable + "</table><br>");
+
+        }
+
+        dates = sortWithIndices(dates);
+        sort_indices = dates.sortIndices;
+
+        for (var i = 0; i < dates.length; i++) {
+            entry_time = new Date(dates[i]).toLocaleDateString();
+            $("#tableHolder").append("<p style='margin-left: 5%;'>Datum vpisa: " + entry_time + "</p><br>");
+            $("#tableHolder").append("<table id='entryTable" + i + "' class='table table-bordered table-striped' style='width: 98%;margin-left: 1%;margin-right: 1%;'>" + tables[sort_indices[i]] + "</table><br>");
+        }
+
     </script>
 
 </html>
