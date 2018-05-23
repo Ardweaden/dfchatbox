@@ -144,7 +144,9 @@ function getEntryTime(key_chains,values) {
      if (key_chains[i][key_chains[i].length - 1] == "time" || key_chains[i][key_chains[i].length - 1] == "start_time") {
       return values[i]
      }
-   } 
+   }
+
+  return "No date" 
 }
 
 
