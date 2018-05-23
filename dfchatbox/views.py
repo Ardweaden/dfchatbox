@@ -629,6 +629,7 @@ def getEntryData(request,answer_json):
 			# request.session['dataLength'] = len(numberList)
 			# response.set_cookie("dataLength",len(numberList))
 			cache.set("dataLength",len(numberList),None)
+			print("dataLength @ getEntryData ==> ",cache.get("dataLength"))
 
 			json_response['url'] = "/entry_tree"
 
@@ -651,6 +652,7 @@ def getEntryData(request,answer_json):
 						#request.session[numberList.index(counter)] = json_entries
 						#response.set_cookie("{}".format([numberList.index(counter)],json_entries))
 						cache.set("{}".format(numberList.index(counter)),json_entries,None)
+						print("data @ getEntryData ==> ",cache.get("{}".format(numberList.index(counter))))
 
 						#json_entries = str(json_entries).replace("/","~")
 						#json_response['url'] = "/entry_tree/{}".format(str(json_entries))
