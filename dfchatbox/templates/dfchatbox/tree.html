@@ -36,7 +36,12 @@
             tree = converted[0];
             entry_time = converted[1];
 
-            unix_time = dates.push(Date.parse(entry_time));
+            if (entry_time != "No date") {
+                unix_time = dates.push(Date.parse(entry_time));
+            }
+            else {
+                dates.push(entry_time)
+            }
 
             tabledata = tableFromTreeWithColspan([tree]);
 
@@ -57,7 +62,12 @@
         sort_indices = dates.sortIndices;
 
         for (var i = 0; i < dates.length; i++) {
-            entry_time = new Date(dates[i]).toLocaleDateString();
+            if (dates[i] != "No date") {
+                entry_time = new Date(dates[i]).toLocaleDateString();
+            }
+            else {
+                entry_time = "Ni znan"
+            }
             $("#tableHolder").append("<p style='margin-left: 5%;'>Datum vpisa: " + entry_time + "</p><br>");
             $("#tableHolder").append(tables[sort_indices[i]]);
         }
