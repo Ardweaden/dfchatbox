@@ -159,8 +159,6 @@ def entry_tree(request):
 
 	#print("=== DATA @ ENTRY_TREE: ===>  ", dataList)
 
-	chart_names,chart_urls = create_charts(dataList)
-
 	return render(request,'dfchatbox/tree.html',{'data': json.dumps(dataList)})
 
 
