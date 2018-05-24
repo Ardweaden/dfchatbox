@@ -148,7 +148,7 @@ def entry_tree(request):
 	dataLength = cache.get("dataLength")
 	cache.delete("dataLength")
 
-	print("=== DATA @ ENTRY_TREE: ===>  ", dataLength)
+	#print("=== DATA @ ENTRY_TREE: ===>  ", dataLength)
 	dataList = []
 
 	for i in range(int(dataLength)):
@@ -157,7 +157,9 @@ def entry_tree(request):
 		dataList.append(cache.get('{}'.format(i)))
 		cache.delete('{}'.format(i))
 
-	print("=== DATA @ ENTRY_TREE: ===>  ", dataList)
+	#print("=== DATA @ ENTRY_TREE: ===>  ", dataList)
+
+	chart_names,chart_urls = create_charts(dataList)
 
 	return render(request,'dfchatbox/tree.html',{'data': json.dumps(dataList)})
 
@@ -629,7 +631,7 @@ def getEntryData(request,answer_json):
 			# request.session['dataLength'] = len(numberList)
 			# response.set_cookie("dataLength",len(numberList))
 			cache.set("dataLength",len(numberList),None)
-			print("dataLength @ getEntryData ==> ",cache.get("dataLength"))
+			#print("dataLength @ getEntryData ==> ",cache.get("dataLength"))
 
 			json_response['url'] = "/entry_tree"
 
@@ -647,12 +649,12 @@ def getEntryData(request,answer_json):
 						json_entries = json.loads(r.text)['composition']
 						print("======================== JSON ENTRIES ========================")
 						print(numberList.index(counter))
-						print(json_entries)
+						#print(json_entries)
 						print("===============================================================")
 						#request.session[numberList.index(counter)] = json_entries
 						#response.set_cookie("{}".format([numberList.index(counter)],json_entries))
 						cache.set("{}".format(numberList.index(counter)),json_entries,None)
-						print("data @ getEntryData ==> ",cache.get("{}".format(numberList.index(counter))))
+						#print("data @ getEntryData ==> ",cache.get("{}".format(numberList.index(counter))))
 
 						#json_entries = str(json_entries).replace("/","~")
 						#json_response['url'] = "/entry_tree/{}".format(str(json_entries))
