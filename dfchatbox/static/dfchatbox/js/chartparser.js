@@ -60,8 +60,8 @@ function generateTitle(row) {
 	var titleArray = [];
 	var keychain = row.replace("|","/").split("/");
 	var len = keychain.length;
-	titleArray.push(keychain[len - 2].replace(/[^0-9a-z]/gi, ' '));
-	titleArray.push(keychain[len - 4].replace(/[^0-9a-z]/gi, ' '));
+	titleArray.push(keychain[len - 2].replace(/[^0-9a-z]/gi, ' ').replace(/[0-9]/g, ''));
+	titleArray.push(keychain[len - 4].replace(/[^0-9a-z]/gi, ' ').replace(/[0-9]/g, ''));
 	return titleArray.join(" - ");
 
 }

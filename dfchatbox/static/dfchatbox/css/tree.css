@@ -1,3 +1,7 @@
+body {
+	padding-bottom: 20%;
+}
+
 table{
 	font-size: 14px;
 	font-weight: normal;
@@ -36,4 +40,25 @@ tbody:first-child {
 canvas {
 	width: 75% !important;
 	height: 30% !important
+}
+
+#chartBtn {
+	background: linear-gradient(rgba(0, 0, 0, .05), rgba(0, 0, 0, .02));
+	border-color:  rgba(0, 0, 0, 0.1);
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	padding-left: 40px;
+	padding-right: 40px;
+	color: #212529;
+	margin-right: 5%;
+
+}
+
+#btnHolder {
+	background: rgba(0,0,0,.05);
+	text-align: right;
+	padding: 10px;
+}
+
+#tableHolder {
+	margin-top: 2%;
 }
