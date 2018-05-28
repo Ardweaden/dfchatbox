@@ -1,6 +1,5 @@
-var data = {{ data|safe }};
-    var tables = [];
-    var dates = [];
+var tables = [];
+var dates = [];
     
 for (var i = 0; i < data.length; i++) {
     tree_data = data[i];
