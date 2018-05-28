@@ -2,34 +2,34 @@ var data = {{ data|safe }};
     var tables = [];
     var dates = [];
     
-    for (var i = 0; i < data.length; i++) {
-        tree_data = data[i];
-        converted = parseTree(tree_data);
+for (var i = 0; i < data.length; i++) {
+    tree_data = data[i];
+    converted = parseTree(tree_data);
 
-        tree = converted[0];
-        entry_time = converted[1];
+    tree = converted[0];
+    entry_time = converted[1];
 
-        if (entry_time != "No date") {
-            unix_time = dates.push(Date.parse(entry_time));
-        }
-        else {
-            dates.push(entry_time)
-        }
-
-        tabledata = tableFromTreeWithColspan([tree]);
-
-        tablearray = tabledata[0];
-        colspanMatrix = rectangulateArray(tabledata[1]);
-
-        tablee = rectangulateArray(tablearray);
-
-        widthMatrix = calculateWidth(tablee);
-
-        shownTable = tableFromArray(tablee,colspanMatrix,widthMatrix);
-
-        tables.push("<table id='entryTable" + i + "' class='table table-bordered table-striped' style='width: 98%;margin-left: 1%;margin-right: 1%;'>" + shownTable + "</table><br>");
-
+    if (entry_time != "No date") {
+        unix_time = dates.push(Date.parse(entry_time));
     }
+    else {
+        dates.push(entry_time)
+    }
+
+    tabledata = tableFromTreeWithColspan([tree]);
+
+    tablearray = tabledata[0];
+    colspanMatrix = rectangulateArray(tabledata[1]);
+
+    tablee = rectangulateArray(tablearray);
+
+    widthMatrix = calculateWidth(tablee);
+
+    shownTable = tableFromArray(tablee,colspanMatrix,widthMatrix);
+
+    tables.push("<table id='entryTable" + i + "' class='table table-bordered table-striped' style='width: 98%;margin-left: 1%;margin-right: 1%;'>" + shownTable + "</table><br>");
+
+}
 
 dates = sortWithIndices(dates);
 sort_indices = dates.sortIndices;
@@ -51,7 +51,7 @@ $("tbody tr:first-child").removeClass("collapse");
 
 $("tbody tr:first-child").click(function(){
     $(this).siblings(".collapse").toggleClass('show');
-})
+});
 
 ////////////////////////////////// CHARTS //////////////////////////////////////////
 
@@ -175,7 +175,7 @@ if (rowsToChart.length > 0) {
     $("#chartBtn").click(function() {
         $("#chartsHolder").toggleClass("show");
 
-    })
+    });
 
     var prev_hidden = [1,2,3,4,5,6];
 
@@ -209,5 +209,5 @@ if (rowsToChart.length > 0) {
 
         prev_hidden = getHiddenDatasets(myChart);
 
-    })
+    });
 }
