@@ -21,6 +21,10 @@
 
     </body>
 
+    <script type="text/javascript">
+        var data = {{ data|safe }};
+    </script>
+
     <script src="{% static 'dfchatbox/js/jquery-2.2.1.min.js' %}"></script>
     <script src="{% static 'dfchatbox/js/tree.jquery.js' %}"></script>
     <script src="{% static 'dfchatbox/js/treeparser.js' %}"></script>
@@ -30,9 +34,5 @@
     <script src="{% static 'dfchatbox/js/Chart.js' %}"></script>
     <script src="{% static 'dfchatbox/js/Chart.bundle.js' %}"></script>
     <script src="{% static 'dfchatbox/js/tree.js' %}"></script>
-
-    <script type="text/javascript">
-        var data = {{ data|safe }};
-    </script>
 
 </html>
