@@ -12456,7 +12456,7 @@ module.exports = function(Chart) {
 						? me.left + halfLineHeight + scaleLabelPadding.top
 						: me.right - halfLineHeight - scaleLabelPadding.top;
 					scaleLabelY = me.top + ((me.bottom - me.top) / 2);
-					rotation = isLeft ? -0.5 * Math.PI : 0.5 * Math.PI;
+					//rotation = isLeft ? -0.5 * Math.PI : 0.5 * Math.PI;
 				}
 
 				context.save();

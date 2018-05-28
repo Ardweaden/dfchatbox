@@ -32,3 +32,8 @@ tbody:first-child {
 	font-size: 15px;
 	font-weight: bold;
 }
+
+canvas {
+	width: 75% !important;
+	height: 30% !important
+}

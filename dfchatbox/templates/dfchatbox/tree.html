@@ -90,17 +90,17 @@
         var rowsToChart = rowsToGraph(data);
         var rows = rowsToChart[0];
         var units = rowsToChart[1];
-        
+
+        dataSet = [];
+
         for (var c = 0; c < rows.length; c++) {
                 
-            
+            chartData = [];
 
             var validE = validEntries(data,rowsToGraph(data)[0][c])
             var valid = validE[0];
             var validData = validE[1];
-            var title = Object.keys(data[0])[rows[c]];
-
-            $("#chartsHolder").append('<div><button class="btn btn-default chartBtn" id="btnHolder' + c + '">' + title + '</button><div id="chartHolder' + c + '" class="collapse"><canvas id="chart' + c + '" class="chartjs-render-monitor "></canvas></div></div><br>');
+            var title = generateTitle(Object.keys(data[0])[rows[c]]);
 
             var chartData = [];
 
@@ -108,69 +108,135 @@
                 chartData.push({x: new Date(dates[i]) ,y: validData[i]});
             }
 
-            console.log(chartData)
+            if (c == 0) {
+                dataSet.push({
+                    label: title,
+                    data: chartData,
+                    backgroundColor: [
+                        //'#d3d8ea'
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                    ],
+                    borderWidth: 1,
+                    borderDash: [10,5],
+                });
+                var unit = units[0];
 
-            var ctx = document.getElementById("chart" + c).getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    datasets: [{
-                        label: title,
-                        data: chartData,
-                        backgroundColor: [
-                            //'#d3d8ea'
-                            'rgba(255, 99, 132, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: title,
-                        fontSize: 40
-                    },
-                    tooltips: {
-                        titleFontSize: 30,
-                        bodyFontSize: 30
-                      },
-                    scales: {
-                        xAxes: [{
-                          type: 'time',
-                          time: {
-                            unit: 'day',
-                            unitStepSize: 2,
-                            displayFormats: {
-                               'day': 'DD-MM-YYYY'
-                                }
-                            },
-                            ticks: {
-                                fontSize: 25,
-                            }   
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                fontSize: 25,
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: units[c],
-                                fontSize: 30,
-                                autoSkip: false,
-                                maxRotation: 0,
-                                minRotation: 0
-                              }
-                        }]
-                    }
-                }
-            });
+
+            }
+            else {
+                dataSet.push({
+                    label: title,
+                    data: chartData,
+                    backgroundColor: [
+                        //'#d3d8ea'
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                    ],
+                    borderWidth: 1,
+                    borderDash: [10,5],
+                    hidden: true,
+                })
+            }
+            
         }
 
-        $(".chartBtn").click(function() {
-            $(this).siblings(".collapse").toggleClass("show");
+
+        var ctx = document.getElementById("chart").getContext('2d');
+        Chart.defaults.global.defaultFontSize = 25;
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: dataSet
+            },
+            options: { 
+                elements: {
+                    line: {
+                        tension: 0,
+                    }
+                },
+                title: {
+                    display: false,
+                    text: title,
+                    fontSize: 40
+                },
+                tooltips: {
+                    titleFontSize: 30,
+                    bodyFontSize: 30
+                  },
+                scales: {
+                    xAxes: [{
+                      type: 'time',
+                      time: {
+                        unit: 'day',
+                        unitStepSize: 2,
+                        displayFormats: {
+                           'day': 'DD-MM-YYYY'
+                            }
+                        },
+                        ticks: {
+                            fontSize: 20,
+                        },
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            fontSize: 25,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: unit,
+                            fontSize: 30,
+                            padding: 50
+                          }
+                    }]
+                }
+            }
+        });
+
+        //Spremenil zakomentiral rotation = isLeft ? -0.5 * Math.PI : 0.5 * Math.PI;
+
+        $("#chartBtn").click(function() {
+            $("#chartsHolder").toggleClass("show");
+
+        })
+
+        var prev_hidden = [1,2,3,4,5,6];
+
+
+        $("#chart").click(function() {
+            new_hidden = getHiddenDatasets(myChart);
+
+            if (new_hidden.length < prev_hidden.length) {
+                newElement = $(prev_hidden).not(new_hidden).get()[0];
+                if (unit != units[newElement]) {
+                    unit = units[newElement];
+
+                    for (var i = 0; i < myChart.data.datasets.length; i++) {
+                        if (!new_hidden.includes(i) && units[i] != unit) {
+                            if (i == 0) {
+                                meta = myChart.getDatasetMeta(i);
+                                meta.hidden = true;
+                            }
+                            else {
+                                meta = myChart.getDatasetMeta(i);
+                                meta.hidden = null;
+                            }
+                        }
+                    }
+
+                    myChart.options.scales.yAxes[0].scaleLabel.labelString = unit;
+
+                    myChart.update();
+                }
+            }
+
+            prev_hidden = getHiddenDatasets(myChart);
+
         })
         
 

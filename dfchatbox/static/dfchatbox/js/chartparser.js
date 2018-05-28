@@ -55,3 +55,27 @@ function validEntries(data,row){
 	}
 	return [valid,row_data]
 }
+
+function generateTitle(row) {
+	var titleArray = [];
+	var keychain = row.replace("|","/").split("/");
+	var len = keychain.length;
+	titleArray.push(keychain[len - 2].replace(/[^0-9a-z]/gi, ' '));
+	titleArray.push(keychain[len - 4].replace(/[^0-9a-z]/gi, ' '));
+	return titleArray.join(" - ");
+
+}
+
+function getHiddenDatasets(chart) {
+	var hidden = [];
+	for (var i = 0; i < chart.data.datasets.length; i++) {
+		meta = chart.getDatasetMeta(i);
+		if (i == 0 && meta.hidden == true) {
+			hidden.push(i)
+		}
+		else if (meta.hidden == null  && i != 0) {
+			hidden.push(i)
+		}
+	}
+	return hidden
+}
