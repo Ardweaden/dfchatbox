@@ -56,13 +56,12 @@ $("tbody tr:first-child").click(function(){
 
 var rowsToChart = rowsToGraph(data);
 var rows = rowsToChart[0];
-var units = rowsToChart[1];
+var units = rowsToChart[1];ž
+var maxLen = 0;
 
 dataSet = [];
 
 if (rowsToChart.length > 0) {
-
-    $("#btnHolder").append('<button class="btn btn-default" id="chartBtn">Prikaži graf vrednosti</button>');
 
     for (var c = 0; c < rows.length; c++) {
             
@@ -77,6 +76,10 @@ if (rowsToChart.length > 0) {
 
         for (var i = 0; i < valid.length; i++) {
             chartData.push({x: new Date(dates[i]) ,y: validData[i]});
+        }
+
+        if (chartData.length > maxLen) {
+            maxLen = chartData.length
         }
 
         if (c == 0) {
@@ -114,6 +117,10 @@ if (rowsToChart.length > 0) {
             })
         }
         
+    }
+
+    if (maxLen > 1) {
+        $("#btnHolder").append('<button class="btn btn-default" id="chartBtn">Prikaži graf vrednosti</button>')
     }
 
 
