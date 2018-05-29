@@ -56,7 +56,7 @@ $("tbody tr:first-child").click(function(){
 
 var rowsToChart = rowsToGraph(data);
 var rows = rowsToChart[0];
-var units = rowsToChart[1];ž
+var units = rowsToChart[1];
 var maxLen = 0;
 
 dataSet = [];
