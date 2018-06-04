@@ -88,7 +88,7 @@ if (rowsToChart.length > 0) {
                 data: chartData,
                 backgroundColor: [
                     //'#d3d8ea'
-                    'rgba(211, 216, 234, 0.4)',
+                    'rgba(211, 216, 234, 0.7)',
                 ],
                 borderColor: [
                     'rgba(211, 216, 234, 1)',
@@ -106,7 +106,7 @@ if (rowsToChart.length > 0) {
                 data: chartData,
                 backgroundColor: [
                     //'#d3d8ea'
-                    'rgba(211, 216, 234, 0.4)',
+                    'rgba(211, 216, 234, 0.7)',
                 ],
                 borderColor: [
                     'rgba(211, 216, 234, 1)',
