@@ -12,7 +12,16 @@
 
     <body>
     <div id="btnHolder"></div>
-    <div class="collapse .collapsing " id="chartsHolder" style="margin-left:12.5%;;margin-top: 1%;"><canvas id="chart" class="chartjs-render-monitor"></div>
+    <div class="collapse .collapsing " id="chartsHolder" style="margin-left:12.5%;;margin-top: 1%;">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="DiffValuesCheck">
+          <label class="form-check-label" for="DiffValuesCheck">
+            Dovoli prikaz različnih vrednosti
+          </label>
+        </div>
+        
+        <canvas id="chart" class="chartjs-render-monitor">
+    </div>
         
         
     <div id="tree1"></div>

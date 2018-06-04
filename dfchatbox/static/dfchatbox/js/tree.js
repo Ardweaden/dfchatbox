@@ -187,33 +187,38 @@ if (rowsToChart.length > 0) {
 
 
     $("#chart").click(function() {
-        new_hidden = getHiddenDatasets(myChart);
+        if (!document.getElementById("DiffValuesCheck").checked) {
+            new_hidden = getHiddenDatasets(myChart);
 
-        if (new_hidden.length < prev_hidden.length) {
-            newElement = $(prev_hidden).not(new_hidden).get()[0];
-            if (unit != units[newElement]) {
-                unit = units[newElement];
+            if (new_hidden.length < prev_hidden.length) {
+                newElement = $(prev_hidden).not(new_hidden).get()[0];
+                if (unit != units[newElement]) {
+                    unit = units[newElement];
 
-                for (var i = 0; i < myChart.data.datasets.length; i++) {
-                    if (!new_hidden.includes(i) && units[i] != unit) {
-                        if (i == 0) {
-                            meta = myChart.getDatasetMeta(i);
-                            meta.hidden = true;
-                        }
-                        else {
-                            meta = myChart.getDatasetMeta(i);
-                            meta.hidden = null;
+                    for (var i = 0; i < myChart.data.datasets.length; i++) {
+                        if (!new_hidden.includes(i) && units[i] != unit) {
+                            if (i == 0) {
+                                meta = myChart.getDatasetMeta(i);
+                                meta.hidden = true;
+                            }
+                            else {
+                                meta = myChart.getDatasetMeta(i);
+                                meta.hidden = null;
+                            }
                         }
                     }
+
+                    myChart.options.scales.yAxes[0].scaleLabel.labelString = unit;
+
+                    myChart.update();
                 }
-
-                myChart.options.scales.yAxes[0].scaleLabel.labelString = unit;
-
-                myChart.update();
             }
-        }
 
-        prev_hidden = getHiddenDatasets(myChart);
+            prev_hidden = getHiddenDatasets(myChart);
+        }
+    else {
+            myChart.options.scales.yAxes[0].scaleLabel.labelString = "";
+        }
 
     });
 }
