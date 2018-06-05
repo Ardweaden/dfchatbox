@@ -19,6 +19,8 @@ import apiai
 import requests
 import base64
 from datetime import datetime
+from scipy.optimize import linear_sum_assignment
+import numpy as np
 
 # Create your views here.
 # -*- coding: utf-8 -*-
@@ -219,6 +221,10 @@ def webhook(request):
 	if parameter_action == "getEntry":
 		print("getEntry")
 		json_response = getEntryData(request,answer_json)
+		print(json_response)
+	if parameter_action == "searchEntries":
+		print("searchForEntry")
+		json_response = searchForEntry(request,answer_json)
 		print(json_response)
 
 	answer = json_response['answer']
@@ -697,6 +703,114 @@ def organise_entries(entries):
 	return json_entries
 
 
+def searchForEntry(request,answer_json):
+	baseUrl = 'https://rest.ehrscape.com/rest/v1'
+	ehrId = ''
+	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+	authorization = "Basic " + base.decode()
+
+	# Match the action -> provide correct data
+	parameter_action = answer_json['result']['action']
+	json_response = {"responseType": "entry"}
+	searchData = []
+	json_entries = []
+	data = []
+
+	message = answer_json['result']['contexts'][0]['parameters']['search-phrase']
+
+	response = json_response
+	#json_object = {}
+
+	#ehrId = answer_json['result']['fulfillment']['data']['ehrid']
+
+	queryUrl = baseUrl + "/demographics/party/query"
+
+	parameter_name =answer_json['result']['contexts'][0]['parameters']['given-name']
+	parameter_last_name =answer_json['result']['contexts'][0]['parameters']['last-name']
+
+	if parameter_name != "":
+		searchData.append({"key": "firstNames", "value": parameter_name})
+	if parameter_last_name != "":
+		searchData.append({"key": "lastNames", "value": parameter_last_name})
+
+	r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
+
+	if r.status_code == 200:
+		js = json.loads(r.text)
+		ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
+		print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
+		answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
+
+	#Use provided ehrid
+	parameter_ehrid = answer_json['result']['parameters']['ehrid']
+
+	if parameter_ehrid != "":
+		ehrId = str(parameter_ehrid)
+
+	if ehrId != '':
+		aql = "/query?aql=select a from EHR e[ehr_id/value='{}'] contains COMPOSITION a".format(ehrId)
+
+		queryUrl = baseUrl + aql
+
+		r = requests.get(queryUrl, headers={"Authorization": authorization,'content-type': 'application/json'})
+
+		js = json.loads(r.text)
+		js = js['resultSet']
+
+		if not len(js):
+			answer = "Podani pacient nima vpisov v sistemu."
+		else:
+			answer = "Našel sem podatke o vpisu."
+
+			cache.set("dataLength",len(numberList),None)
+
+			json_response['url'] = "/entry_tree"
+
+			for counter,item in enumerate(js):
+				uid = item['#0']['uid']['value']
+
+				queryUrl = baseUrl + "/composition/"
+
+				queryUrl += uid
+
+				r = requests.get(queryUrl, headers={"Authorization": authorization, 'content-type': 'application/json'})
+
+				if r.status_code == 200:
+					json_entries = json.loads(r.text)['composition']
+					print("======================== JSON ENTRIES ========================")
+					print(numberList.index(counter))
+					#print(json_entries)
+					print("===============================================================")
+					#request.session[numberList.index(counter)] = json_entries
+					#response.set_cookie("{}".format([numberList.index(counter)],json_entries))
+					cache.set("{}".format(numberList.index(counter)),json_entries,None)
+					#print("data @ getEntryData ==> ",cache.get("{}".format(numberList.index(counter))))
+
+					#json_entries = str(json_entries).replace("/","~")
+					#json_response['url'] = "/entry_tree/{}".format(str(json_entries))
+					#print("=== JSON URL of length ", len(json_response['url']) ," ===> ",json_response['url'])
+					#break
+					data.append(json_entries)
+
+				else:
+					answer = "Prišlo je do napake. Prosim, poskusite ponovno."
+					json_response['url'] = "http://www.rtvslo.si/"
+					break
+
+			if data:
+				search_in_data(data,message,hung=1)
+
+	else: 
+		answer = "Prišlo je do napake. Prosim, poskusite ponovno."
+
+	# Generate the JSON response
+	json_response['answer'] = answer
+	json_response['data'] = [{"some":"data"}]
+	#json_response['data'] = json_entries
+
+	return json_response
+
+
 def translate(input):
     input=input.replace(",","").replace("("," ").replace(")"," ").replace("-"," ")
     url = "http://translate.dis-apps.ijs.si/translate?sentence="+input
@@ -711,3 +825,60 @@ def translate(input):
             return output
         return input
     return req.text[1:-3]
+
+
+def levenshteinDistance(s1, s2):
+    if len(s1) > len(s2):
+        s1, s2 = s2, s1
+
+    distances = range(len(s1) + 1)
+    for i2, c2 in enumerate(s2):
+        distances_ = [i2+1]
+        for i1, c1 in enumerate(s1):
+            if c1 == c2:
+                distances_.append(distances[i1])
+            else:
+                distances_.append(1 + min((distances[i1], distances[i1 + 1], distances_[-1])))
+        distances = distances_
+    return distances[-1]
+
+
+def search_in_data(data,phrase,hung=0):
+    fitsArray = []
+    maxLev = float("inf")
+
+    bestPerformers = []
+    bestPerformersIndices = []
+    
+    for i in range(len(data)):
+        a = [j.replace("|","/").split("/") for j in list(data[i].keys())]
+        new_a = list(a)
+    
+        for k in range(len(a)):
+            for l in range(len(a[k])):
+                new_a[k][l] = "".join(c if c.isalpha() else " " for c in a[k][l]).strip()
+                sequence = new_a[k][l].split(" ")
+    
+            searchString = " ".join(new_a[k])
+            
+            print("Comparing ",new_a[k]," to ",phrase,"....")
+                
+            LevDist = weightedLevenshteinDistance(new_a[k],phrase,hung=hung)
+
+            print("Weighted Levenshtein distance is: ",LevDist,"\n")
+            if LevDist == maxLev:
+                bestPerformers.append(searchString)
+                bestPerformersIndices.append((i,k))
+                
+            if LevDist < maxLev:
+                bestPerformers = [searchString]
+                bestPerformersIndices = [(i,k)]
+                fitsArray.append([searchString,LevDist])
+                maxLev = LevDist
+                bestFit = [new_a[k]]
+        
+    print("\n fitsArray: ")
+    print(fitsArray[-1])
+    print("\n Best performers:\n",bestPerformers)
+    print("\n Best performers indices:\n",bestPerformersIndices)
+    return bestPerformers,bestPerformersIndices
