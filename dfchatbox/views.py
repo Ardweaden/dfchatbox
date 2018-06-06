@@ -19,7 +19,7 @@ import apiai
 import requests
 import base64
 from datetime import datetime
-from scipy.optimize import linear_sum_assignment
+from dfchatbox._hungarian import linear_sum_assignment
 import numpy as np
 
 # Create your views here.
