@@ -717,6 +717,8 @@ def searchForEntry(request,answer_json):
 	data = []
 
 	message = answer_json['result']['parameters']['search-phrase']
+	message = " ".join(message)
+	print("The search phrase is: ",message)
 
 	response = json_response
 	#json_object = {}
@@ -778,7 +780,7 @@ def searchForEntry(request,answer_json):
 				if r.status_code == 200:
 					json_entries = json.loads(r.text)['composition']
 					print("======================== JSON ENTRIES ========================")
-					print(numberList.index(counter))
+					#print(numberList.index(counter))
 					#print(json_entries)
 					print("===============================================================")
 					#request.session[numberList.index(counter)] = json_entries
