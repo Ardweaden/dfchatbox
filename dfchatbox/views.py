@@ -716,7 +716,7 @@ def searchForEntry(request,answer_json):
 	json_entries = []
 	data = []
 
-	message = answer_json['result']['contexts'][0]['parameters']['search-phrase']
+	message = answer_json['result']['parameters']['search-phrase']
 
 	response = json_response
 	#json_object = {}
@@ -762,7 +762,7 @@ def searchForEntry(request,answer_json):
 		else:
 			answer = "Našel sem podatke o vpisu."
 
-			cache.set("dataLength",len(numberList),None)
+			#cache.set("dataLength",len(numberList),None)
 
 			json_response['url'] = "/entry_tree"
 
