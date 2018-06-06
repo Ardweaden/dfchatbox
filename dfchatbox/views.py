@@ -845,6 +845,35 @@ def levenshteinDistance(s1, s2):
     return distances[-1]
 
 
+
+def selectMinimums(scores,phraseLength,hung):
+    if len(scores) < int(0.75*phraseLength):
+      minimums = []
+      for i in range(phraseLength):
+          minimums.append(float(sum(scores[:,i:(i+1)])))
+      return minimums
+    if hung == 1:
+        a,b = linear_sum_assignment(scores)
+        return [scores[a, b].sum()/phraseLength]
+
+
+def weightedLevenshteinDistance(searchList,phrase,hung=0):
+    new_searchList = []
+    for i in range(len(searchList)):
+        new_searchList += searchList[i].split(" ")
+    phraseList = phrase.split(" ")
+    phraseLength = len(phraseList) 
+    
+    scores = np.zeros((len(new_searchList),len(phraseList)))
+    
+    for i in range(len(new_searchList)):
+        for j in range(len(phraseList)):
+            scores[i][j] = levenshteinDistance(new_searchList[i],phraseList[j])
+
+    minimums = selectMinimums(scores,phraseLength,hung) 
+    return sum(minimums)/len(minimums)
+
+
 def search_in_data(data,phrase,hung=0):
     fitsArray = []
     maxLev = float("inf")
