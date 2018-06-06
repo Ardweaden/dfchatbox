@@ -785,7 +785,7 @@ def searchForEntry(request,answer_json):
 					print("===============================================================")
 					#request.session[numberList.index(counter)] = json_entries
 					#response.set_cookie("{}".format([numberList.index(counter)],json_entries))
-					cache.set("{}".format(numberList.index(counter)),json_entries,None)
+					#cache.set("{}".format(numberList.index(counter)),json_entries,None)
 					#print("data @ getEntryData ==> ",cache.get("{}".format(numberList.index(counter))))
 
 					#json_entries = str(json_entries).replace("/","~")
