@@ -1,3 +1,4 @@
+import numpy as np
 
 def organise_entries(entries):
     json_entries = []
