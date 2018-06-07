@@ -135,7 +135,7 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
             return list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]
 
 def saveBestPerformersDataToCache(data,bestPerformersIndices):
-    indicesList = list(set(np.array(bestPindices)[:,0]))
+    indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
     cache.set("dataLength",len(indicesList),None)
 
     for i in range(len(indicesList)):
