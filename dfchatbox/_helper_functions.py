@@ -132,7 +132,9 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
                 print("We found his sibling! His sibling is:\n",bestPerformers[i])
                 return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]) + " " + str(list(data[bestPerformersIndices[i][0]].values())[bestPerformersIndices[i][1]])
         else:
-            return list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]
+            return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
+    else:
+        return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
 
 def saveBestPerformersDataToCache(data,bestPerformersIndices):
     indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
