@@ -130,7 +130,6 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
         for i in range(1,len(bestPerformers)):
             if len(bestPerformers[0]) == len(bestPerformers[i]) and bestPerformers[0][:-1] == bestPerformers[i][:-1]:
                 print("We found his sibling! His sibling is:\n",bestPerformers[i])
-                siblingIndex = bestPindices[i]
                 return list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]] + " " + list(data[bestPerformersIndices[i][0]].values())[bestPerformersIndices[i][1]]
         else:
             return list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]
