@@ -19,7 +19,6 @@ import apiai
 import requests
 import base64
 from datetime import datetime
-from dfchatbox._hungarian import linear_sum_assignment
 import numpy as np
 from dfchatbox._helper_functions import *
 
@@ -781,7 +780,7 @@ def searchForEntry(request,answer_json):
 
 			if data:
 				bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1)
-				answer = valuesOfBestPerformers(data,valuesOfBestPerformers,bestPerformersIndices)
+				answer = valuesOfBestPerformers(data,BestPerformers,bestPerformersIndices)
 				
 
 	else: 
