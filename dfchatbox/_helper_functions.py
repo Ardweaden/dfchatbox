@@ -1,5 +1,6 @@
 import numpy as np
 from dfchatbox._hungarian import linear_sum_assignment
+import requests
 
 def organise_entries(entries):
     json_entries = []
