@@ -1,6 +1,7 @@
 import numpy as np
 from dfchatbox._hungarian import linear_sum_assignment
 import requests
+from django.core.cache import cache
 
 def organise_entries(entries):
     json_entries = []
@@ -128,8 +129,15 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
     if len(bestPerformers) > 1 and bestPerformers[0][-1] == "unit" or bestPerformers[0][-1] == "magnitude":
         for i in range(1,len(bestPerformers)):
             if len(bestPerformers[0]) == len(bestPerformers[i]) and bestPerformers[0][:-1] == bestPerformers[i][:-1]:
-                print("We found his sibling! His sibling is:\n",bestP[i])
+                print("We found his sibling! His sibling is:\n",bestPerformers[i])
                 siblingIndex = bestPindices[i]
                 return list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]] + " " + list(data[bestPerformersIndices[i][0]].values())[bestPerformersIndices[i][1]]
         else:
             return list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]
+
+def saveBestPerformersDataToCache(data,bestPerformersIndices):
+    indicesList = list(set(np.array(bestPindices)[:,0]))
+    cache.set("dataLength",len(indicesList),None)
+
+    for i in range(len(indicesList)):
+        cache.set("{}".format(i,data[indicesList[i]],None))
