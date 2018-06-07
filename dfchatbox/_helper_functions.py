@@ -139,4 +139,4 @@ def saveBestPerformersDataToCache(data,bestPerformersIndices):
     cache.set("dataLength",len(indicesList),None)
 
     for i in range(len(indicesList)):
-        cache.set("{}".format(i,data[indicesList[i]],None))
+        cache.set("{}".format(i),data[indicesList[i]],None)
