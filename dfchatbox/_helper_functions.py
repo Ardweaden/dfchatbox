@@ -125,7 +125,7 @@ def search_in_data(data,phrase,hung=0):
     print("\n Best performers indices:\n",bestPerformersIndices)
     return bestPerformers,np.array(bestPerformersIndices)
 
-def strippedKeys(data)
+def strippedKeys(data):
     keys2 = []
 
     keys = [i.replace("|","/").split("/") for i in data.keys()]
