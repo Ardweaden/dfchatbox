@@ -162,7 +162,7 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
             print(keys[i])
             if len(bestPerformer) == len(keys[i]) and bestPerformer[:-1] == keys[i][:-1] and bestPerformer[-1] != keys[i][-1]:
                 print("We found his sibling! His sibling is:\n",keys[i])
-                if bestPerformer[:-1] == "magnitude":
+                if bestPerformer[-1] == "magnitude":
                     return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]) + " " + str(list(data[bestPerformersIndices[0][0]].values())[i])
                 else:
                     return str(list(data[bestPerformersIndices[0][0]].values())[i]) + " " + str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])

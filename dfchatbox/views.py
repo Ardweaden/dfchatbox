@@ -706,8 +706,15 @@ def searchForEntry(request,answer_json):
 
 	queryUrl = baseUrl + "/demographics/party/query"
 
-	parameter_name =answer_json['result']['contexts'][0]['parameters']['given-name']
-	parameter_last_name =answer_json['result']['contexts'][0]['parameters']['last-name']
+	try:
+		parameter_name =answer_json['result']['contexts'][0]['parameters']['given-name']
+		parameter_last_name =answer_json['result']['contexts'][0]['parameters']['last-name']
+	except:
+		try:
+			parameter_name =answer_json['result']['parameters']['given-name']
+			parameter_last_name =answer_json['result']['parameters']['last-name']
+		except:
+			parameter_name,parameter_last_name = "",""
 
 	if parameter_name != "":
 		searchData.append({"key": "firstNames", "value": parameter_name})
