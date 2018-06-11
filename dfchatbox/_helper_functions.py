@@ -133,7 +133,7 @@ def strippedKeys(data):
         line = ""
         for j in range(len(keys[i])):
             line += " " + "".join(c if c.isalpha() else " " for c in keys[i][j]).strip()
-        keys2.append([line.strip().split(" ")])
+        keys2.append(line.strip().split(" "))
 
     return keys2
 
@@ -154,6 +154,8 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
 
     for i in range(len(bestPerformers[0])):
         bestPerformer += bestPerformers[0][i].split(" ")
+
+    print(bestPerformer)
     if bestPerformer[-1] == "unit" or bestPerformer[-1] == "magnitude":
         keys = strippedKeys(data[bestPerformersIndices[0][0]])
         for i in range(len(keys)):
