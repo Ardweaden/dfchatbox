@@ -152,10 +152,12 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
     if len(bestPerformers) > 1 and bestPerformers[0][-1] == "unit" or bestPerformers[0][-1] == "magnitude":
         keys = strippedKeys(data[bestPerformersIndices[0][0]])
         for i in range(len(keys)):
+            print(keys[i])
             if len(bestPerformers[0]) == len(keys[i]) and bestPerformers[0][:-1] == keys[i][:-1] and bestPerformers[0][-1] != keys[i][-1]:
                 print("We found his sibling! His sibling is:\n",keys[i])
                 return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]) + " " + str(list(data[bestPerformersIndices[0][0]].values())[i])
         else:
+            print("No sibling was found.")
             return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
     else:
         return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
