@@ -133,7 +133,7 @@ def strippedKeys(data):
         line = ""
         for j in range(len(keys[i])):
             line += " " + "".join(c if c.isalpha() else " " for c in keys[i][j]).strip()
-        keys2.append([line.strip()])
+        keys2.append([line.strip().split(" ")])
 
     return keys2
 
