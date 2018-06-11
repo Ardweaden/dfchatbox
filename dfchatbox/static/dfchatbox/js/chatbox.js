@@ -423,7 +423,7 @@ function communicate(message,j){
                 //DATA GIVES OPTIONS FOR USER
 
                 for (var k = 0; k < data.length; k++) {
-                    var new_button = '<button name="' + data[k]['value'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[k]['name'] + '</button>';
+                    var new_button = '<button name="getE ' + data[k]['value'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[k]['name'] + '</button>';
                     $(".socketchatbox-chatArea").append(new_button);
 
                     localStorage.setItem("button" + k,new_button);

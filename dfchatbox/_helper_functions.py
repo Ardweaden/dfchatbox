@@ -125,12 +125,36 @@ def search_in_data(data,phrase,hung=0):
     print("\n Best performers indices:\n",bestPerformersIndices)
     return bestPerformers,np.array(bestPerformersIndices)
 
+def strippedKeys(data)
+    keys2 = []
+
+    keys = [i.replace("|","/").split("/") for i in data.keys()]
+    for i in range(len(keys)):
+        line = ""
+        for j in range(len(keys[i])):
+            line += " " + "".join(c if c.isalpha() else " " for c in keys[i][j]).strip()
+        keys2.append([line.strip()])
+
+    return keys2
+
+# def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
+#     if len(bestPerformers) > 1 and bestPerformers[0][-1] == "unit" or bestPerformers[0][-1] == "magnitude":
+#         for i in range(1,len(bestPerformers)):
+#             if len(bestPerformers[0]) == len(bestPerformers[i]) and bestPerformers[0][:-1] == bestPerformers[i][:-1]:
+#                 print("We found his sibling! His sibling is:\n",bestPerformers[i])
+#                 return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]) + " " + str(list(data[bestPerformersIndices[i][0]].values())[bestPerformersIndices[i][1]])
+#         else:
+#             return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
+#     else:
+#         return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
+
 def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
     if len(bestPerformers) > 1 and bestPerformers[0][-1] == "unit" or bestPerformers[0][-1] == "magnitude":
-        for i in range(1,len(bestPerformers)):
-            if len(bestPerformers[0]) == len(bestPerformers[i]) and bestPerformers[0][:-1] == bestPerformers[i][:-1]:
-                print("We found his sibling! His sibling is:\n",bestPerformers[i])
-                return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]) + " " + str(list(data[bestPerformersIndices[i][0]].values())[bestPerformersIndices[i][1]])
+        keys = strippedKeys(data[bestPerformersIndices[0][0]])
+        for i in range(len(keys)):
+            if len(bestPerformers[0]) == len(keys[i]) and bestPerformers[0][:-1] == keys[i][:-1] and bestPerformers[0][-1] != keys[i][-1]:
+                print("We found his sibling! His sibling is:\n",keys[i])
+                return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]) + " " + str(list(data[bestPerformersIndices[0][0]].values())[i])
         else:
             return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
     else:
