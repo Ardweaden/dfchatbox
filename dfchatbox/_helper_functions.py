@@ -149,6 +149,7 @@ def strippedKeys(data):
 #         return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
 
 def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
+    print("Getting values ....")
     if len(bestPerformers) > 1 and bestPerformers[0][-1] == "unit" or bestPerformers[0][-1] == "magnitude":
         keys = strippedKeys(data[bestPerformersIndices[0][0]])
         for i in range(len(keys)):
