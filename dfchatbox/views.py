@@ -31,6 +31,8 @@ def index(request):
 		message = request.POST['message']
 		sessionID = request.POST['sessionID']
 
+		print("Message is ",message)
+
 		print("*****SESSION ID*****   ",sessionID)
 
 		#print("user input: ", message)
