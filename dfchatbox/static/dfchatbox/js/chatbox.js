@@ -324,6 +324,10 @@ function communicate(message,j){
 
                 //     i+=1;
                 // }
+                saveElement(reply_others);
+
+                i+=1;
+                
                 disable_input(false);
 
                 $("#inputField").focus();
