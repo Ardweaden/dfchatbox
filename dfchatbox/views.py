@@ -799,6 +799,7 @@ def searchForEntry(request,answer_json):
 
 	# Generate the JSON response
 	json_response['answer'] = answer
+	json_response['data'] = []
 	#json_response['data'] = [{"some":"data"}]
 	#json_response['data'] = json_entries
 
