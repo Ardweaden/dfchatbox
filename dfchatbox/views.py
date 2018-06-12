@@ -31,8 +31,6 @@ def index(request):
 		message = request.POST['message']
 		sessionID = request.POST['sessionID']
 
-		print("Message is ",message)
-
 		print("*****SESSION ID*****   ",sessionID)
 
 		#print("user input: ", message)
@@ -45,13 +43,13 @@ def index(request):
 		# try:
 		# 	int(message.replace(",",""))
 		# except:
-		if message[:5] != "GetE ":
+		if message[:5] != "getE ":
 			translation = translate(message)
 
 			if translation != "":
 				message = translation
 
-		print("Message is ",message)
+		#print("Message is ",message)
 
 		#THINKEHR
 		#CLIENT_ACCESS_TOKEN = "631305ebeec449618ddeeb2f96a681e9"
