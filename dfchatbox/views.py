@@ -49,7 +49,7 @@ def index(request):
 			if translation != "":
 				message = translation
 
-		#print(message)
+		print("Message is ",message)
 
 		#THINKEHR
 		#CLIENT_ACCESS_TOKEN = "631305ebeec449618ddeeb2f96a681e9"
