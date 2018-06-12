@@ -40,13 +40,13 @@ def index(request):
 		# response = requests.get(url)
 		# translation = response.text[1:-3]
 
-		try:
-			int(message.replace(",",""))
-		except:
-			translation = translate(message)
+		# try:
+		# 	int(message.replace(",",""))
+		# except:
+		translation = translate(message)
 
-			if translation != "":
-				message = translation
+		if translation != "":
+			message = translation
 
 		#print(message)
 
@@ -671,7 +671,8 @@ def getEntryData(request,answer_json):
 						break
 
 
-	else: 
+	else:
+		json_response['url'] = "http://www.rtvslo.si/" 
 		answer = "Prišlo je do napake. Prosim, poskusite ponovno."
 
 	# Generate the JSON response
