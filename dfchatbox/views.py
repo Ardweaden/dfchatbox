@@ -794,7 +794,8 @@ def searchForEntry(request,answer_json):
 				
 
 	else: 
-		answer = "Prišlo je do napake. Prosim, poskusite ponovno."
+		answer = "Prišlo je do napake. Prosim, poskusite ponovno. Preverite, da ste uporabili pravilno ime osebe."
+		json_response['url'] = "/"
 
 	# Generate the JSON response
 	json_response['answer'] = answer
