@@ -43,10 +43,11 @@ def index(request):
 		# try:
 		# 	int(message.replace(",",""))
 		# except:
-		translation = translate(message)
+		if message[:5] != "GetE ":
+			translation = translate(message)
 
-		if translation != "":
-			message = translation
+			if translation != "":
+				message = translation
 
 		#print(message)
 
