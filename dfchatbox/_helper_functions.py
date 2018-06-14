@@ -4,6 +4,9 @@ import requests
 from django.core.cache import cache
 import base64
 
+import json
+import apiai
+
 
 def organise_entries(entries):
     json_entries = []
