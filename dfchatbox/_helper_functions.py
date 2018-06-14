@@ -178,3 +178,63 @@ def saveBestPerformersDataToCache(data,bestPerformersIndices):
 
     for i in range(len(indicesList)):
         cache.set("{}".format(i),data[indicesList[i]],None)
+
+
+def allPatients():
+    baseUrl = 'https://rest.ehrscape.com/rest/v1'
+    ehrId = ''
+    base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+    authorization = "Basic " + base.decode()
+
+    aql = "/query?aql=select e/ehr_id from EHR e contains COMPOSITION a"
+
+    queryUrl = baseUrl + aql
+
+    print(queryUrl)
+
+    r = requests.get(queryUrl, headers={"Authorization": authorization, 'content-type': 'application/json'})
+
+    if r.status_code == 200:
+        js = json.loads(r.text)
+
+        return js
+    else:
+        return 0
+
+def patientName(ehrId):
+    base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+    authorization = "Basic " + base.decode()
+    r = requests.get("https://rest.ehrscape.com/rest/v1/demographics/party/query/?ehrId={}".format(ehrId),headers={"Authorization": authorization, 'content-type': 'application/json'})
+    if r.status_code != 200:
+        return
+    js = json.loads(r.text)
+    return js["parties"][0]["firstNames"].lower(),js["parties"][0]["lastNames"].lower()
+    
+
+def closestPatientName(enteredName,database=0):
+    enteredName = enteredName.lower()
+    bestPerformers = []
+    ehrids = []
+    minimum = 999
+
+    if not database:
+        patients = allPatients()
+
+        for ehrid in patients['resultSet']:
+            ehrids.append(ehrid["#0"]["value"])
+
+
+        for ehrid in set(ehrids):
+            patient_name = patientName(ehrid)
+            if patient_name == None:
+                continue
+            else:
+                LevDist = weightedLevenshteinDistance(list(patient_name),enteredName,hung=1)
+                if LevDist <= minimum:
+                    bestPerformers.append(patient_name)
+                    minimum = LevDist
+                print("Weighted Levenshtein distance between ",enteredName," and ",list(patient_name)," is: ",LevDist)
+
+    print(bestPerformers)
+    print(minimum)
+    return bestPerformers
