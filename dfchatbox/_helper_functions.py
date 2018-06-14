@@ -2,6 +2,8 @@ import numpy as np
 from dfchatbox._hungarian import linear_sum_assignment
 import requests
 from django.core.cache import cache
+import base64
+
 
 def organise_entries(entries):
     json_entries = []
@@ -209,7 +211,7 @@ def patientName(ehrId):
         return
     js = json.loads(r.text)
     return js["parties"][0]["firstNames"].lower(),js["parties"][0]["lastNames"].lower()
-    
+
 
 def closestPatientName(enteredName,database=0):
     enteredName = enteredName.lower()
