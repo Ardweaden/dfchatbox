@@ -3,6 +3,7 @@ from dfchatbox._hungarian import linear_sum_assignment
 import requests
 from django.core.cache import cache
 import base64
+from dfchatbox.models import PatientNames
 
 import json
 import apiai
@@ -242,7 +243,7 @@ def closestPatientName(enteredName,database=0):
     else:
         for i in PatientNames.objects.all():
             LevDist = weightedLevenshteinDistance(list((i.name,i.lastname)),enteredName,hung=1)
-            
+
             if LevDist <= minimum:
                 bestPerformers.append((i.name,i.lastname))
                 minimum = LevDist
