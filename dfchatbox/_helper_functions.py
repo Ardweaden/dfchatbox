@@ -197,9 +197,11 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
                     print("We found his sibling! His sibling is:\n",keys[i])
                     if bestPerformer[-1] == "magnitude":
                         values.append(str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]]) + " " + str(list(data[bestPerformersIndices[j][0]].values())[i]))
+                        break
                         #return str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]]) + " " + str(list(data[bestPerformersIndices[j][0]].values())[i])
                     else:
                         values.append(str(list(data[bestPerformersIndices[j][0]].values())[i]) + " " + str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]]))
+                        break
                         #return str(list(data[bestPerformersIndices[j][0]].values())[i]) + " " + str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]])
             else:
                 print("No sibling was found.")
@@ -207,6 +209,7 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
                 #return str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]])
         else:
             values.append(str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]]))
+            continue
             #return str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]])
 
     return values
