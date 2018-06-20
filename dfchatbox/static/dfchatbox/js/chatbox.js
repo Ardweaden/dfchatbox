@@ -442,6 +442,10 @@ function communicate(message,j){
 
             else if (response_type == "search") {
                 console.log(data);
+
+                for (var i = 0; i < data.length; i++) {
+                    $(".socketchatbox-chatArea").append('<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["value"] + '</span><br></div></div>');
+                }
             }
 
 
