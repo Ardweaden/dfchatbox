@@ -780,7 +780,7 @@ def searchForEntry(request,answer_json):
 					#json_response['url'] = "/entry_tree/{}".format(str(json_entries))
 					#print("=== JSON URL of length ", len(json_response['url']) ," ===> ",json_response['url'])
 					#break
-					data.append(json_entries)
+					#data.append(json_entries)
 
 				else:
 					answer = "Prišlo je do napake. Prosim, poskusite ponovno."
@@ -794,8 +794,12 @@ def searchForEntry(request,answer_json):
 				answer = bestPerformersValues[0]
 				saveBestPerformersDataToCache(data,bestPerformersIndices)
 
-				for i in range(3):
-					data.append({"value" : bestPerformersValues[i]})
+				if len(bestPerformersIndices) >= 3:
+					for i in range(3):
+						data.append({"value" : bestPerformersValues[i]})
+				else:
+					for i in range(len(bestPerformersValues))
+						data.append({"value" : bestPerformersValues[i]})
 				
 
 	else: 
