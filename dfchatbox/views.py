@@ -790,8 +790,12 @@ def searchForEntry(request,answer_json):
 			if data:
 				bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1)
 				bestPerformersValues = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
+				print("Best performers values:\n",bestPerformersValues)
 				answer = bestPerformersValues[0]
 				saveBestPerformersDataToCache(data,bestPerformersIndices)
+
+				for i in range(3):
+					data.append({"value" : bestPerformersValues[i]})
 				
 
 	else: 
@@ -802,7 +806,7 @@ def searchForEntry(request,answer_json):
 
 	# Generate the JSON response
 	json_response['answer'] = answer
-	json_response['data'] = []
+	json_response['data'] = data
 	#json_response['data'] = [{"some":"data"}]
 	#json_response['data'] = json_entries
 
