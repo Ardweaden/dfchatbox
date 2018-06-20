@@ -440,6 +440,10 @@ function communicate(message,j){
                 document.getElementById("btn" + (i-1) + j).scrollIntoView({behavior: "smooth"});
             }
 
+            else if (response_type == "search") {
+                console.log(data);
+            }
+
 
            
         }

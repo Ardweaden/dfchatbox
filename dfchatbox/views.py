@@ -692,7 +692,7 @@ def searchForEntry(request,answer_json):
 
 	# Match the action -> provide correct data
 	parameter_action = answer_json['result']['action']
-	json_response = {"responseType": "entry"}
+	json_response = {"responseType": "search"}
 	searchData = []
 	json_entries = []
 	data = []
