@@ -789,9 +789,8 @@ def searchForEntry(request,answer_json):
 
 			if data:
 				bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1)
-				answer = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
-				print(answer)
-				answer = answer[0]
+				bestPerformersValues = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
+				answer = bestPerformersValues[0]
 				saveBestPerformersDataToCache(data,bestPerformersIndices)
 				
 

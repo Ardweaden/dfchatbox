@@ -182,8 +182,10 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
     print("Getting values ....")
 
     values = []
+
     for j in range(len(bestPerformers)):
         bestPerformer = []
+        siblings = []
 
         for i in range(len(bestPerformers[j])):
             bestPerformer += bestPerformers[j][i].split(" ")
@@ -193,8 +195,9 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
             keys = strippedKeys(data[bestPerformersIndices[j][0]])
             for i in range(len(keys)):
                 print(keys[i])
-                if len(bestPerformer) == len(keys[i]) and bestPerformer[:-1] == keys[i][:-1] and bestPerformer[-1] != keys[i][-1]:
+                if len(bestPerformer) == len(keys[i]) and bestPerformer[:-1] == keys[i][:-1] and bestPerformer[-1] != keys[i][-1] and keys[i] not in siblings:
                     print("We found his sibling! His sibling is:\n",keys[i])
+                    siblings.append(keys[i])
                     if bestPerformer[-1] == "magnitude":
                         values.append(str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]]) + " " + str(list(data[bestPerformersIndices[j][0]].values())[i]))
                         break
