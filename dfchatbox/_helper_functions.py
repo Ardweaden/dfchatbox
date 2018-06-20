@@ -154,29 +154,62 @@ def strippedKeys(data):
 #     else:
 #         return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
 
+# def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
+#     print("Getting values ....")
+#     bestPerformer = []
+
+#     for i in range(len(bestPerformers[0])):
+#         bestPerformer += bestPerformers[0][i].split(" ")
+
+#     print(bestPerformer)
+#     if bestPerformer[-1] == "unit" or bestPerformer[-1] == "magnitude":
+#         keys = strippedKeys(data[bestPerformersIndices[0][0]])
+#         for i in range(len(keys)):
+#             print(keys[i])
+#             if len(bestPerformer) == len(keys[i]) and bestPerformer[:-1] == keys[i][:-1] and bestPerformer[-1] != keys[i][-1]:
+#                 print("We found his sibling! His sibling is:\n",keys[i])
+#                 if bestPerformer[-1] == "magnitude":
+#                     return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]) + " " + str(list(data[bestPerformersIndices[0][0]].values())[i])
+#                 else:
+#                     return str(list(data[bestPerformersIndices[0][0]].values())[i]) + " " + str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
+#         else:
+#             print("No sibling was found.")
+#             return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
+#     else:
+#         return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
+
 def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
     print("Getting values ....")
-    bestPerformer = []
 
-    for i in range(len(bestPerformers[0])):
-        bestPerformer += bestPerformers[0][i].split(" ")
+    values = []
+    for j in range(len(bestPerformers)):
+        bestPerformer = []
 
-    print(bestPerformer)
-    if bestPerformer[-1] == "unit" or bestPerformer[-1] == "magnitude":
-        keys = strippedKeys(data[bestPerformersIndices[0][0]])
-        for i in range(len(keys)):
-            print(keys[i])
-            if len(bestPerformer) == len(keys[i]) and bestPerformer[:-1] == keys[i][:-1] and bestPerformer[-1] != keys[i][-1]:
-                print("We found his sibling! His sibling is:\n",keys[i])
-                if bestPerformer[-1] == "magnitude":
-                    return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]]) + " " + str(list(data[bestPerformersIndices[0][0]].values())[i])
-                else:
-                    return str(list(data[bestPerformersIndices[0][0]].values())[i]) + " " + str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
+        for i in range(len(bestPerformers[j])):
+            bestPerformer += bestPerformers[j][i].split(" ")
+
+        print(bestPerformer)
+        if bestPerformer[-1] == "unit" or bestPerformer[-1] == "magnitude":
+            keys = strippedKeys(data[bestPerformersIndices[j][0]])
+            for i in range(len(keys)):
+                print(keys[i])
+                if len(bestPerformer) == len(keys[i]) and bestPerformer[:-1] == keys[i][:-1] and bestPerformer[-1] != keys[i][-1]:
+                    print("We found his sibling! His sibling is:\n",keys[i])
+                    if bestPerformer[-1] == "magnitude":
+                        values.append(str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]]) + " " + str(list(data[bestPerformersIndices[j][0]].values())[i]))
+                        #return str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]]) + " " + str(list(data[bestPerformersIndices[j][0]].values())[i])
+                    else:
+                        values.append(str(list(data[bestPerformersIndices[j][0]].values())[i]) + " " + str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]]))
+                        #return str(list(data[bestPerformersIndices[j][0]].values())[i]) + " " + str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]])
+            else:
+                print("No sibling was found.")
+                values.append(str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]]))
+                #return str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]])
         else:
-            print("No sibling was found.")
-            return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
-    else:
-        return str(list(data[bestPerformersIndices[0][0]].values())[bestPerformersIndices[0][1]])
+            values.append(str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]]))
+            #return str(list(data[bestPerformersIndices[j][0]].values())[bestPerformersIndices[j][1]])
+
+    return values
 
 def saveBestPerformersDataToCache(data,bestPerformersIndices):
     indicesList = list(set(np.array(bestPerformersIndices)[:,0]))

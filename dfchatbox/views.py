@@ -790,12 +790,13 @@ def searchForEntry(request,answer_json):
 			if data:
 				bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1)
 				answer = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
+				print(answer)
+				answer = answer[0]
 				saveBestPerformersDataToCache(data,bestPerformersIndices)
 				
 
 	else: 
 		answer = "Prišlo je do napake. Prosim, poskusite ponovno. Preverite, da ste uporabili pravilno ime osebe. Ste morda mislili: " + " ".join(list(closestPatientName(parameter_name + " " + parameter_last_name,database=1)[-1]))
-
 
 
 		json_response['url'] = "/"
