@@ -219,6 +219,7 @@ def valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices):
 
 def saveBestPerformersDataToCache(data,bestPerformersIndices):
     indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
+    print("\n\ndata length is: ",len(indicesList),"\n\n")
     cache.set("dataLength",len(indicesList),None)
 
     for i in range(len(indicesList)):
