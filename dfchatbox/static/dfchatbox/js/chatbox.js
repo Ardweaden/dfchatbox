@@ -1,4 +1,3 @@
-//ČE UPORABNIK FUKNE NOT JS, IZVEDE. ONEMOGOČI!
 //INIT
 var j = 0;
 
@@ -245,7 +244,7 @@ function communicate(message,j){
 
             $(".socketchatbox-chatArea").append(reply_others);
 
-            saveElement(reply_others);;
+            saveElement(reply_others);
 
             //<span id="option_holder' + j + '" class="socketchatbox-messageBody socketchatbox-messageBody-me"></span>
 
@@ -444,8 +443,19 @@ function communicate(message,j){
                 console.log(data);
 
                 for (var i = 0; i < data.length; i++) {
-                    $(".socketchatbox-chatArea").append('<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["value"] + '</span><br></div></div>');
+                    reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["value"] + '<button name="getE ' + data[k]['index'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[k]['value'] + '</button></span><br></div></div>'
+
+                    $(".socketchatbox-chatArea").append(reply_others);
+
+                    saveElement(reply_others);
                 }
+
+                //i+=1;
+                
+                disable_input(false);
+
+                $("#inputField").focus();
+
             }
 
 

@@ -791,7 +791,8 @@ def searchForEntry(request,answer_json):
 				bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1)
 				bestPerformersValues = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
 				print("Best performers values:\n",bestPerformersValues)
-				answer = bestPerformersValues[0]
+				#answer = bestPerformersValues[0]
+				answer = "Našel sem naslednje podatke, ki se skladajo s poizvedbo: "
 				saveBestPerformersDataToCache(data,bestPerformersIndices)
 
 				data = []
