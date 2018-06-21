@@ -798,10 +798,10 @@ def searchForEntry(request,answer_json):
 
 				if len(bestPerformersIndices) >= 3:
 					for i in range(3):
-						data.append({"value" : bestPerformersValues[i], "index" : bestPerformersIndices[i]})
+						data.append({"value" : bestPerformersValues[i], "index" : bestPerformersIndices[i].tolist()})
 				else:
 					for i in range(len(bestPerformersValues)):
-						data.append({"value" : bestPerformersValues[i], "index" : bestPerformersIndices[i]})
+						data.append({"value" : bestPerformersValues[i], "index" : bestPerformersIndices[i].tolist()})
 				
 
 	else: 
