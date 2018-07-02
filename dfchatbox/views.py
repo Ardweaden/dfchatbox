@@ -151,7 +151,7 @@ def entry_tree(request):
 	dataLength = cache.get("dataLength")
 	cache.delete("dataLength")
 
-	#print("=== DATA @ ENTRY_TREE: ===>  ", dataLength)
+	print("=== DATA @ ENTRY_TREE: ===>  ", dataLength)
 	dataList = []
 
 	for i in range(int(dataLength)):
@@ -160,7 +160,7 @@ def entry_tree(request):
 		dataList.append(cache.get('{}'.format(i)))
 		cache.delete('{}'.format(i))
 
-	#print("=== DATA @ ENTRY_TREE: ===>  ", dataList)
+	print("=== DATA @ ENTRY_TREE: ===>  ", dataList)
 
 	return render(request,'dfchatbox/tree.html',{'data': json.dumps(dataList)})
 
