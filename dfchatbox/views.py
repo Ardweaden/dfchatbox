@@ -793,8 +793,18 @@ def searchForEntry(request,answer_json):
 				print("Best performers values:\n",bestPerformersValues)
 				#answer = bestPerformersValues[0]
 				answer = "Našel sem naslednje podatke, ki se skladajo s poizvedbo: "
-				saveBestPerformersDataToCache(data,bestPerformersIndices)
-				cache.set("dataLength",len(bestPerformersIndices),None)
+				#saveBestPerformersDataToCache(data,bestPerformersIndices)
+
+				#######################################################################################
+
+				indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
+			    print("\n\ndata length is: ",len(indicesList),"\n\n")
+			    cache.set("dataLength",len(indicesList),None)
+
+			    for i in range(len(indicesList)):
+			        cache.set("{}".format(i),data[indicesList[i]],None)
+
+				#######################################################################################
 
 				data = []
 
