@@ -797,7 +797,8 @@ def searchForEntry(answer_json):
 
 				indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
 				print("\n\ndata length is: ",len(indicesList),"\n\n")
-				cache.set("dataLength",str(len(indicesList)),None)
+				cache.set("dataLength",len(indicesList),None)
+				print(cache.get("dataLength"))
 
 				for i in range(len(indicesList)):
 					cache.set("{}".format(i),data[indicesList[i]],None)
