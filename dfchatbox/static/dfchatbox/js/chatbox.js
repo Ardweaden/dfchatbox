@@ -465,7 +465,7 @@ function communicate(message,j){
            
         }
         catch(err) {
-            //console.log(err);
+            console.log(err);
             //DIALOGFLOW RESPONSE DOES NOT CONTAIN DATA
             try {
                 //return
