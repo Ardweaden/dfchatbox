@@ -444,7 +444,7 @@ function communicate(message,j){
 
                 for (var i = 0; i < data.length; i++) {
                     console.log(" @ SEARCH in chatboxjs")
-                    reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["value"] + '<button name="getE ' + data[k]['index'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[k]['value'] + '</button></span><br></div></div>'
+                    reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["value"] + '<button name="getE ' + data[i]['index'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[i]['value'] + '</button></span><br></div></div>'
 
                     $(".socketchatbox-chatArea").append(reply_others);
 
