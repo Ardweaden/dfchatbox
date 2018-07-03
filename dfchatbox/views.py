@@ -221,11 +221,11 @@ def webhook(request):
 		del json_response['ehrid']
 	if parameter_action == "getEntry":
 		print("getEntry")
-		json_response = getEntryData(request,answer_json)
+		json_response = getEntryData(answer_json)
 		print(json_response)
 	if parameter_action == "searchEntries":
 		print("searchForEntry")
-		json_response = searchForEntry(request,answer_json)
+		json_response = searchForEntry(answer_json)
 		print(json_response)
 
 	answer = json_response['answer']
