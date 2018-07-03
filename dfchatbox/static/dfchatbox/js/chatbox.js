@@ -443,12 +443,15 @@ function communicate(message,j){
                 console.log(data);
 
                 for (var i = 0; i < data.length; i++) {
+                    console.log(" @ SEARCH in chatboxjs")
                     reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["value"] + '<button name="getE ' + data[k]['index'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[k]['value'] + '</button></span><br></div></div>'
 
                     $(".socketchatbox-chatArea").append(reply_others);
 
                     saveElement(reply_others);
                 }
+
+                console.log(" @ SEARCH in chatboxjs finished")
 
                 //i+=1;
                 
@@ -476,7 +479,7 @@ function communicate(message,j){
                 }
                 catch(err){}
                 
-                console.log("This is the url: ", response['url']);
+                console.log("There was an error. This is the url: ", response['url']);
                 $("body").append('<iframe frameborder="0" style="overflow:hidden;height:100%;width:100%" id="URLiFrame" src="' + response['url'] + '" height="100%" width="100%"></iframe>')
             }
 

@@ -148,6 +148,7 @@ def check_links(request):
 def entry_tree(request):
 	#dataLength = request.session['dataLength']
 	#dataLength = request.COOKIES['dataLength']
+	print(cache.get("dataLength"))
 	dataLength = cache.get("dataLength")
 	cache.delete("dataLength")
 
