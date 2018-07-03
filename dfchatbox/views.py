@@ -151,7 +151,7 @@ def entry_tree(request):
 	dataLength = cache.get("dataLength")
 	cache.delete("dataLength")
 
-	#print("=== DATA @ ENTRY_TREE: ===>  ", dataLength)
+	print("\n=== DATA LENGTH @ ENTRY_TREE: ===>  ", dataLength,"\n")
 	dataList = []
 
 	for i in range(int(dataLength)):
@@ -799,8 +799,8 @@ def searchForEntry(request,answer_json):
 				print("\n\ndata length is: ",len(indicesList),"\n\n")
 				cache.set("dataLength",len(indicesList),None)
 
-				# for i in range(len(indicesList)):
-				# 	cache.set("{}".format(i),data[indicesList[i]],None)
+				for i in range(len(indicesList)):
+					cache.set("{}".format(i),data[indicesList[i]],None)
 
 				data = []
 
