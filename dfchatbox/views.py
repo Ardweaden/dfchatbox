@@ -755,7 +755,7 @@ def searchForEntry(answer_json):
 
 			#cache.set("dataLength",len(numberList),None)
 
-			#json_response['url'] = "/entry_tree"
+			json_response['url'] = "/"
 
 			for counter,item in enumerate(js):
 				uid = item['#0']['uid']['value']
