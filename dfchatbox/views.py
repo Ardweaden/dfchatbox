@@ -755,7 +755,7 @@ def searchForEntry(answer_json):
 
 			#cache.set("dataLength",len(numberList),None)
 
-			json_response['url'] = "/entry_tree"
+			#json_response['url'] = "/entry_tree"
 
 			for counter,item in enumerate(js):
 				uid = item['#0']['uid']['value']
@@ -785,7 +785,7 @@ def searchForEntry(answer_json):
 
 				else:
 					answer = "Prišlo je do napake. Prosim, poskusite ponovno."
-					json_response['url'] = "http://www.rtvslo.si/"
+					#json_response['url'] = "http://www.rtvslo.si/"
 					break
 
 			if data:
@@ -806,19 +806,22 @@ def searchForEntry(answer_json):
 
 				data = []
 
-				if len(bestPerformersIndices) >= 3:
-					for i in range(3):
-						data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0])})
-				else:
-					for i in range(len(bestPerformersValues)):
-						data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0])})
+				# if len(bestPerformersIndices) >= 3:
+				# 	for i in range(3):
+				# 		data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0])})
+				# else:
+				# 	for i in range(len(bestPerformersValues)):
+				# 		data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0])})
+
+				for i in range(len(bestPerformersIndices)):
+					data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0])})
 				
 
 	else: 
 		answer = "Prišlo je do napake. Prosim, poskusite ponovno. Preverite, da ste uporabili pravilno ime osebe. Ste morda mislili: " + " ".join(list(closestPatientName(parameter_name + " " + parameter_last_name,database=1)[-1]))
 
 
-		json_response['url'] = "/"
+		#json_response['url'] = "/"
 
 	# Generate the JSON response
 	json_response['answer'] = answer
