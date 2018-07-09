@@ -819,6 +819,7 @@ def searchForEntry(answer_json):
 
 	else: 
 		answer = "Prišlo je do napake. Prosim, poskusite ponovno. Preverite, da ste uporabili pravilno ime osebe. Ste morda mislili: " + " ".join(list(closestPatientName(parameter_name + " " + parameter_last_name,database=1)[-1]))
+		data = []
 
 
 		#json_response['url'] = "/"
