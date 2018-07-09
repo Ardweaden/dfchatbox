@@ -741,7 +741,7 @@ def searchForEntry(answer_json):
 		# User entered the wrong name, we try again
 		searchData = []
 
-		parameter_name, parameter_last_name = list(closestPatientName(parameter_name + " " + parameter_last_name,database=1)[-1]
+		parameter_name, parameter_last_name = list(closestPatientName(parameter_name + " " + parameter_last_name,database=1)[-1])
 
 		searchData.append({"key": "firstNames", "value": parameter_name})
 		searchData.append({"key": "lastNames", "value": parameter_last_name})
