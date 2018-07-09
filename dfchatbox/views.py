@@ -794,15 +794,15 @@ def searchForEntry(answer_json):
 				print("Best performers values:\n",bestPerformersValues)
 				#answer = bestPerformersValues[0]
 				answer = "Našel sem naslednje podatke, ki se skladajo s poizvedbo: "
-				#saveBestPerformersDataToCache(data,bestPerformersIndices)
+				saveBestPerformersDataToCache(data,bestPerformersIndices)
 
 				indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
 				print("\n\ndata length is: ",len(indicesList),"\n\n")
-				cache.set("dataLength",len(indicesList),None)
-				print(cache.get("dataLength"))
+				#cache.set("dataLength",len(indicesList),None)
+				#print(cache.get("dataLength"))
 
-				for i in range(len(indicesList)):
-					cache.set("{}".format(i),data[indicesList[i]],None)
+				#for i in range(len(indicesList)):
+				#	cache.set("{}".format(i),data[indicesList[i]],None)
 
 				data = []
 
@@ -814,7 +814,7 @@ def searchForEntry(answer_json):
 				# 		data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0])})
 
 				for i in range(len(bestPerformersIndices)):
-					data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0])})
+					data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0]), "name" : bestPerformers[i].join(" ")})
 				
 
 	else: 

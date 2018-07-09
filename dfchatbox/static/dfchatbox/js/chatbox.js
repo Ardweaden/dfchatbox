@@ -300,7 +300,7 @@ function communicate(message,j){
                 var keys = Object.keys(data);
                 console.log(keys);
 
-                reply_others = '<button name="showAllEntries" class="socketchatbox-messageBody socketchatbox-messageBody-me" id="showAllEntries" type="button">Prikaži vse vpise</button>'
+                reply_others = '<button style="margin-bottom:2%;" name="showAllEntries" class="socketchatbox-messageBody socketchatbox-messageBody-me" id="showAllEntries" type="button">Prikaži vse vpise</button>'
 
                 $(".socketchatbox-chatArea").append(reply_others);
 
@@ -452,7 +452,7 @@ function communicate(message,j){
 
                 for (var i = 0; i < maxEntries; i++) {
                     console.log(" @ SEARCH in chatboxjs")
-                    reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["value"] + '<button name="getE ' + data[i]['index'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[i]['value'] + '</button></span><br></div></div>'
+                    reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["name"] + '<button name="getE ' + data[i]['index'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[i]['value'] + '</button></span><br></div></div>'
 
                     $(".socketchatbox-chatArea").append(reply_others);
 
@@ -616,20 +616,6 @@ $(document).on("click", "#showAllEntries", function(){
     //document.getElementById("btn" + (i-1) + j).scrollIntoView({behavior: "smooth"});
 });
 
-//READS CHOICE BUTTONS
-// $(document).on("click", "#showAllSearchResults", function(){
-//     $("#showAllSearchResults").fadeOut(100, function(){ $(this).remove();});
-//     buttonIndex = localStorage.getItem("buttonIndex");
-
-//     for (var i = 0; i < buttonIndex; i++) {
-//         var new_button = localStorage.getItem("button" + i);
-//         $(".socketchatbox-chatArea").append(new_button);
-//     }
-
-//     console.log("Last button id: " + localStorage.getItem("button" + (buttonIndex - 1)).id);
-
-//     //document.getElementById("btn" + (i-1) + j).scrollIntoView({behavior: "smooth"});
-// });
 
 //BOX RESIZING
 var a = -1
