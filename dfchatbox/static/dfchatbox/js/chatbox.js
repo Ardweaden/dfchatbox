@@ -469,7 +469,7 @@ function communicate(message,j){
                 indices = new Set(indices);
                 indices = Array.from(indices);
 
-                $(".socketchatbox-chatArea").append('<button name="getE ' + indices + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="showAllSearchResults" type="button">Prikaži vse rezultate iskanja</button>')
+                $(".socketchatbox-chatArea").append('<button name="getE ' + indices + '" style="margin-bottom:2%;" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="showAllSearchResults" type="button">Prikaži vse rezultate iskanja</button>')
 
 
                 console.log(" @ SEARCH in chatboxjs finished")
