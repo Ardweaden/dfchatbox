@@ -737,6 +737,22 @@ def searchForEntry(answer_json):
 
 	if parameter_ehrid != "":
 		ehrId = str(parameter_ehrid)
+	else:
+		# User entered the wrong name, we try again
+		searchData = []
+
+		parameter_name, parameter_last_name = list(closestPatientName(parameter_name + " " + parameter_last_name,database=1)[-1]
+
+		searchData.append({"key": "firstNames", "value": parameter_name})
+		searchData.append({"key": "lastNames", "value": parameter_last_name})
+
+		r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
+
+		if r.status_code == 200:
+			js = json.loads(r.text)
+			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
+			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
+			answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
 
 	if ehrId != '':
 		aql = "/query?aql=select a from EHR e[ehr_id/value='{}'] contains COMPOSITION a".format(ehrId)
