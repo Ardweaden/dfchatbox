@@ -453,8 +453,8 @@ function communicate(message,j){
 
                 indices = [];
 
-                for (var i = 0; i < a.length; i++) {
-                    indices.push(a[i].index)
+                for (var i = 0; i < data.length; i++) {
+                    indices.push(data[i].index)
                 }
 
                 indices = new Set(indices);
