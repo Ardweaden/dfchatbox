@@ -451,7 +451,16 @@ function communicate(message,j){
                     saveElement(reply_others);
                 }
 
-                $(".socketchatbox-chatArea").append('<button name="showAllSearchResults" class="socketchatbox-messageBody socketchatbox-messageBody-me" id="showAllSearchResults" type="button">Prikaži vse rezultate iskanja</button>')
+                indices = [];
+
+                for (var i = 0; i < a.length; i++) {
+                    indices.push(a[i].index)
+                }
+
+                indices = new Set(indices);
+                indices = Array.from(indices);
+
+                $(".socketchatbox-chatArea").append('<button name="name="getE ' + indices + '"" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="showAllSearchResults" type="button">Prikaži vse rezultate iskanja</button>')
 
 
                 console.log(" @ SEARCH in chatboxjs finished")
@@ -587,6 +596,21 @@ $(document).on("click", ".choice_btn", function(){
 //READS CHOICE BUTTONS
 $(document).on("click", "#showAllEntries", function(){
     $("#showAllEntries").fadeOut(100, function(){ $(this).remove();});
+    buttonIndex = localStorage.getItem("buttonIndex");
+
+    for (var i = 0; i < buttonIndex; i++) {
+        var new_button = localStorage.getItem("button" + i);
+        $(".socketchatbox-chatArea").append(new_button);
+    }
+
+    console.log("Last button id: " + localStorage.getItem("button" + (buttonIndex - 1)).id);
+
+    //document.getElementById("btn" + (i-1) + j).scrollIntoView({behavior: "smooth"});
+});
+
+//READS CHOICE BUTTONS
+$(document).on("click", "#showAllSearchResults", function(){
+    $("#showAllSearchResults").fadeOut(100, function(){ $(this).remove();});
     buttonIndex = localStorage.getItem("buttonIndex");
 
     for (var i = 0; i < buttonIndex; i++) {
