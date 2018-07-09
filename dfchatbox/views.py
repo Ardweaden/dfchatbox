@@ -814,7 +814,7 @@ def searchForEntry(answer_json):
 				# 		data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0])})
 
 				for i in range(len(bestPerformersIndices)):
-					data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0]), "name" : bestPerformers[i].join(" ")})
+					data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0]), "name" : " ".join(bestPerformers[i])})
 				
 
 	else: 
