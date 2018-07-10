@@ -201,6 +201,11 @@ def webhook(request):
 	
 	print("=========== WEBHOOK =============")
 
+	print("\n\n ******************************************* \n\n ")
+	print(answer_json)
+	print("\n\n ******************************************* \n\n ")
+
+
 	parameter_action = answer_json['result']['action']
 	json_response = {}
 	response_data = {}
