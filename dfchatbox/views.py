@@ -753,7 +753,7 @@ def searchForEntry(answer_json):
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
 			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
 
-			answer = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili ", parameter_name.title(), parameter_last_name.title(), "? "
+			answer = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title(), "? "
 
 	if ehrId != '':
 		aql = "/query?aql=select a from EHR e[ehr_id/value='{}'] contains COMPOSITION a".format(ehrId)
