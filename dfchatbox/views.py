@@ -229,6 +229,17 @@ def webhook(request):
 		json_response = searchForEntry(answer_json)
 		print(json_response)
 
+	if "new_name" in json_response:
+		new_name = json_response["new_name"]
+		del json_response["new_name"]
+		new_lastname = json_response["new_lastname"]
+		del  json_response["new_lastname"]
+		response_data["contextOut"] = answer_json["contexts"]
+
+		for context in response_data["contextOut"]:
+			context["given-name"] = new_name
+			context["last-name"] = new_lastname
+
 	answer = json_response['answer']
 	del json_response['answer']
 	response_data['speech'] = answer
@@ -754,6 +765,9 @@ def searchForEntry(answer_json):
 			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
 
 			answer = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title() + "? "
+
+			json_response['new_name'] = parameter_name
+			json_response['new_lastname'] = parameter_last_name
 
 	if ehrId != '':
 		aql = "/query?aql=select a from EHR e[ehr_id/value='{}'] contains COMPOSITION a".format(ehrId)
