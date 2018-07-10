@@ -810,6 +810,9 @@ def searchForEntry(answer_json):
 				bestPerformersValues = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
 				print("Best performers values:\n",bestPerformersValues)
 				#answer = bestPerformersValues[0]
+				print("\n************************ ANSWER ************************\n")
+				print(answer)
+				print("\n************************ ANSWER ************************\n")
 				answer = answer + "Našel sem naslednje podatke, ki se skladajo s poizvedbo: "
 				saveBestPerformersDataToCache(data,bestPerformersIndices)
 
