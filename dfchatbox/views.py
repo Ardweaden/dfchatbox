@@ -697,6 +697,7 @@ def searchForEntry(answer_json):
 	searchData = []
 	json_entries = []
 	data = []
+	answer = ""
 
 	message = answer_json['result']['parameters']['search-phrase']
 	message = " ".join(message)
@@ -730,7 +731,6 @@ def searchForEntry(answer_json):
 		js = json.loads(r.text)
 		ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
 		print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-		answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
 
 	#Use provided ehrid
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
@@ -752,7 +752,8 @@ def searchForEntry(answer_json):
 			js = json.loads(r.text)
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
 			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-			answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
+
+			answer = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili ", parameter_name.title(), parameter_last_name.title(), "? "
 
 	if ehrId != '':
 		aql = "/query?aql=select a from EHR e[ehr_id/value='{}'] contains COMPOSITION a".format(ehrId)
@@ -767,7 +768,7 @@ def searchForEntry(answer_json):
 		if not len(js):
 			answer = "Podani pacient nima vpisov v sistemu."
 		else:
-			answer = "Našel sem podatke o vpisu."
+			#answer = "Našel sem podatke o vpisu."
 
 			#cache.set("dataLength",len(numberList),None)
 
@@ -809,7 +810,7 @@ def searchForEntry(answer_json):
 				bestPerformersValues = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
 				print("Best performers values:\n",bestPerformersValues)
 				#answer = bestPerformersValues[0]
-				answer = "Našel sem naslednje podatke, ki se skladajo s poizvedbo: "
+				answer = answer + "Našel sem naslednje podatke, ki se skladajo s poizvedbo: "
 				saveBestPerformersDataToCache(data,bestPerformersIndices)
 
 				indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
