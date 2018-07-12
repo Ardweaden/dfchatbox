@@ -300,9 +300,18 @@ function communicate(message,j){
                 var keys = Object.keys(data);
                 console.log(keys);
 
-                reply_others = '<button style="margin-bottom:2%;" name="showAllEntries" class="socketchatbox-messageBody socketchatbox-messageBody-me" id="showAllEntries" type="button">Prikaži vse vpise</button>'
+                var disabled = localStorage.getItem("disableAllEntries");
 
-                $(".socketchatbox-chatArea").append(reply_others);
+                if (disabled == 0) {
+
+                    reply_others = '<button style="margin-bottom:2%;" name="showAllEntries" class="socketchatbox-messageBody socketchatbox-messageBody-me" id="showAllEntries" type="button">Prikaži vse vpise</button>'
+
+                    $(".socketchatbox-chatArea").append(reply_others);
+
+                }
+                else {
+                    localStorage.setItem("disableAllEntries",0);
+                }
 
                 // if (response['tree_url']) {
                 //     $("body").append('<iframe frameborder="0" style="overflow:hidden;height:100%;width:100%" id="URLiFrame" src="' + response['tree_url'] + '" height="100%" width="100%"></iframe>')
@@ -453,11 +462,15 @@ function communicate(message,j){
                 for (var i = 0; i < maxEntries; i++) {
                     console.log(" @ SEARCH in chatboxjs")
                     // reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["name"] + '<button name="getE ' + data[i]['index'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[i]['value'] + '</button></span><br></div></div>'
+                    reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["name"] + ': ' + data[i]['value'] + '</span><br></div></div>'
+
+                    saveElement(reply_others);
+
                     reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["name"] + ':<br><button style="margin-top:1%;" name="getE ' + data[i]['index'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[i]['value'] + '</button></span><br></div></div>'
 
                     $(".socketchatbox-chatArea").append(reply_others);
 
-                    saveElement(reply_others);
+                    
                 }
 
                 indices = [];
@@ -475,6 +488,8 @@ function communicate(message,j){
                 console.log(" @ SEARCH in chatboxjs finished")
 
                 //i+=1;
+
+                localStorage.setItem("disableAllEntries",1);
                 
                 disable_input(false);
 

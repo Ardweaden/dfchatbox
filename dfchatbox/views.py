@@ -299,7 +299,7 @@ def getPatientInfoData(answer_json):
 
 	json_response['answer'] = answer
 	json_response['data'] = json_object
-	json_response['url'] = "http://www.rtvslo.si"
+	json_response['url'] = "/"
 
 	return json_response
 
@@ -398,7 +398,7 @@ def getLabResultsData(answer_json):
 	# Generate the JSON response
 	json_response['answer'] = answer
 	json_response['data'] = json_lab_results
-	json_response['url'] = "http://www.rtvslo.si"
+	json_response['url'] = "/"
 
 	return json_response
 
@@ -515,7 +515,7 @@ def getECGResultsData(answer_json):
 	# Generate the JSON response
 	json_response['answer'] = answer
 	json_response['data'] = json_lab_results
-	json_response['url'] = "http://www.rtvslo.si"
+	json_response['url'] = "/"
 
 	return json_response
 
@@ -587,7 +587,7 @@ def getAllEntries(answer_json):
 	# Generate the JSON response
 	json_response['answer'] = answer
 	json_response['data'] = json_entries
-	json_response['url'] = "http://www.rtvslo.si"
+	json_response['url'] = "/"
 
 
 	return json_response
@@ -691,12 +691,12 @@ def getEntryData(answer_json):
 
 					else:
 						answer = "Prišlo je do napake. Prosim, poskusite ponovno."
-						json_response['url'] = "http://www.rtvslo.si/"
+						json_response['url'] = "/"
 						break
 
 
 	else:
-		json_response['url'] = "http://www.rtvslo.si/" 
+		json_response['url'] = "/" 
 		answer = "Prišlo je do napake. Prosim, poskusite ponovno."
 
 	# Generate the JSON response
