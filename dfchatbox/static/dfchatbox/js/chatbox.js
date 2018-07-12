@@ -153,6 +153,8 @@ function communicate(message,j){
     disable_input(true);
     typing(1,"me");
 
+    date = cur_date();
+
     if (typeof(message) == 'object'){
         var value = message[0];
         message = message[1];
@@ -185,7 +187,7 @@ function communicate(message,j){
         }
 
     else {
-        //APPEND THE MESSAGE IF THERE ARE NO URLS 
+        //APPEND THE MESSAGE THERE ARE NO URLS 
         typing(0,"me");
 
         var reply_me = '<div class="socketchatbox-message-wrapper" id="wrapper-me' + j + '"><div class="socketchatbox-message socketchatbox-message-me"><div class="socketchatbox-username">Uporabnik<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-me">' + message +  '</span></div></div>';
