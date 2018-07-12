@@ -593,6 +593,9 @@ def getAllEntries(answer_json):
 	return json_response
 
 def getEntryData(answer_json):
+	print("\n\n ############################################################## \n\n")
+	print(answer_json)
+	print("\n\n ############################################################## \n\n")
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
 	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
