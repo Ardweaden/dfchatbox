@@ -14,5 +14,7 @@ urlpatterns = [
         path('',views.index,name='index'),
         path('check_links',views.check_links,name='check_links'),
         path('webhook',views.webhook,name='webhook'),
-        path('entry_tree',views.entry_tree,name='entry_tree')
+        path('entry_tree',views.entry_tree,name='entry_tree'),
+        path('login',views.login_page, name='login'),
+        path('logout',logout, name='logout')
         ]

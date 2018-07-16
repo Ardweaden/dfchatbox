@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.conf import settings
 from django.views.decorators.http import require_http_methods
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
+from django.contrib.auth import login,authenticate
 
 import re
 import imgkit
@@ -164,6 +165,20 @@ def entry_tree(request):
 	#print("=== DATA @ ENTRY_TREE: ===>  ", dataList)
 
 	return render(request,'dfchatbox/tree.html',{'data': json.dumps(dataList)})
+
+def login_page(request):
+	print("Let's log in! Username: ", request.POST["username"],", password: ",request.POST["password"])
+
+	if request.method == "POST":
+		user = authenticate(username=request.POST["username"], password=request.POST["password"])
+
+		if user is not None:
+			login(request, user)
+			return JsonResponse(json.dumps({'success': 1, 'message': 'Prijava je bila uspešna'}),safe=False)
+		else:
+			return JsonResponse(json.dumps({'success': 0, 'message': 'Napačno ime ali geslo'}),safe=False)
+
+
 
 
 #stara metoda za komunikacijo z dialogflowom

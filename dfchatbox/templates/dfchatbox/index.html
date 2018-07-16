@@ -13,13 +13,14 @@
             <div id="socketchatbox-ne" class="socketchatbox-resize"></div>
             <div id='socketchatbox-top'>
                 <div id='socketchatbox-username'>Uporabnik</div>   
-                <button  id='socketchatbox-online-usercount' class="badge"> 
+                <button  id='login-logout' class="badge"> 
                 </button>
 
                 <div id='socketchatbox-closeChatbox'>x</div>
                 <div id='socketchatbox-showHideChatbox'>↑</div>
 
             </div>
+
             <div id='socketchatbox-body'>
                 <div class='socketchatbox-onlineusers'></div>
                 <div class = "socketchatbox-typing">DialogFlow is typing</div>
@@ -37,6 +38,27 @@
                     </label>
                 </div>
             </div>
+
+            <div id="login-page" style="display: none;">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Uporabniško ime</label>
+                        <input type="username" name="username" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Vnesite uporabniško ime">
+                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Geslo</label>
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Vnesite geslo">
+                    </div>
+                    <button id="submit" class="btn btn-primary">Prijava</button>
+                </form>
+                <p id="info" style="text-align: center;display: none;"></p>
+            </div>
+
+            <div id="logout-page" style="display: none;">
+                <button id="logout" class="btn btn-primary" style="margin: 0 auto;">Odjavi se</button>
+            </div>
+
         </div>
 
 

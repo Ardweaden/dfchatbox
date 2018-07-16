@@ -545,7 +545,12 @@ function communicate(message,j){
 };
 
 //SHOWS AND HIDES CHATBOX
-$("#socketchatbox-top").click(function(){
+$("#socketchatbox-top").click(function(element){
+    if (element.target !== this || $("#login-page").is(":visible")){
+        return
+    }
+
+    console.log("It runs socketchatbox-top click");
     if ($("#socketchatbox-body").is(":visible")){
         $("#socketchatbox-showHideChatbox").text("↑");
     }
@@ -563,6 +568,59 @@ $("#socketchatbox-top").click(function(){
 
     $("#inputField").focus();
 });
+
+//OPENS LOGIN/LOGOUT PAGE
+$("#login-logout").click(function(){
+    if ($("#socketchatbox-showHideChatbox").html() != "↓"){
+        return
+    }
+    console.log("It runs login-logout click");
+    // if ($("#socketchatbox-body").is(":visible")) {
+    //     $("#socketchatbox-body").css("display","none");
+    // }
+    // else {
+    //     $("#socketchatbox-body").css("display","block");
+    // }
+    height = $(".socketchatbox-page").height() -  $("#socketchatbox-top").height();
+    width = $(".socketchatbox-page").width();
+    console.log("BODY HEIGHT: " + height + " BODY WIDTH: " + width);
+    $("#login-page").css({"height":height,"width":width});
+    $("#socketchatbox-body").toggle();
+    $("#login-page").toggle();
+});
+
+//SENDS FORM TO DJANGO
+$("#submit").click(function(e){
+    e.preventDefault();
+    console.log("    submitting ....");
+    data = $("#login-form").serializeArray();
+    var url = window.location.href + "login";
+
+    $.post(url,data,function(response){
+        response = JSON.parse(response);
+
+        if (response["success"] == 1) {
+            $("#login-page").hide();
+            $("#logout-page").show();
+        }
+        else {
+            document.getElementById("info").innerHTML = response["message"]
+            $("#info").show();
+        }
+        
+    })
+});
+
+$("form").keydown(function(){
+    $("#info").hide();
+});
+
+$("#logout").click(function(){
+    var url = window.location.href + "logout";
+    $.post(url,function(response){
+        console.log(response);
+    })
+})
 
 //PROCESSES DATA FROM INPUT FIELD WHEN USER CLICKS ENTER
 $(".socketchatbox-page").keydown(function(t){
@@ -651,6 +709,10 @@ $(".socketchatbox-resize").mousedown(function(event) {
 });
 
 $(document).mousemove(function(event) {
+    if ($("#login-page").is(":visible")) {
+        return
+    }
+
     if (-1 != a) {
         var t = $("#socketchatbox-body").outerWidth()
           , o = $("#socketchatbox-body").outerHeight()

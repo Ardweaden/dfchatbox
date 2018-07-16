@@ -58,6 +58,25 @@ ul {
   /* border: 1px solid lightgray; */
 }
 
+#login-page {
+  display: none;
+  height: 385px;
+  width: 350px;
+  padding-top: 5%;
+  padding-left: 2%;
+  padding-right: 2%;
+  /* border: 1px solid lightgray; */
+}
+
+#logout-page {
+  display: none;
+  height: 385px;
+  width: 350px;
+  padding-top: 10%;
+  padding-left: 5%;
+  padding-right: 5%;
+  /* border: 1px solid lightgray; */
+}
 
 .socketchatbox-inputMessage-div {
   height: 35px;  
