@@ -174,6 +174,7 @@ def login_page(request):
 
 		if user is not None:
 			login(request, user)
+			print("\n\nUser is authenticated: ",request.user.is_authenticated,"\n\n")
 			return JsonResponse(json.dumps({'success': 1, 'message': 'Prijava je bila uspešna'}),safe=False)
 		else:
 			return JsonResponse(json.dumps({'success': 0, 'message': 'Napačno ime ali geslo'}),safe=False)
