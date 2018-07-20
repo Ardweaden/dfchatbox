@@ -234,6 +234,7 @@ def webhook(request):
 
 	if not request.user.is_authenticated:
 		json_response = {"responseType": "not-authenticated"}
+		json_response['data'] = ""
 		response_data['speech'] = answer
 		response_data['displayText'] = answer
 		response_data['data'] = json_response
