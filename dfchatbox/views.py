@@ -63,7 +63,13 @@ def index(request):
 		#MyEHR
 		CLIENT_ACCESS_TOKEN = "7f7cb0e7be2e4b83b08b7106485a2078"
 
-		contexts = [{"is_authenticated":user_status}]
+		contexts = [{
+		  "lifespan": 5,
+		  "name": "user_authentication",
+		  "parameters": {
+		    "is_authenticated": user_status
+		  }
+}]
 
 		ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 
