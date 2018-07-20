@@ -1,5 +1,6 @@
 //INIT
 var j = 0;
+var global_username = "Uporabnik";
 
 $(document).ready(function(){
     //localStorage.removeItem("sessionID");
@@ -13,7 +14,8 @@ $(document).ready(function(){
 
     if (user_status == 1) {
         $("#login-logout").css("background-color","green");
-        $("#socketchatbox-username").text(localStorage.getItem("username"))
+        $("#socketchatbox-username").text(localStorage.getItem("username"));
+        global_username = localStorage.getItem("username");
     }
     else {
         $("#login-logout").css("background-color","red");
@@ -189,7 +191,7 @@ function communicate(message,j){
 
         typing(0,"me");
 
-        var reply_me = '<div class="socketchatbox-message-wrapper" id="wrapper-me' + j + '"><div class="socketchatbox-message socketchatbox-message-me"><div class="socketchatbox-username">Uporabnik<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-me">' + message +  '</span><br><span class="socketchatbox-messageBody socketchatbox-messageBody-me"><a target="_blank" href="' + data['url'] + '">' + data['data'] + '</a><img src="' + static_string + '" style="width:100%;height:100%;"></span></div></div>';
+        var reply_me = '<div class="socketchatbox-message-wrapper" id="wrapper-me' + j + '"><div class="socketchatbox-message socketchatbox-message-me"><div class="socketchatbox-username">' + global_username + '<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-me">' + message +  '</span><br><span class="socketchatbox-messageBody socketchatbox-messageBody-me"><a target="_blank" href="' + data['url'] + '">' + data['data'] + '</a><img src="' + static_string + '" style="width:100%;height:100%;"></span></div></div>';
 
         $(".socketchatbox-chatArea").append(reply_me);
 
@@ -202,7 +204,7 @@ function communicate(message,j){
         //APPEND THE MESSAGE THERE ARE NO URLS 
         typing(0,"me");
 
-        var reply_me = '<div class="socketchatbox-message-wrapper" id="wrapper-me' + j + '"><div class="socketchatbox-message socketchatbox-message-me"><div class="socketchatbox-username">Uporabnik<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-me">' + message +  '</span></div></div>';
+        var reply_me = '<div class="socketchatbox-message-wrapper" id="wrapper-me' + j + '"><div class="socketchatbox-message socketchatbox-message-me"><div class="socketchatbox-username">' + global_username + '<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-me">' + message +  '</span></div></div>';
 
         $(".socketchatbox-chatArea").append(reply_me);
 
@@ -628,6 +630,7 @@ $("#submit").click(function(e){
             localStorage.setItem("username",response["username"]);
             $("#socketchatbox-username").text(response["username"]);
             $("#login-logout").css("background-color","green");
+            global_username = response["username"];
         }
         else {
             document.getElementById("info").innerHTML = response["message"]
@@ -652,6 +655,7 @@ $("#logout").click(function(){
         localStorage.setItem("username",response["username"]);
         $("#socketchatbox-username").text(response["username"]);
         $("#login-logout").css("background-color","red");
+        global_username = "Uporabnik";
     })
 })
 
