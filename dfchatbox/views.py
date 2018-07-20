@@ -5,7 +5,7 @@ from django.http import HttpResponse,JsonResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login,authenticate,logout
 
 import re
 import imgkit
@@ -178,6 +178,12 @@ def login_page(request):
 		else:
 			return JsonResponse(json.dumps({'success': 0, 'message': 'Napačno ime ali geslo'}),safe=False)
 
+def logout_page(request):
+	#print("Let's log out! Username: ", request.POST["username"],", password: ",request.POST["password"])
+
+	if request.method == "POST":
+		logout(request)
+		return JsonResponse(json.dumps({'success': 1, 'message': 'Odjava je bila uspešna'}),safe=False)
 
 
 
@@ -225,6 +231,17 @@ def webhook(request):
 	json_response = {}
 	response_data = {}
 	answer = "Prosim ponovno postavite zahtevo."
+
+	if not request.user.is_authenticated:
+		json_response = {"responseType": "not-authenticated"}
+		response_data['speech'] = answer
+		response_data['displayText'] = answer
+		response_data['data'] = json_response
+		response_data['source'] = "thinkEHR"
+		return HttpResponse(
+			json.dumps(response_data, indent=4),
+			content_type="application/json"
+			)
 
 	if parameter_action == "labResults":
 		print("labResults")

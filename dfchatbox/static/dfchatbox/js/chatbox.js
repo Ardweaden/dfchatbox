@@ -546,7 +546,7 @@ function communicate(message,j){
 
 //SHOWS AND HIDES CHATBOX
 $("#socketchatbox-top").click(function(element){
-    if (element.target !== this || $("#login-page").is(":visible")){
+    if (element.target !== this || $("#login-page").is(":visible") || $("#logout-page").is(":visible")){
         return
     }
 
@@ -575,18 +575,29 @@ $("#login-logout").click(function(){
         return
     }
     console.log("It runs login-logout click");
-    // if ($("#socketchatbox-body").is(":visible")) {
-    //     $("#socketchatbox-body").css("display","none");
-    // }
-    // else {
-    //     $("#socketchatbox-body").css("display","block");
-    // }
-    height = $(".socketchatbox-page").height() -  $("#socketchatbox-top").height();
-    width = $(".socketchatbox-page").width();
-    console.log("BODY HEIGHT: " + height + " BODY WIDTH: " + width);
-    $("#login-page").css({"height":height,"width":width});
-    $("#socketchatbox-body").toggle();
-    $("#login-page").toggle();
+
+    try {
+        if (localStorage.getItem("logged-in") == 0) {
+            console.log("NOT LOGGED IN");
+            height = $(".socketchatbox-page").height() -  $("#socketchatbox-top").height();
+            width = $(".socketchatbox-page").width();
+            console.log("BODY HEIGHT: " + height + " BODY WIDTH: " + width);
+            $("#login-page").css({"height":height,"width":width});
+            $("#socketchatbox-body").toggle();
+            $("#login-page").toggle();
+        }
+        else {
+            console.log("LOGGED IN");
+            $("#logout-page").toggle();
+            $("#socketchatbox-body").toggle();
+        }
+    }
+    catch (err){
+        console.log("NOT SET");
+        $("#logout-page").toggle();
+        $("#socketchatbox-body").toggle();
+    }
+
 });
 
 //SENDS FORM TO DJANGO
@@ -602,6 +613,7 @@ $("#submit").click(function(e){
         if (response["success"] == 1) {
             $("#login-page").hide();
             $("#logout-page").show();
+            localStorage.setItem("logged-in",1);
         }
         else {
             document.getElementById("info").innerHTML = response["message"]
@@ -619,6 +631,9 @@ $("#logout").click(function(){
     var url = window.location.href + "logout";
     $.post(url,function(response){
         console.log(response);
+        $("#logout-page").hide();
+        $("#login-page").show();
+        localStorage.setItem("logged-in",0);
     })
 })
 

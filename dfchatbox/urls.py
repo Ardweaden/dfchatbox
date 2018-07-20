@@ -6,7 +6,6 @@ Created on Thu Apr  5 19:14:01 2018
 """
 
 from django.urls import path
-from django.contrib.auth import logout
 from . import views
 
 app_name = 'dfchatbox'
@@ -16,5 +15,5 @@ urlpatterns = [
         path('webhook',views.webhook,name='webhook'),
         path('entry_tree',views.entry_tree,name='entry_tree'),
         path('login',views.login_page, name='login'),
-        path('logout',logout, name='logout')
+        path('logout',views.logout_page, name='logout')
         ]
