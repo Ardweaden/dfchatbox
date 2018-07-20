@@ -223,7 +223,9 @@ def webhook(request):
 	print("=========== WEBHOOK =============")
 
 	print("\n\n ******************************************* \n\n ")
-	print(answer_json)
+	#print(answer_json)
+	print(request.user.is_authenticated)
+	print(request.user)
 	print("\n\n ******************************************* \n\n ")
 
 
