@@ -34,6 +34,8 @@ def index(request):
 
 		print("*****SESSION ID*****   ",sessionID)
 
+		print("\n\n*****USER STATUS*****\nUser: ",request.user,"\nIs authenticated: ",request.user.is_authenticated,"\n\n")
+
 		#print("user input: ", message)
 
 		#url = "http://translate.dis-apps.ijs.si/translate?sentence=" + message
