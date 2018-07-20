@@ -36,6 +36,8 @@ def index(request):
 
 		print("\n\n*****USER STATUS*****\nUser: ",request.user,"\nIs authenticated: ",request.user.is_authenticated,"\n\n")
 
+		user_status = request.user.is_authenticated
+
 		#print("user input: ", message)
 
 		#url = "http://translate.dis-apps.ijs.si/translate?sentence=" + message
@@ -69,6 +71,7 @@ def index(request):
 		request.session_id = sessionID
 		request.lang = 'en'
 		request.contexts = contexts
+		request.parameters = {"is_authenticated":user_status}
 		request.query = message
 
 		data = request.getresponse().read().decode('utf-8')
@@ -226,7 +229,7 @@ def webhook(request):
 	print("=========== WEBHOOK =============")
 
 	print("\n\n ******************************************* \n\n ")
-	#print(answer_json)
+	print(answer_json)
 	print(request.user.is_authenticated)
 	print(request.user)
 	print("\n\n ******************************************* \n\n ")
