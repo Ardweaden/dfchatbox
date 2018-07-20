@@ -501,7 +501,6 @@ function communicate(message,j){
 
             }
 
-
            
         }
         catch(err) {
