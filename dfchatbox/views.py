@@ -67,9 +67,9 @@ def index(request):
 		  "lifespan": 5,
 		  "name": "user_authentication",
 		  "parameters": {
-		    "is_authenticated": user_status
+		  "is_authenticated": user_status
 		  }
-}]
+		}]
 
 		ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 
@@ -246,7 +246,7 @@ def webhook(request):
 	response_data = {}
 	answer = "Prosim ponovno postavite zahtevo."
 
-	if not request.user.is_authenticated:
+	if not bool([context for context in data["result"]["contexts"] if context["name"] == "user_authentication"][0]["parameters"]["is_authenticated"]):
 		json_response = {"responseType": "not-authenticated"}
 		json_response['data'] = ""
 		json_response['url'] = "/"
