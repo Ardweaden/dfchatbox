@@ -186,16 +186,16 @@ def login_page(request):
 		if user is not None:
 			login(request, user)
 			print("\n\nUser is authenticated: ",request.user.is_authenticated,"\n\n")
-			return JsonResponse(json.dumps({'success': 1, 'message': 'Prijava je bila uspešna'}),safe=False)
+			return JsonResponse(json.dumps({'success': 1, 'message': 'Prijava je bila uspešna',"username": request.POST["username"]}),safe=False)
 		else:
-			return JsonResponse(json.dumps({'success': 0, 'message': 'Napačno ime ali geslo'}),safe=False)
+			return JsonResponse(json.dumps({'success': 0, 'message': 'Napačno ime ali geslo',"username": "Uporabnik"}),safe=False)
 
 def logout_page(request):
 	#print("Let's log out! Username: ", request.POST["username"],", password: ",request.POST["password"])
 
 	if request.method == "POST":
 		logout(request)
-		return JsonResponse(json.dumps({'success': 1, 'message': 'Odjava je bila uspešna'}),safe=False)
+		return JsonResponse(json.dumps({'success': 1, 'message': 'Odjava je bila uspešna',"username": "Uporabnik"}),safe=False)
 
 
 

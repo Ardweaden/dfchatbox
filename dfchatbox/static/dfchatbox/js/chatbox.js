@@ -5,7 +5,13 @@ $(document).ready(function(){
     //localStorage.removeItem("sessionID");
     //session_isValid();
     $("#socketchatbox-sendFileBtn").css("background","#9a969a");
-    $(".arrow-right").css("border-left","25px solid #bcbabb")
+    $(".arrow-right").css("border-left","25px solid #bcbabb");
+
+    user_status = localStorage.getItem("logged-in");
+
+    if (user_status == 1) {
+        $("#socketchatbox-username").text(localStorage.getItem("username"))
+    }
     //console.log("SESSION ID: " + localStorage.getItem("sessionID"));
 });
 
@@ -613,6 +619,8 @@ $("#submit").click(function(e){
             $("#login-page").hide();
             $("#logout-page").show();
             localStorage.setItem("logged-in",1);
+            localStorage.setItem("username",response["username"]);
+            $("#socketchatbox-username").text(response["username"]);
         }
         else {
             document.getElementById("info").innerHTML = response["message"]
@@ -629,10 +637,13 @@ $("form").keydown(function(){
 $("#logout").click(function(){
     var url = window.location.href + "logout";
     $.post(url,function(response){
+        response = JSON.parse(response)
         console.log(response);
         $("#logout-page").hide();
         $("#login-page").show();
         localStorage.setItem("logged-in",0);
+        localStorage.setItem("username",response["username"]);
+        $("#socketchatbox-username").text(response["username"]);
     })
 })
 
