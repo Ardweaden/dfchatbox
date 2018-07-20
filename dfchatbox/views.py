@@ -37,6 +37,8 @@ def index(request):
 		print("\n\n*****USER STATUS*****\nUser: ",request.user,"\nIs authenticated: ",request.user.is_authenticated,"\n\n")
 
 		user_status = request.user.is_authenticated
+		#	Get user ehrid
+		#user_ehrid = request.user.ehrid
 
 		#print("user input: ", message)
 
@@ -65,9 +67,10 @@ def index(request):
 
 		contexts = [{
 		  "lifespan": 5,
-		  "name": "user_authentication",
+		  "name": "user_data",
 		  "parameters": {
-		  "is_authenticated": user_status
+		  "is_authenticated": user_status,
+		  "user_ehrid": "d8dcc924-edaf-4df5-8b84-e9e6d0ec590f"
 		  }
 		}]
 
@@ -244,9 +247,12 @@ def webhook(request):
 	parameter_action = answer_json['result']['action']
 	json_response = {}
 	response_data = {}
+	warning = ""
+	fullAccess = True
 	answer = "Prosim ponovno postavite zahtevo."
 
-	if [context for context in answer_json["result"]["contexts"] if context["name"] == "user_authentication"][0]["parameters"]["is_authenticated"] == "false":
+	#	Checks if user is logged in
+	if [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["is_authenticated"] == "false" and parameter_action != "patientInfo":
 		json_response = {"responseType": "not-authenticated"}
 		json_response['data'] = ""
 		json_response['url'] = "/"
@@ -258,6 +264,13 @@ def webhook(request):
 			json.dumps(response_data, indent=4),
 			content_type="application/json"
 			)
+
+	#	Checks if user has permission to search for the requested info
+	if not PermissionCompliant(answer_json):
+		#warning = "Opozorilo: Nimate dovoljenja za to poizvedbo. "
+		fullAccess = False
+
+	answer_json["fullAccess"] = fullAccess
 
 	if parameter_action == "labResults":
 		print("labResults")
@@ -295,7 +308,7 @@ def webhook(request):
 
 	answer = json_response['answer']
 	del json_response['answer']
-	response_data['speech'] = answer
+	response_data['speech'] = warning + answer
 	response_data['displayText'] = answer
 	response_data['data'] = json_response
 	response_data['source'] = "thinkEHR"
@@ -307,6 +320,20 @@ def webhook(request):
 			json.dumps(response_data, indent=4),
 			content_type="application/json"
 			)
+
+def PermissionCompliant(answer_json):
+	# parameter_name =answer_json['result']['parameters']['given-name']
+	# parameter_last_name =answer_json['result']['parameters']['last-name']
+
+	ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+
+	#	Get user permissions
+	#
+
+	if ehrid == "d8dcc924-edaf-4df5-8b84-e9e6d0ec590f":
+		return True
+	else:
+		return False
 
 def getPatientInfoData(answer_json):
 
@@ -353,6 +380,13 @@ def getPatientInfoData(answer_json):
 
 def getLabResultsData(answer_json):
 	print(answer_json)
+
+	################################################################## PERMISSIONS ###################################################################
+	fullAccess = answer_json["fullAccess"]
+
+	if fullAccess == "false":
+		check_user_ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	##################################################################################################################################################
 
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	#ehrId = 'd8dcc924-edaf-4df5-8b84-e9e6d0ec590f'
@@ -472,6 +506,13 @@ def getLabResultsData(answer_json):
 
 def getECGResultsData(answer_json):
 	#print(answer_json)
+
+	################################################################## PERMISSIONS ###################################################################
+	fullAccess = answer_json["fullAccess"]
+
+	if fullAccess == "false":
+		check_user_ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	##################################################################################################################################################
 
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
@@ -608,6 +649,13 @@ def getECGResultsData(answer_json):
 	return json_response
 
 def getAllEntries(answer_json):
+	################################################################## PERMISSIONS ###################################################################
+	fullAccess = answer_json["fullAccess"]
+
+	if fullAccess == "false":
+		check_user_ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	##################################################################################################################################################
+
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
 	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
@@ -701,6 +749,13 @@ def getAllEntries(answer_json):
 	return json_response
 
 def getEntryData(answer_json):
+	################################################################## PERMISSIONS ###################################################################
+	fullAccess = answer_json["fullAccess"]
+
+	if fullAccess == "false":
+		check_user_ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	##################################################################################################################################################
+
 	print("\n\n ############################################################## \n\n")
 	print(answer_json)
 	print("\n\n ############################################################## \n\n")
@@ -836,6 +891,13 @@ def getEntryData(answer_json):
 
 
 def searchForEntry(answer_json):
+	################################################################## PERMISSIONS ###################################################################
+	fullAccess = answer_json["fullAccess"]
+
+	if fullAccess == "false":
+		check_user_ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	##################################################################################################################################################
+
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
 	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')

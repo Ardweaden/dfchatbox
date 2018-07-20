@@ -9,6 +9,8 @@ $(document).ready(function(){
 
     user_status = localStorage.getItem("logged-in");
 
+    console.log("user status is: " + user_status);
+
     if (user_status == 1) {
         $("#socketchatbox-username").text(localStorage.getItem("username"))
     }
