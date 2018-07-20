@@ -12,7 +12,11 @@ $(document).ready(function(){
     console.log("user status is: " + user_status);
 
     if (user_status == 1) {
+        $("#login-logout").css("background-color","green");
         $("#socketchatbox-username").text(localStorage.getItem("username"))
+    }
+    else {
+        $("#login-logout").css("background-color","red");
     }
     //console.log("SESSION ID: " + localStorage.getItem("sessionID"));
 });
@@ -577,7 +581,7 @@ $("#socketchatbox-top").click(function(element){
 });
 
 //OPENS LOGIN/LOGOUT PAGE
-$("#login-logout").click(function(){
+$("#toLogin").click(function(){
     if ($("#socketchatbox-showHideChatbox").html() != "↓"){
         return
     }
@@ -623,6 +627,7 @@ $("#submit").click(function(e){
             localStorage.setItem("logged-in",1);
             localStorage.setItem("username",response["username"]);
             $("#socketchatbox-username").text(response["username"]);
+            $("#login-logout").css("background-color","green");
         }
         else {
             document.getElementById("info").innerHTML = response["message"]
@@ -646,6 +651,7 @@ $("#logout").click(function(){
         localStorage.setItem("logged-in",0);
         localStorage.setItem("username",response["username"]);
         $("#socketchatbox-username").text(response["username"]);
+        $("#login-logout").css("background-color","red");
     })
 })
 
