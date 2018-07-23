@@ -76,7 +76,9 @@ def index(request):
 		  "name": "user_data",
 		  "parameters": {
 		  "is_authenticated": user_status,
-		  "user_ehrid": "d8dcc924-edaf-4df5-8b84-e9e6d0ec590f"
+		  "user_ehrid": patientInfo_patientEhrid,
+		  "user_patientName": patientInfo_patientName,
+		  "user_patientSurname": patientInfo_patientSurname,
 		  }
 		}]
 
@@ -200,8 +202,8 @@ def login_page(request):
 			#	FOR NOW I'LL HAVE DEFAULTS
 			name = "mary"
 			surname = "wilkinson"
-			ehrid = "ehrid"
-			
+			ehrid = "d8dcc924-edaf-4df5-8b84-e9e6d0ec590f"
+
 			return JsonResponse(json.dumps({'success': 1, 'message': 'Prijava je bila uspešna',"username": request.POST["username"], "name": name, "surname": surname, "ehrid": ehrid}),safe=False)
 		else:
 			return JsonResponse(json.dumps({'success': 0, 'message': 'Napačno ime ali geslo',"username": "Uporabnik"}),safe=False)
