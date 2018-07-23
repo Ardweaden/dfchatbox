@@ -1,6 +1,7 @@
 //INIT
 var j = 0;
 var global_username = "Uporabnik";
+var patientInfo_name, patientInfo_lastname, patientInfo_ehrid;
 
 $(document).ready(function(){
     //localStorage.removeItem("sessionID");
@@ -16,11 +17,17 @@ $(document).ready(function(){
         $("#login-logout").css("background-color","green");
         $("#socketchatbox-username").text(localStorage.getItem("username"));
         global_username = localStorage.getItem("username");
+        patientInfo_name = localStorage.getItem("patientInfo_name");
+        patientInfo_lastname = localStorage.getItem("patientInfo_lastname");
+        patientInfo_ehrid = localStorage.getItem("patientInfo_ehrid");
     }
     else {
         $("#login-logout").css("background-color","red");
     }
     //console.log("SESSION ID: " + localStorage.getItem("sessionID"));
+
+
+    console.log("\npatientInfo_name: " + patientInfo_name + "\npatientInfo_lastname: " + patientInfo_lastname + "\npatientInfo_ehrid: " + patientInfo_ehrid);
 });
 
 $(".socketchatbox-page").keydown(function(t){
@@ -231,7 +238,7 @@ function communicate(message,j){
     localStorage.setItem("sessionStart", timestamp());
 
     //SENDS DATA TO DJANGO WHICH COMMUNICATES WITH DIALOFLOW
-    $.post(window.location.href, {"message": message, "sessionID": sessionID},function(response){
+    $.post(window.location.href, {"message": message, "sessionID": sessionID, "name": patientInfo_name, "lastname": patientInfo_lastname, "ehrid": patientInfo_ehrid},function(response){
 
         try {
             //DIALOGFLOW RESPONSE CONTAINS DATA
@@ -626,11 +633,20 @@ $("#submit").click(function(e){
         if (response["success"] == 1) {
             $("#login-page").hide();
             $("#logout-page").show();
-            localStorage.setItem("logged-in",1);
-            localStorage.setItem("username",response["username"]);
+
+            localStorage.setItem("logged-in", 1);
+            localStorage.setItem("username", response["username"]);
+            localStorage.setItem("patientInfo_name", response["name"]);
+            localStorage.setItem("patientInfo_lastname", response["surname"]);
+            localStorage.setItem("patientInfo_ehrid", response["ehrid"]);
+
             $("#socketchatbox-username").text(response["username"]);
             $("#login-logout").css("background-color","green");
+
             global_username = response["username"];
+            patientInfo_name = response["name"];
+            patientInfo_lastname = response["lastname"];
+            patientInfo_ehrid = response["ehrid"];
         }
         else {
             document.getElementById("info").innerHTML = response["message"]

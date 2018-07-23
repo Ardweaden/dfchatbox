@@ -32,6 +32,12 @@ def index(request):
 		message = request.POST['message']
 		sessionID = request.POST['sessionID']
 
+		#PATIENT INFO FROM LOGIN DATA
+		patientInfo_patientName = request.POST['name']
+		patientInfo_patientSurname = request.POST['surname']
+		patientInfo_patientEhrid = request.POST['ehrid']
+
+
 		print("*****SESSION ID*****   ",sessionID)
 
 		print("\n\n*****USER STATUS*****\nUser: ",request.user,"\nIs authenticated: ",request.user.is_authenticated,"\n\n")
@@ -189,7 +195,14 @@ def login_page(request):
 		if user is not None:
 			login(request, user)
 			print("\n\nUser is authenticated: ",request.user.is_authenticated,"\n\n")
-			return JsonResponse(json.dumps({'success': 1, 'message': 'Prijava je bila uspešna',"username": request.POST["username"]}),safe=False)
+
+			#	GET NAME, SURNAME AND EHRID FROM DATABASE
+			#	FOR NOW I'LL HAVE DEFAULTS
+			name = "mary"
+			surname = "wilkinson"
+			ehrid = "ehrid"
+			
+			return JsonResponse(json.dumps({'success': 1, 'message': 'Prijava je bila uspešna',"username": request.POST["username"], "name": name, "surname": surname, "ehrid": ehrid}),safe=False)
 		else:
 			return JsonResponse(json.dumps({'success': 0, 'message': 'Napačno ime ali geslo',"username": "Uporabnik"}),safe=False)
 
