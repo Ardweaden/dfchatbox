@@ -238,7 +238,7 @@ function communicate(message,j){
     localStorage.setItem("sessionStart", timestamp());
 
     //SENDS DATA TO DJANGO WHICH COMMUNICATES WITH DIALOFLOW
-    $.post(window.location.href, {"message": message, "sessionID": sessionID, "name": patientInfo_name, "lastname": patientInfo_lastname, "ehrid": patientInfo_ehrid},function(response){
+    $.post(window.location.href, {"message": message, "sessionID": sessionID, "name": patientInfo_name, "surname": patientInfo_lastname, "ehrid": patientInfo_ehrid},function(response){
 
         try {
             //DIALOGFLOW RESPONSE CONTAINS DATA
