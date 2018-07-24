@@ -32,17 +32,22 @@ def index(request):
 		message = request.POST['message']
 		sessionID = request.POST['sessionID']
 
-		#PATIENT INFO FROM LOGIN DATA
-		patientInfo_patientName = request.POST['name']
-		patientInfo_patientSurname = request.POST['surname']
-		patientInfo_patientEhrid = request.POST['ehrid']
-
+		patientInfo_patientName = None
+		patientInfo_patientSurname = None
+		patientInfo_patientEhrid = None
 
 		print("*****SESSION ID*****   ",sessionID)
 
 		print("\n\n*****USER STATUS*****\nUser: ",request.user,"\nIs authenticated: ",request.user.is_authenticated,"\n\n")
 
 		user_status = request.user.is_authenticated
+
+		if user_status:
+			#PATIENT INFO FROM LOGIN DATA
+			patientInfo_patientName = request.POST['name']
+			patientInfo_patientSurname = request.POST['surname']
+			patientInfo_patientEhrid = request.POST['ehrid']
+
 		#	Get user ehrid
 		#user_ehrid = request.user.ehrid
 
