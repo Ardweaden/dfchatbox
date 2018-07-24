@@ -9,17 +9,17 @@ $(document).ready(function(){
     $("#socketchatbox-sendFileBtn").css("background","#9a969a");
     $(".arrow-right").css("border-left","25px solid #bcbabb");
 
-    user_status = localStorage.getItem("logged-in");
+    user_status = sessionStorage.getItem("logged-in");
 
     console.log("user status is: " + user_status);
 
     if (user_status == 1) {
         $("#login-logout").css("background-color","green");
-        $("#socketchatbox-username").text(localStorage.getItem("username"));
-        global_username = localStorage.getItem("username");
-        patientInfo_name = localStorage.getItem("patientInfo_name");
-        patientInfo_lastname = localStorage.getItem("patientInfo_lastname");
-        patientInfo_ehrid = localStorage.getItem("patientInfo_ehrid");
+        $("#socketchatbox-username").text(sessionStorage.getItem("username"));
+        global_username = sessionStorage.getItem("username");
+        patientInfo_name = sessionStorage.getItem("patientInfo_name");
+        patientInfo_lastname = sessionStorage.getItem("patientInfo_lastname");
+        patientInfo_ehrid = sessionStorage.getItem("patientInfo_ehrid");
     }
     else {
         $("#login-logout").css("background-color","red");
@@ -597,7 +597,7 @@ $("#toLogin").click(function(){
     console.log("It runs login-logout click");
 
     try {
-        if (localStorage.getItem("logged-in") == 0) {
+        if (sessionStorage.getItem("logged-in") != 1) {
             console.log("NOT LOGGED IN");
             height = $(".socketchatbox-page").height() -  $("#socketchatbox-top").height();
             width = $(".socketchatbox-page").width();
@@ -634,11 +634,11 @@ $("#submit").click(function(e){
             $("#login-page").hide();
             $("#logout-page").show();
 
-            localStorage.setItem("logged-in", 1);
-            localStorage.setItem("username", response["username"]);
-            localStorage.setItem("patientInfo_name", response["name"]);
-            localStorage.setItem("patientInfo_lastname", response["surname"]);
-            localStorage.setItem("patientInfo_ehrid", response["ehrid"]);
+            sessionStorage.setItem("logged-in", 1);
+            sessionStorage.setItem("username", response["username"]);
+            sessionStorage.setItem("patientInfo_name", response["name"]);
+            sessionStorage.setItem("patientInfo_lastname", response["surname"]);
+            sessionStorage.setItem("patientInfo_ehrid", response["ehrid"]);
 
             $("#socketchatbox-username").text(response["username"]);
             $("#login-logout").css("background-color","green");
@@ -667,8 +667,8 @@ $("#logout").click(function(){
         console.log(response);
         $("#logout-page").hide();
         $("#login-page").show();
-        localStorage.setItem("logged-in",0);
-        localStorage.setItem("username",response["username"]);
+        sessionStorage.setItem("logged-in",0);
+        sessionStorage.setItem("username",response["username"]);
         $("#socketchatbox-username").text(response["username"]);
         $("#login-logout").css("background-color","red");
         global_username = "Uporabnik";
