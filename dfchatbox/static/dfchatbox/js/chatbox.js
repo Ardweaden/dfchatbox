@@ -645,7 +645,7 @@ $("#submit").click(function(e){
 
             global_username = response["username"];
             patientInfo_name = response["name"];
-            patientInfo_lastname = response["lastname"];
+            patientInfo_lastname = response["surname"];
             patientInfo_ehrid = response["ehrid"];
         }
         else {
