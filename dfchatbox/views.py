@@ -32,6 +32,9 @@ def index(request):
 		message = request.POST['message']
 		sessionID = request.POST['sessionID']
 
+
+		#	Mi lahko dejansko iz requesta dobimo identiteto uporabnika
+
 		patientInfo_patientName = None
 		patientInfo_patientSurname = None
 		patientInfo_patientEhrid = None
@@ -47,6 +50,7 @@ def index(request):
 			patientInfo_patientName = request.POST['name']
 			patientInfo_patientSurname = request.POST['surname']
 			patientInfo_patientEhrid = request.POST['ehrid']
+
 
 		#	Get user ehrid
 		#user_ehrid = request.user.ehrid
@@ -286,6 +290,7 @@ def webhook(request):
 			)
 
 	#	Checks if user has permission to search for the requested info
+	#	Decides whether he has permition based on data received from Dialogflow
 	if not PermissionCompliant(answer_json):
 		#warning = "Opozorilo: Nimate dovoljenja za to poizvedbo. "
 		fullAccess = False
