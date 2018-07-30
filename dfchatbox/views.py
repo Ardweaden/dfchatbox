@@ -365,15 +365,16 @@ def PermissionCompliant(answer_json):
 	# parameter_name =answer_json['result']['parameters']['given-name']
 	# parameter_last_name =answer_json['result']['parameters']['last-name']
 
-	ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	# ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
 
-	#	Get user permissions
-	#
+	# #	Get user permissions
+	# #
 
-	if ehrid == "d8dcc924-edaf-4df5-8b84-e9e6d0ec590f":
-		return True
-	else:
-		return False
+	# if ehrid == "d8dcc924-edaf-4df5-8b84-e9e6d0ec590f":
+	# 	return True
+	# else:
+	# 	return False
+	return True
 
 def getPatientInfoData(answer_json):
 
