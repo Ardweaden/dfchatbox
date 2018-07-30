@@ -522,6 +522,21 @@ function communicate(message,j){
 
             }
 
+        else if (response_type == "PatientList") {
+            console.log(data)
+
+            reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data + '</span><br></div></div>'
+
+            $(".socketchatbox-chatArea").append(reply_others);
+
+            disable_input(false);
+
+            $("#inputField").focus();
+
+            document.getElementById("wrapper-others" + j).scrollIntoView({behavior: "smooth"});
+
+        }
+
            
         }
         catch(err) {

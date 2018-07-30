@@ -52,14 +52,15 @@ def index(request):
 			# patientInfo_patientSurname = request.POST['surname']
 			# patientInfo_patientEhrid = request.POST['ehrid']
 
-			patientInfo_patientName = request.user.name
-			patientInfo_patientSurname = request.user.surname
-			patientInfo_patientEhrid = request.user.ehrid
-
 			if hasattr(request.user,"doctor"):
 				patientInfo_isDoctor = True
+				patientInfo_patientName = request.user.doctor.name
+				patientInfo_patientSurname = request.user.doctor.surname
 			else:
 				patientInfo_isDoctor = False
+				patientInfo_patientName = request.user.patient.name
+				patientInfo_patientSurname = request.user.patient.surname
+				patientInfo_patientEhrid = request.user.patient.ehrid
 
 		#	Get user ehrid
 		#user_ehrid = request.user.ehrid
@@ -328,6 +329,10 @@ def webhook(request):
 	if parameter_action == "searchEntries":
 		print("searchForEntry")
 		json_response = searchForEntry(answer_json)
+		print(json_response)
+	if parameter_action == "myPatients":
+		print("myPatients")
+		json_response = getMyPatients(answer_json)
 		print(json_response)
 
 	if "new_name" in json_response:
@@ -1107,3 +1112,31 @@ def searchForEntry(answer_json):
 	#json_response['data'] = json_entries
 
 	return json_response
+
+
+def getMyPatients(answer_json):
+	isDoctor = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
+
+	json_response = {"responseType": "PatientList"}
+
+	if isDoctor == "True":
+		doctor_name = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
+		doctor_surname = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+
+		doctor = Doctor.objects.get(name=doctor_name,surname=doctor_surname)
+		all_patients = list(doctor.patient_set.all())
+
+		all_patients = [patient["name"].title() + " " + patient["surname"].title() for patient in all_patients]
+		print("\nPATIENTS:")
+		print(all_patients)
+
+		json_response['url'] = "/"
+		json_response['answer'] = "Našel sem vse vaše paciente: "
+		json_response['data'] = all_patients
+		return json_response
+
+	else:
+		json_response['url'] = "/"
+		json_response['answer'] = "Ta poizvedba ni veljavna. Ste morda želeli iskati svojega zdravnika?"
+		json_response['data'] = ""
+		return json_response
