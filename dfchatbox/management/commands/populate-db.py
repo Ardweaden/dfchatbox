@@ -77,7 +77,7 @@ class Command(BaseCommand):
             name = names[i][0]
             surname = names[i][1]
             ehrid = res[i]
-            doctor_name = Doctor.objects.get(id=1)
+            doctor_name = Doctor.objects.get(surname="Jezeršek")
 
             new_patient = Patient.objects.create(user=user,name=name,surname=surname,ehrid=ehrid,doctor_name=doctor_name)
             new_patient.save()

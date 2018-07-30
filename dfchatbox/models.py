@@ -18,12 +18,17 @@ class Patient(models.Model):
 
     fullAccess = False
 
+    def __str__(self):
+        return "Patient " + self.name + " " + self.surname
+
 
 class Doctor(models.Model):
     """docstring for Doctor"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
-    patients = models.ManyToManyField(Patient, blank=True)
 
     fullAccess = True
+
+    def __str__(self):
+        return "Doctor " + self.name + " " + self.surname
