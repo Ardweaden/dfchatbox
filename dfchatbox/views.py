@@ -1130,7 +1130,7 @@ def getMyPatients(answer_json):
 		doctor = Doctor.objects.get(name=doctor_name,surname=doctor_surname)
 		all_patients = list(doctor.patient_set.all())
 
-		all_patients = [patient["name"].title() + " " + patient["surname"].title() for patient in all_patients]
+		all_patients = [patient.name.title() + " " + patient.surname.title() for patient in all_patients]
 		print("\nPATIENTS:")
 		print(all_patients)
 
