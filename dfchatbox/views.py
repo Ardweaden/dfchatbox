@@ -38,6 +38,7 @@ def index(request):
 		patientInfo_patientName = None
 		patientInfo_patientSurname = None
 		patientInfo_patientEhrid = None
+		patientInfo_isDoctor = None
 
 		print("*****SESSION ID*****   ",sessionID)
 
@@ -47,10 +48,18 @@ def index(request):
 
 		if user_status:
 			#PATIENT INFO FROM LOGIN DATA
-			patientInfo_patientName = request.POST['name']
-			patientInfo_patientSurname = request.POST['surname']
-			patientInfo_patientEhrid = request.POST['ehrid']
+			# patientInfo_patientName = request.POST['name']
+			# patientInfo_patientSurname = request.POST['surname']
+			# patientInfo_patientEhrid = request.POST['ehrid']
 
+			patientInfo_patientName = request.user.name
+			patientInfo_patientSurname = request.user.surname
+			patientInfo_patientEhrid = request.user.ehrid
+
+			if hasattr(request.user,"doctor"):
+				patientInfo_isDoctor = True
+			else:
+				patientInfo_isDoctor = False
 
 		#	Get user ehrid
 		#user_ehrid = request.user.ehrid
@@ -88,6 +97,7 @@ def index(request):
 		  "user_ehrid": patientInfo_patientEhrid,
 		  "user_patientName": patientInfo_patientName,
 		  "user_patientSurname": patientInfo_patientSurname,
+		  "user_isDoctor": patientInfo_isDoctor
 		  }
 		}]
 
