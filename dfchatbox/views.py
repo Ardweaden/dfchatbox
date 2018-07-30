@@ -1120,7 +1120,7 @@ def getMyPatients(answer_json):
 
 	json_response = {"responseType": "PatientList"}
 
-	if isDoctor == "True":
+	if isDoctor == "true":
 		doctor_name = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
 		doctor_surname = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
 
