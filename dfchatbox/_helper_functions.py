@@ -283,12 +283,12 @@ def closestPatientName(enteredName,database=0):
     else:
         patientNames = list(Patient.objects.values("name","surname"))
         for i in patientNames:
-            LevDist = weightedLevenshteinDistance(list((i.name,i.surname)),enteredName,hung=1)
+            LevDist = weightedLevenshteinDistance(list((i["name"],i["surname"])),enteredName,hung=1)
 
             if LevDist <= minimum:
-                bestPerformers.append((i.name,i.surname))
+                bestPerformers.append((i["name"],i["surname"]))
                 minimum = LevDist
-            print("Weighted Levenshtein distance between ",enteredName," and ",list((i.name,i.surname))," is: ",LevDist)
+            print("Weighted Levenshtein distance between ",enteredName," and ",list((i["name"],i["surname"]))," is: ",LevDist)
 
     print(bestPerformers)
     print(minimum)
