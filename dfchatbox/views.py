@@ -6,6 +6,10 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
 from django.contrib.auth import login,authenticate,logout
+from django.contrib.auth.models import User
+
+from dfchatbox._helper_functions import *
+from dfchatbox.models import Patient,Doctor
 
 import re
 import imgkit
@@ -21,7 +25,6 @@ import requests
 import base64
 from datetime import datetime
 import numpy as np
-from dfchatbox._helper_functions import *
 
 # Create your views here.
 # -*- coding: utf-8 -*-
@@ -1141,3 +1144,15 @@ def getMyPatients(answer_json):
 		json_response['answer'] = "Ta poizvedba ni veljavna. Ste morda želeli iskati svojega zdravnika?"
 		json_response['data'] = ""
 		return json_response
+
+def getMyDoctor(answer_json):
+	json_response = {"responseType": "PatientList"}
+
+	doctor = str(Patient.doctor_name.name) + " " + str(Patient.doctor_name.surname)
+
+	json_response['url'] = "/"
+	json_response['answer'] = "To je seznam vaših zdravnikov: "
+	json_response['data'] = doctor
+
+	return json_response
+
