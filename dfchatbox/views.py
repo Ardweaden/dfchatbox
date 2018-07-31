@@ -337,6 +337,10 @@ def webhook(request):
 		print("myPatients")
 		json_response = getMyPatients(answer_json)
 		print(json_response)
+	if parameter_action == "myDoctor":
+		print("myDoctor")
+		json_response = getMyDoctor(answer_json)
+		print(json_response)
 
 	if "new_name" in json_response:
 		new_name = json_response["new_name"]
@@ -1148,11 +1152,19 @@ def getMyPatients(answer_json):
 def getMyDoctor(answer_json):
 	json_response = {"responseType": "PatientList"}
 
-	doctor = str(Patient.doctor_name.name) + " " + str(Patient.doctor_name.surname)
+	isDoctor = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
 
-	json_response['url'] = "/"
-	json_response['answer'] = "To je seznam vaših zdravnikov: "
-	json_response['data'] = doctor
+	if isDoctor != "true":
+		doctor = str(Patient.doctor_name.name) + " " + str(Patient.doctor_name.surname)
 
-	return json_response
+		json_response['url'] = "/"
+		json_response['answer'] = "To je seznam vaših zdravnikov: "
+		json_response['data'] = doctor
+
+		return json_response
+	else:
+		json_response['url'] = "/"
+		json_response['answer'] = "Ta poizvedba ni veljavna. Ste morda želeli iskati svoje paciente?"
+		json_response['data'] = ""
+		return json_response
 
