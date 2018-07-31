@@ -1156,7 +1156,12 @@ def getMyDoctor(answer_json):
 
 	if isDoctor == "false":
 		print("Not a doctor, get my doctor!")
-		doctor = str(Patient.doctor_name.name) + " " + str(Patient.doctor_name.surname)
+		name = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
+		surname = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+
+		patient = Patient.objects.get(name=name,surname=surname)
+
+		doctor = str(patient.doctor_name.name) + " " + str(patient.doctor_name.surname)
 
 		json_response['url'] = "/"
 		json_response['answer'] = "To je seznam vaših zdravnikov: "
