@@ -286,7 +286,7 @@ def webhook(request):
 	json_response = {}
 	response_data = {}
 	warning = ""
-	fullAccess = True
+	fullAccess = PermissionCompliant(answer_json)
 	answer = "Prosim ponovno postavite zahtevo."
 
 	#	Checks if user is logged in
@@ -302,12 +302,6 @@ def webhook(request):
 			json.dumps(response_data, indent=4),
 			content_type="application/json"
 			)
-
-	#	Checks if user has permission to search for the requested info
-	#	Decides whether he has permition based on data received from Dialogflow
-	if not PermissionCompliant(answer_json):
-		#warning = "Opozorilo: Nimate dovoljenja za to poizvedbo. "
-		fullAccess = False
 
 	answer_json["fullAccess"] = fullAccess
 
@@ -369,19 +363,23 @@ def webhook(request):
 			)
 
 def PermissionCompliant(answer_json):
-	# parameter_name =answer_json['result']['parameters']['given-name']
-	# parameter_last_name =answer_json['result']['parameters']['last-name']
+	isDoctor = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
 
-	# ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	if isDoctor == "true":
+		name = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
+		surname = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
 
-	# #	Get user permissions
-	# #
+		user = Doctor.objects.get(name=name,surname=surname)
 
-	# if ehrid == "d8dcc924-edaf-4df5-8b84-e9e6d0ec590f":
-	# 	return True
-	# else:
-	# 	return False
-	return True
+		return user.fullAccess
+	
+	else:
+		name = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
+		surname = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+
+		user = Patient.objects.get(name=name,surname=surname)
+
+		return user.fullAccess
 
 def getPatientInfoData(answer_json):
 
