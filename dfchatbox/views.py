@@ -767,7 +767,7 @@ def getAllEntries(answer_json):
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
 
 	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "":
-		parameter_ehrid == context["parameters"]["user_ehrid"]
+		parameter_ehrid = context["parameters"]["user_ehrid"]
 
 	if parameter_ehrid == "":
 		r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
@@ -898,7 +898,7 @@ def getEntryData(answer_json):
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
 
 	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "":
-		parameter_ehrid == context["parameters"]["user_ehrid"]
+		parameter_ehrid = context["parameters"]["user_ehrid"]
 		
 	if not(parameter_ehrid):
 		r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
@@ -1069,7 +1069,8 @@ def searchForEntry(answer_json):
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
 
 	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "":
-		parameter_ehrid == context["parameters"]["user_ehrid"]
+		print("ARE YOU FUCKING KIDDING ME? SET THE FUCKING PARAMETER EHRID HERE")
+		parameter_ehrid = context["parameters"]["user_ehrid"]
 
 	if not(parameter_ehrid):
 		r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
