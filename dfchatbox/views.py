@@ -564,11 +564,14 @@ def getECGResultsData(answer_json):
 
 	################################################################## PERMISSIONS ###################################################################
 	fullAccess = answer_json["fullAccess"]
+	context = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]
 
-	if fullAccess == "false":
-		allowed_ehrids = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
-	elif [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"][0] == "true":
-		doctor = Doctor.objects.get()
+	if fullAccess == False:
+		allowed_ehrids = [context["parameters"]["user_ehrid"]]
+	elif context["parameters"]["user_isDoctor"] == "true":
+		name = context["parameters"]["user_patientName"]
+		surname = context["parameters"]["user_patientSurname"]
+		doctor = Doctor.objects.get(name=name,surname=surname)
 		allowed_ehrids = doctor.patient_set.all()
 		allowed_ehrids = [i.ehrid for i in allowed_ehrids]
 
@@ -715,11 +718,14 @@ def getECGResultsData(answer_json):
 def getAllEntries(answer_json):
 	################################################################## PERMISSIONS ###################################################################
 	fullAccess = answer_json["fullAccess"]
+	context = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]
 
-	if fullAccess == "false":
-		allowed_ehrids = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
-	elif [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"][0] == "true":
-		doctor = Doctor.objects.get()
+	if fullAccess == False:
+		allowed_ehrids = [context["parameters"]["user_ehrid"]]
+	elif context["parameters"]["user_isDoctor"] == "true":
+		name = context["parameters"]["user_patientName"]
+		surname = context["parameters"]["user_patientSurname"]
+		doctor = Doctor.objects.get(name=name,surname=surname)
 		allowed_ehrids = doctor.patient_set.all()
 		allowed_ehrids = [i.ehrid for i in allowed_ehrids]
 
@@ -823,11 +829,14 @@ def getAllEntries(answer_json):
 def getEntryData(answer_json):
 	################################################################## PERMISSIONS ###################################################################
 	fullAccess = answer_json["fullAccess"]
+	context = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]
 
-	if fullAccess == "false":
-		allowed_ehrids = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
-	elif [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"][0] == "true":
-		doctor = Doctor.objects.get()
+	if fullAccess == False:
+		allowed_ehrids = [context["parameters"]["user_ehrid"]]
+	elif context["parameters"]["user_isDoctor"] == "true":
+		name = context["parameters"]["user_patientName"]
+		surname = context["parameters"]["user_patientSurname"]
+		doctor = Doctor.objects.get(name=name,surname=surname)
 		allowed_ehrids = doctor.patient_set.all()
 		allowed_ehrids = [i.ehrid for i in allowed_ehrids]
 
@@ -974,7 +983,7 @@ def searchForEntry(answer_json):
 	context = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]
 
 	if fullAccess == False:
-		allowed_ehrids = context["parameters"]["user_ehrid"]
+		allowed_ehrids = [context["parameters"]["user_ehrid"]]
 	elif context["parameters"]["user_isDoctor"] == "true":
 		name = context["parameters"]["user_patientName"]
 		surname = context["parameters"]["user_patientSurname"]
@@ -1059,6 +1068,14 @@ def searchForEntry(answer_json):
 			json_response['new_lastname'] = parameter_last_name
 
 	if ehrId != '':
+		
+		if ehrId not in allowed_ehrids:
+			json_response['url'] = "/"
+			json_response['answer'] = "Nimate dovoljenja za to poizvedbo."
+			json_response['data'] = []
+
+			return json_response
+
 		aql = "/query?aql=select a from EHR e[ehr_id/value='{}'] contains COMPOSITION a".format(ehrId)
 
 		queryUrl = baseUrl + aql
