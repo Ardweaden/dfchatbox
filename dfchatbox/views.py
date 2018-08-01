@@ -1079,6 +1079,8 @@ def searchForEntry(answer_json):
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
 			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
 
+	print("\nFUCKING PARAMETER EHRID REEE\n",parameter_ehrid)
+
 	if parameter_ehrid != "":
 		ehrId = str(parameter_ehrid)
 	elif ehrId == "":
