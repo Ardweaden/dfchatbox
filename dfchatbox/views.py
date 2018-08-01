@@ -972,7 +972,7 @@ def searchForEntry(answer_json):
 	################################################################## PERMISSIONS ###################################################################
 	fullAccess = answer_json["fullAccess"]
 
-	if fullAccess == "false":
+	if fullAccess == "false" or fullAccess == "False":
 		allowed_ehrids = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
 	elif [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"][0] == "true":
 		doctor = Doctor.objects.get()
