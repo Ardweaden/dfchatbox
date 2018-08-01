@@ -288,6 +288,7 @@ def webhook(request):
 	warning = ""
 	fullAccess = PermissionCompliant(answer_json)
 	answer = "Prosim ponovno postavite zahtevo."
+	print("\nFull access: ",fullAccess,"\n")
 
 	#	Checks if user is logged in
 	if [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["is_authenticated"] == "false" and parameter_action != "patientInfo":
@@ -431,7 +432,13 @@ def getLabResultsData(answer_json):
 	fullAccess = answer_json["fullAccess"]
 
 	if fullAccess == "false":
-		check_user_ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+		allowed_ehrids = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	elif answer_json[""] == "true":
+		doctor = Doctor.objects.get()
+		allowed_ehrids = doctor.patient_set.all()
+		allowed_ehrids = [i.ehrid for i in allowed_ehrids]
+
+	print("\nALLOWED EHRIDS: \n",allowed_ehrids)
 	##################################################################################################################################################
 
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
@@ -559,7 +566,13 @@ def getECGResultsData(answer_json):
 	fullAccess = answer_json["fullAccess"]
 
 	if fullAccess == "false":
-		check_user_ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+		allowed_ehrids = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	elif answer_json[""] == "true":
+		doctor = Doctor.objects.get()
+		allowed_ehrids = doctor.patient_set.all()
+		allowed_ehrids = [i.ehrid for i in allowed_ehrids]
+
+	print("\nALLOWED EHRIDS: \n",allowed_ehrids)
 	##################################################################################################################################################
 
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
@@ -704,7 +717,13 @@ def getAllEntries(answer_json):
 	fullAccess = answer_json["fullAccess"]
 
 	if fullAccess == "false":
-		check_user_ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+		allowed_ehrids = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	elif answer_json[""] == "true":
+		doctor = Doctor.objects.get()
+		allowed_ehrids = doctor.patient_set.all()
+		allowed_ehrids = [i.ehrid for i in allowed_ehrids]
+
+	print("\nALLOWED EHRIDS: \n",allowed_ehrids)
 	##################################################################################################################################################
 
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
@@ -806,7 +825,13 @@ def getEntryData(answer_json):
 	fullAccess = answer_json["fullAccess"]
 
 	if fullAccess == "false":
-		check_user_ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+		allowed_ehrids = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	elif answer_json[""] == "true":
+		doctor = Doctor.objects.get()
+		allowed_ehrids = doctor.patient_set.all()
+		allowed_ehrids = [i.ehrid for i in allowed_ehrids]
+
+	print("\nALLOWED EHRIDS: \n",allowed_ehrids)
 	##################################################################################################################################################
 
 	print("\n\n ############################################################## \n\n")
@@ -948,7 +973,13 @@ def searchForEntry(answer_json):
 	fullAccess = answer_json["fullAccess"]
 
 	if fullAccess == "false":
-		check_user_ehrid = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+		allowed_ehrids = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
+	elif answer_json[""] == "true":
+		doctor = Doctor.objects.get()
+		allowed_ehrids = doctor.patient_set.all()
+		allowed_ehrids = [i.ehrid for i in allowed_ehrids]
+
+	print("\nALLOWED EHRIDS: \n",allowed_ehrids)
 	##################################################################################################################################################
 
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
