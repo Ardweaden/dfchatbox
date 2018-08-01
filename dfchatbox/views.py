@@ -971,11 +971,14 @@ def getEntryData(answer_json):
 def searchForEntry(answer_json):
 	################################################################## PERMISSIONS ###################################################################
 	fullAccess = answer_json["fullAccess"]
+	print("FUCKINNG HELL\n",[context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"][0])
 
 	if fullAccess == "false" or fullAccess == "False":
 		allowed_ehrids = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
 	elif [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"][0] == "true":
-		doctor = Doctor.objects.get()
+		name = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
+		surname = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+		doctor = Doctor.objects.get(name=name,surname=surname)
 		allowed_ehrids = doctor.patient_set.all()
 		allowed_ehrids = [i.ehrid for i in allowed_ehrids]
 
