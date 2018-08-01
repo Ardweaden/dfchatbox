@@ -640,6 +640,14 @@ def getECGResultsData(answer_json):
 
 	#User wants to see lab results for a specific date or date period.
 	if ehrId != '':
+
+		if ehrId not in allowed_ehrids:
+			json_response['url'] = "/"
+			json_response['answer'] = "Nimate dovoljenja za to poizvedbo."
+			json_response['data'] = []
+
+			return json_response
+
 		parameter_date_range =answer_json['result']['parameters']['date-period']
 		parameter_date =answer_json['result']['parameters']['date']
 
@@ -758,6 +766,9 @@ def getAllEntries(answer_json):
 	#Use provided ehrid
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
 
+	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "":
+		parameter_ehrid == context["parameters"]["user_ehrid"]
+		
 	if parameter_ehrid == "":
 		r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
 
@@ -792,6 +803,14 @@ def getAllEntries(answer_json):
 			json_response['new_lastname'] = parameter_last_name
 
 	if ehrId != '':
+
+		if ehrId not in allowed_ehrids:
+			json_response['url'] = "/"
+			json_response['answer'] = "Nimate dovoljenja za to poizvedbo."
+			json_response['data'] = []
+
+			return json_response
+
 		json_response['ehrid'] = ehrId
 
 		aql = "/query?aql=select a from EHR e[ehr_id/value='{}'] contains COMPOSITION a".format(ehrId)
@@ -910,6 +929,14 @@ def getEntryData(answer_json):
 			json_response['new_lastname'] = parameter_last_name
 
 	if ehrId != '':
+
+		if ehrId not in allowed_ehrids:
+			json_response['url'] = "/"
+			json_response['answer'] = "Nimate dovoljenja za to poizvedbo."
+			json_response['data'] = []
+
+			return json_response
+
 		aql = "/query?aql=select a from EHR e[ehr_id/value='{}'] contains COMPOSITION a".format(ehrId)
 
 		queryUrl = baseUrl + aql
@@ -1068,7 +1095,7 @@ def searchForEntry(answer_json):
 			json_response['new_lastname'] = parameter_last_name
 
 	if ehrId != '':
-		
+
 		if ehrId not in allowed_ehrids:
 			json_response['url'] = "/"
 			json_response['answer'] = "Nimate dovoljenja za to poizvedbo."
