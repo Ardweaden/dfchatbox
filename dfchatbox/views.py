@@ -768,7 +768,7 @@ def getAllEntries(answer_json):
 
 	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "":
 		parameter_ehrid == context["parameters"]["user_ehrid"]
-		
+
 	if parameter_ehrid == "":
 		r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
 
@@ -894,17 +894,22 @@ def getEntryData(answer_json):
 	if parameter_last_name != "":
 		searchData.append({"key": "lastNames", "value": parameter_last_name})
 
-	r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
-
-	if r.status_code == 200:
-		js = json.loads(r.text)
-		ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-		print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-		answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
-
 	#Use provided ehrid
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
 
+	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "":
+		parameter_ehrid == context["parameters"]["user_ehrid"]
+		
+	if not(parameter_ehrid)
+		r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
+
+		if r.status_code == 200:
+			js = json.loads(r.text)
+			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
+			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
+			answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
+
+	
 	if parameter_ehrid != "":
 		ehrId = str(parameter_ehrid)
 	else:
@@ -1063,7 +1068,10 @@ def searchForEntry(answer_json):
 	#Use provided ehrid
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
 
-	if parameter_ehrid == "":
+	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "":
+		parameter_ehrid == context["parameters"]["user_ehrid"]
+
+	if not(parameter_ehrid):
 		r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
 
 		if r.status_code == 200:
