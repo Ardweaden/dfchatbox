@@ -223,11 +223,27 @@ def login_page(request):
 
 			#	GET NAME, SURNAME AND EHRID FROM DATABASE
 			#	FOR NOW I'LL HAVE DEFAULTS
-			name = "mary"
-			surname = "wilkinson"
-			ehrid = "d8dcc924-edaf-4df5-8b84-e9e6d0ec590f"
+			# name = "mary"
+			# surname = "wilkinson"
+			# ehrid = "d8dcc924-edaf-4df5-8b84-e9e6d0ec590f"
 
-			return JsonResponse(json.dumps({'success': 1, 'message': 'Prijava je bila uspešna',"username": request.POST["username"], "name": name, "surname": surname, "ehrid": ehrid}),safe=False)
+			if hasattr(user,"doctor"):
+				isDoctor = True
+				name = user.doctor.name
+				surname = user.doctor.surname
+				ehrid = ""
+				patients = user.doctor.patient_set.all()
+				patients = [patient.name + " " + patient.surname for patient in patients]
+				patients = json.dumps(patients)
+			else:
+				isDoctor = False
+				name = user.patient.name
+				surname = user.patient.surname
+				ehrid = user.patient.ehrid
+				patients = []
+
+
+			return JsonResponse(json.dumps({'success': 1, 'message': 'Prijava je bila uspešna',"username": request.POST["username"], "name": name, "surname": surname, "ehrid": ehrid, "isDoctor": isDoctor, "patients": patients}),safe=False)
 		else:
 			return JsonResponse(json.dumps({'success': 0, 'message': 'Napačno ime ali geslo',"username": "Uporabnik"}),safe=False)
 
@@ -1256,4 +1272,6 @@ def getMyDoctor(answer_json):
 		json_response['answer'] = "Ta poizvedba ni veljavna. Ste morda želeli iskati svoje paciente?"
 		json_response['data'] = ""
 		return json_response
+
+
 

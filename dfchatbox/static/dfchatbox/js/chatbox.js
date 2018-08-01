@@ -1,7 +1,7 @@
 //INIT
 var j = 0;
 var global_username = "Uporabnik";
-var patientInfo_name, patientInfo_lastname, patientInfo_ehrid;
+var patientInfo_name, patientInfo_lastname, patientInfo_ehrid,patientInfo_patients;
 
 $(document).ready(function(){
     //localStorage.removeItem("sessionID");
@@ -20,6 +20,7 @@ $(document).ready(function(){
         patientInfo_name = sessionStorage.getItem("patientInfo_name");
         patientInfo_lastname = sessionStorage.getItem("patientInfo_lastname");
         patientInfo_ehrid = sessionStorage.getItem("patientInfo_ehrid");
+        patientInfo_isDoctor = sessionStorage.getItem("patientInfo_isDoctor");
     }
     else {
         $("#login-logout").css("background-color","red");
@@ -27,7 +28,7 @@ $(document).ready(function(){
     //console.log("SESSION ID: " + localStorage.getItem("sessionID"));
 
 
-    console.log("\npatientInfo_name: " + patientInfo_name + "\npatientInfo_lastname: " + patientInfo_lastname + "\npatientInfo_ehrid: " + patientInfo_ehrid);
+    console.log("\npatientInfo_name: " + patientInfo_name + "\npatientInfo_lastname: " + patientInfo_lastname + "\npatientInfo_ehrid: " + patientInfo_ehrid + "\npatientInfo_isDoctor: " + patientInfo_isDoctor);
 });
 
 $(".socketchatbox-page").keydown(function(t){
@@ -654,6 +655,10 @@ $("#submit").click(function(e){
             sessionStorage.setItem("patientInfo_name", response["name"]);
             sessionStorage.setItem("patientInfo_lastname", response["surname"]);
             sessionStorage.setItem("patientInfo_ehrid", response["ehrid"]);
+            sessionStorage.setItem("patientInfo_isDoctor", response["isDoctor"]);
+            sessionStorage.setItem("patientInfo_patients", response["patients"].toString());
+
+            console.log(response["patients"].toString());
 
             $("#socketchatbox-username").text(response["username"]);
             $("#login-logout").css("background-color","green");
@@ -662,6 +667,7 @@ $("#submit").click(function(e){
             patientInfo_name = response["name"];
             patientInfo_lastname = response["surname"];
             patientInfo_ehrid = response["ehrid"];
+            patientInfo_patients = JSON.parse(response["patients"]);
         }
         else {
             document.getElementById("info").innerHTML = response["message"]
@@ -688,7 +694,44 @@ $("#logout").click(function(){
         $("#login-logout").css("background-color","red");
         global_username = "Uporabnik";
     })
-})
+});
+
+//AUTOCOMPLETE WHEN USER IS DOCTOR
+$(".socketchatbox-inputMessage-div").keydown(function(t){
+    if (sessionStorage.getItem("patientInfo_isDoctor") == "true" && sessionStorage.getItem("logged-in") == 1 && t.which >= 65 && t.which <= 90 ) {
+
+        console.log(t);
+        var key = t.key.toLowerCase();
+        var patients = JSON.parse(sessionStorage.getItem("patientInfo_patients"));
+
+        current_word = sessionStorage.getItem("current_word");
+
+        if (current_word == null) {
+            current_word = key;
+            sessionStorage.setItem("current_word",current_word);
+        }
+        else {
+            current_word = current_word + key;
+            sessionStorage.setItem("current_word",current_word);
+        }
+
+
+        for (var i = 0; i < patients.length; i++) {
+            console.log("Checking " + patients[i] + " with " + current_word);
+            if (patients[i].startsWith(current_word)) {
+                console.log("Recommendation is: " + patients[i]);
+                break;
+            }
+            
+        }
+
+    }
+    else {
+        console.log("He's not a doc, we won't AUTOCOMPLETE!!!");
+        sessionStorage.setItem("current_word","");
+        return
+    }
+});
 
 //PROCESSES DATA FROM INPUT FIELD WHEN USER CLICKS ENTER
 $(".socketchatbox-page").keydown(function(t){
