@@ -900,7 +900,7 @@ def getEntryData(answer_json):
 	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "":
 		parameter_ehrid == context["parameters"]["user_ehrid"]
 		
-	if not(parameter_ehrid)
+	if not(parameter_ehrid):
 		r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
 
 		if r.status_code == 200:
