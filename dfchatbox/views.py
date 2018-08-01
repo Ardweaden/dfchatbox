@@ -971,7 +971,7 @@ def getEntryData(answer_json):
 def searchForEntry(answer_json):
 	################################################################## PERMISSIONS ###################################################################
 	fullAccess = answer_json["fullAccess"]
-	print("FUCKINNG HELL\n",[context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"])
+	print("FUCKINNG HELL\n",fullAccess)
 	context = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]
 
 	if fullAccess == "false" or fullAccess == "False":
