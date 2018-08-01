@@ -766,7 +766,7 @@ def getAllEntries(answer_json):
 	#Use provided ehrid
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
 
-	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "":
+	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "" and context["parameters"]["user_isDoctor"] != "true":
 		parameter_ehrid = context["parameters"]["user_ehrid"]
 
 	if parameter_ehrid == "":
@@ -897,7 +897,7 @@ def getEntryData(answer_json):
 	#Use provided ehrid
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
 
-	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "":
+	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "" and context["parameters"]["user_isDoctor"] != "true":
 		parameter_ehrid = context["parameters"]["user_ehrid"]
 		
 	if not(parameter_ehrid):
@@ -1068,8 +1068,7 @@ def searchForEntry(answer_json):
 	#Use provided ehrid
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
 
-	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "":
-		print("ARE YOU FUCKING KIDDING ME? SET THE FUCKING PARAMETER EHRID HERE")
+	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "" and context["parameters"]["user_isDoctor"] != "true":
 		parameter_ehrid = context["parameters"]["user_ehrid"]
 
 	if not(parameter_ehrid):
@@ -1079,8 +1078,6 @@ def searchForEntry(answer_json):
 			js = json.loads(r.text)
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
 			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-
-	print("\nFUCKING PARAMETER EHRID REEE\n",parameter_ehrid)
 
 	if parameter_ehrid != "":
 		ehrId = str(parameter_ehrid)
