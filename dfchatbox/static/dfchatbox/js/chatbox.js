@@ -1,5 +1,6 @@
 //INIT
 var j = 0;
+var autocompleting = 1;
 var global_username = "Uporabnik";
 var patientInfo_name, patientInfo_lastname, patientInfo_ehrid,patientInfo_patients;
 
@@ -698,13 +699,18 @@ $("#logout").click(function(){
 
 //AUTOCOMPLETE WHEN USER IS DOCTOR
 $(".socketchatbox-inputMessage-div").keydown(function(t){
-    if (sessionStorage.getItem("patientInfo_isDoctor") == "true" && sessionStorage.getItem("logged-in") == 1 && t.which >= 65 && t.which <= 90 ) {
+    console.log(t);
+    if (sessionStorage.getItem("patientInfo_isDoctor") == "true" && sessionStorage.getItem("logged-in") == 1 && (t.which >= 65 && t.which <= 90)  || (t.which >= 186 && t.which <= 222)) {
 
-        console.log(t);
+        if (!autocompleting) {
+            return
+        }
+
         var key = t.key.toLowerCase();
         var patients = JSON.parse(sessionStorage.getItem("patientInfo_patients"));
 
         current_word = sessionStorage.getItem("current_word");
+
 
         if (current_word == null) {
             current_word = key;
@@ -718,17 +724,29 @@ $(".socketchatbox-inputMessage-div").keydown(function(t){
 
         for (var i = 0; i < patients.length; i++) {
             console.log("Checking " + patients[i] + " with " + current_word);
-            if (patients[i].startsWith(current_word)) {
+            if (patients[i].startsWith(current_word) && current_word.length > 2) {
                 console.log("Recommendation is: " + patients[i]);
-                break;
+                $("#autocomplete").html(patients[i]);
+                $("#autocomplete").css("display","block");
+                return;
             }
             
+        }
+
+        if (current_word.length > 2) {
+            console.log("WHAT THE FUCK");
+            autocompleting = 0;
+            $("#autocomplete").html("");
+            $("#autocomplete").css("display","none");
         }
 
     }
     else {
         console.log("He's not a doc, we won't AUTOCOMPLETE!!!");
         sessionStorage.setItem("current_word","");
+        autocompleting = 1;
+        $("#autocomplete").html("");
+        $("#autocomplete").css("display","none");
         return
     }
 });
