@@ -18,6 +18,14 @@ ul {
   word-wrap: break-word;
 }
 
+#autocomplete {
+  text-align: center;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  border-radius: 1px;
+  border: 1px solid #4DACFF;
+}
+
 .arrow-right {
   width: 0; 
   height: 0; 

@@ -10,6 +10,8 @@ $(document).ready(function(){
     $("#socketchatbox-sendFileBtn").css("background","#9a969a");
     $(".arrow-right").css("border-left","25px solid #bcbabb");
 
+    sessionStorage.setItem("current_word","");
+
     user_status = sessionStorage.getItem("logged-in");
 
     console.log("user status is: " + user_status);
@@ -698,28 +700,44 @@ $("#logout").click(function(){
 });
 
 //AUTOCOMPLETE WHEN USER IS DOCTOR
-$(".socketchatbox-inputMessage-div").keydown(function(t){
+$(".socketchatbox-inputMessage-div").keyup(function(t){
     console.log(t);
-    if (sessionStorage.getItem("patientInfo_isDoctor") == "true" && sessionStorage.getItem("logged-in") == 1 && (t.which >= 65 && t.which <= 90)  || (t.which >= 186 && t.which <= 222)) {
+    console.log($(this).children()[1].value);
+    if (sessionStorage.getItem("patientInfo_isDoctor") == "true" && sessionStorage.getItem("logged-in") == 1 && (t.which >= 65 && t.which <= 90)  || (t.which >= 186 && t.which <= 222) || t.which == 8 || t.which == 16 || t.which == 32 && autocompleting == 1) {
 
         if (!autocompleting) {
             return
         }
 
-        var key = t.key.toLowerCase();
-        var patients = JSON.parse(sessionStorage.getItem("patientInfo_patients"));
-
         current_word = sessionStorage.getItem("current_word");
+
+        var key = t.key.toLowerCase();
+        console.log("FUCKING KEY IS: ",key);s
+        var patients = JSON.parse(sessionStorage.getItem("patientInfo_patients"));
 
 
         if (current_word == null) {
             current_word = key;
             sessionStorage.setItem("current_word",current_word);
         }
+        else if (t.which == 8) {
+            current_word = current_word.slice(0,-1);
+            sessionStorage.setItem("current_word",current_word);
+
+            if (current_word.length <= 2) {
+                $("#autocomplete").html("");
+                $("#autocomplete").css("display","none");
+            }
+        }
+        else if (t.which == 16) {
+            return
+        }
         else {
             current_word = current_word + key;
             sessionStorage.setItem("current_word",current_word);
         }
+
+        console.log("CURRENT WORD IS : "  + current_word);
 
 
         for (var i = 0; i < patients.length; i++) {
@@ -735,7 +753,10 @@ $(".socketchatbox-inputMessage-div").keydown(function(t){
 
         if (current_word.length > 2) {
             console.log("WHAT THE FUCK");
-            autocompleting = 0;
+            sessionStorage.setItem("current_word","");
+            if (t.which != 32) {
+                autocompleting = 0;
+            }
             $("#autocomplete").html("");
             $("#autocomplete").css("display","none");
         }
@@ -749,6 +770,42 @@ $(".socketchatbox-inputMessage-div").keydown(function(t){
         $("#autocomplete").css("display","none");
         return
     }
+});
+
+//USER CLICKS THE AUTOCOMPLETE SUGGESTION
+$("#autocomplete").click(function(){
+    var name = $(this).text();
+
+    $("#autocomplete").html("");
+    $("#autocomplete").css("display","none");
+
+    current_word = sessionStorage.getItem("current_word");
+
+    var cur_input = $(".socketchatbox-inputMessage").val();
+    var new_input = cur_input.slice(0,cur_input.length-current_word.length) + name;
+
+    $(".socketchatbox-inputMessage").val(new_input);
+    $("#inputField").focus();
+});
+
+//USER CLICKS RIGHT ARROW THE AUTOCOMPLETE SUGGESTION
+$(".socketchatbox-inputMessage-div").keydown(function(t){
+    if (t.which != 39 || !$("#autocomplete").is(":visible")) {
+        return
+    }
+
+    var name = $("#autocomplete").text();
+
+    $("#autocomplete").html("");
+    $("#autocomplete").css("display","none");
+
+    current_word = sessionStorage.getItem("current_word");
+
+    var cur_input = $(".socketchatbox-inputMessage").val();
+    var new_input = cur_input.slice(0,cur_input.length-current_word.length) + name;
+
+    $(".socketchatbox-inputMessage").val(new_input);
+    $("#inputField").focus();
 });
 
 //PROCESSES DATA FROM INPUT FIELD WHEN USER CLICKS ENTER
