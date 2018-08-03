@@ -813,6 +813,9 @@ $(".socketchatbox-inputMessage-div").keydown(function(t){
 //PROCESSES DATA FROM INPUT FIELD WHEN USER CLICKS ENTER
 $(".socketchatbox-page").keydown(function(t){
     if (t.which == 13) {
+        $("#autocomplete").html("");
+        $("#autocomplete").css("display","none");
+
         var message = $(".socketchatbox-inputMessage").val();
 
         if (message == "") {
@@ -836,6 +839,9 @@ $(".socketchatbox-page").keydown(function(t){
 
 //PROCESSES DATA FROM INPUT FIELD WHEN USER CLICKS THE BUTTON
 $("#socketchatbox-sendFileBtn").click(function(t){
+    $("#autocomplete").html("");
+    $("#autocomplete").css("display","none");
+    
     var message = $(".socketchatbox-inputMessage").val();
 
     if (message == "") {
