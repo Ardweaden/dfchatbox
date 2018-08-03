@@ -2,7 +2,7 @@
 var j = 0;
 var autocompleting = 1;
 var global_username = "Uporabnik";
-var patientInfo_name, patientInfo_lastname, patientInfo_ehrid,patientInfo_patients;
+var patientInfo_name, patientInfo_lastname, patientInfo_ehrid,patientInfo_patients,patientInfo_isDoctor;
 
 $(document).ready(function(){
     //localStorage.removeItem("sessionID");
@@ -696,6 +696,8 @@ $("#logout").click(function(){
         $("#socketchatbox-username").text(response["username"]);
         $("#login-logout").css("background-color","red");
         global_username = "Uporabnik";
+        $(".socketchatbox-message-wrapper").remove();
+        j = 0;
     })
 });
 
