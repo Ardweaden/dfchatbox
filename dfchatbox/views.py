@@ -841,7 +841,7 @@ def getAllEntries(answer_json):
 		if not len(js):
 			answer = "Podani pacient nima vpisov v sistemu."
 		else:
-			answer = "Za podanega pacienta sem našel naslednje vpise v sistemu:"
+			answer = answer + "Za podanega pacienta sem našel naslednje vpise v sistemu:"
 
 			# for counter,item in enumerate(js):
 			# 	json_object['name'] = item['#0']['archetype_details']['template_id']['value']
