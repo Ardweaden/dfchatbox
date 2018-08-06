@@ -112,7 +112,7 @@ function orderKeychains(keys,values) {
   var key_chains = [];
 
   for (var i = 0; i < keys.length; i++) {
-    key_chain = keys[i].replace("|","/").split("/");
+    key_chain = keys[i].replace("|","/").replace("_"," ").replace(":0","").split("/");
     key_chains = insertIntoKeychains(key_chain,key_chains,values)
   }
 

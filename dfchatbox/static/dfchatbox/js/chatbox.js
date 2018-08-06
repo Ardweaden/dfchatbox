@@ -27,6 +27,8 @@ $(document).ready(function(){
     }
     else {
         $("#login-logout").css("background-color","red");
+        var url = window.location.href + "logout";
+        $.post(url,function(response){console.log(response)});
     }
     //console.log("SESSION ID: " + localStorage.getItem("sessionID"));
 
@@ -529,7 +531,13 @@ function communicate(message,j){
         else if (response_type == "PatientList") {
             console.log(data)
 
-            reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data + '</span><br></div></div>'
+            listOfPatients = "";
+
+            for (var i = 0; i < data.length; i++) {
+                listOfPatients = listOfPatients + data[i] + "<br>"
+            }
+
+            reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><span class="socketchatbox-messageBody socketchatbox-messageBody-others" style="width:200px;">' + listOfPatients + '</span><br></div></div>';
 
             $(".socketchatbox-chatArea").append(reply_others);
 
@@ -698,6 +706,8 @@ $("#logout").click(function(){
         global_username = "Uporabnik";
         $(".socketchatbox-message-wrapper").remove();
         sessionStorage.setItem("index",0);
+        $(".choice_btn").remove();
+        $("#showAllEntries").remove();
         j = 0;
     })
 });
