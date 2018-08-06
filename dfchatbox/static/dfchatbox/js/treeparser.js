@@ -188,4 +188,5 @@ function parseTree(data) {
   }
 
   return [result,entry_time]
+  console.log(result);
 }

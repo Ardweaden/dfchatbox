@@ -14,7 +14,7 @@ function tableFromTree(tree) {
       branch = [];
 
       for (var j = 0; j < tree[i].length; j++) {
-        branch.push(tree[i][j]['name'].replace("_"," ").replace(":0",""));
+        branch.push(tree[i][j]['name']);
 
         if (!!tree[i][j]['children']){
           offspring.push(tree[i][j]['children']);
@@ -75,10 +75,10 @@ function tableFromArray(array,colspanMatrix,widthMatrix){
         elementIndex = j + calculateShift(array[i],j);
 
         if (array[i+1][elementIndex].length == 0) {
-          row += "<th class='value' colspan='" + colspan + "' width='" + widthMatrix[i][j][k] + "%'>" + array[i][j][k].replace("_"," ").replace(":0","") + "</td>";
+          row += "<th class='value' colspan='" + colspan + "' width='" + widthMatrix[i][j][k] + "%'>" + array[i][j][k] + "</td>";
         }
         else {
-          row += "<th colspan='" + colspan + "' width='" + widthMatrix[i][j][k] + "%'>" + array[i][j][k].replace("_"," ").replace(":0","") + "</td>";
+          row += "<th colspan='" + colspan + "' width='" + widthMatrix[i][j][k] + "%'>" + array[i][j][k] + "</td>";
         }
       } 
 
