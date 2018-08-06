@@ -112,7 +112,7 @@ function orderKeychains(keys,values) {
   var key_chains = [];
 
   for (var i = 0; i < keys.length; i++) {
-    key_chain = keys[i].replace("|","/").replace("_"," ").replace(":0","").split("/");
+    key_chain = keys[i].replace("|","/").replace("/\_/g"," ").replace("/\:0/g","").split("/");
     key_chains = insertIntoKeychains(key_chain,key_chains,values);
     console.log(key_chain);
   }
@@ -160,7 +160,6 @@ function parseTree(data) {
   var subcategories = ["terminology","code","time"];
 
   key_chains = orderKeychains(keys,values);
-  console.log(key_chains);
 
   var entry_time = getEntryTime(key_chains,values);
 
@@ -189,6 +188,5 @@ function parseTree(data) {
       }
   }
 
-  console.log(result);
   return [result,entry_time]
 }
