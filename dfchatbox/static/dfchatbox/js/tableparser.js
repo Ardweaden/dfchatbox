@@ -75,10 +75,10 @@ function tableFromArray(array,colspanMatrix,widthMatrix){
         elementIndex = j + calculateShift(array[i],j);
 
         if (array[i+1][elementIndex].length == 0) {
-          row += "<th class='value' colspan='" + colspan + "' width='" + widthMatrix[i][j][k] + "%'>" + array[i][j][k] + "</td>";
+          row += "<th class='value' colspan='" + colspan + "' width='" + widthMatrix[i][j][k] + "%'>" + array[i][j][k].replace("_"," ").replace(":0","") + "</td>";
         }
         else {
-          row += "<th colspan='" + colspan + "' width='" + widthMatrix[i][j][k] + "%'>" + array[i][j][k] + "</td>";
+          row += "<th colspan='" + colspan + "' width='" + widthMatrix[i][j][k] + "%'>" + array[i][j][k].replace("_"," ").replace(":0","") + "</td>";
         }
       } 
 
