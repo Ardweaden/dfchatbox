@@ -697,6 +697,7 @@ $("#logout").click(function(){
         $("#login-logout").css("background-color","red");
         global_username = "Uporabnik";
         $(".socketchatbox-message-wrapper").remove();
+        sessionStorage.setItem("index",0);
         j = 0;
     })
 });
