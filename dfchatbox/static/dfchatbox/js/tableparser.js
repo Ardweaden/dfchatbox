@@ -14,7 +14,7 @@ function tableFromTree(tree) {
       branch = [];
 
       for (var j = 0; j < tree[i].length; j++) {
-        branch.push(tree[i][j]['name']);
+        branch.push(tree[i][j]['name'].replace("_"," ").replace(":0",""));
 
         if (!!tree[i][j]['children']){
           offspring.push(tree[i][j]['children']);
