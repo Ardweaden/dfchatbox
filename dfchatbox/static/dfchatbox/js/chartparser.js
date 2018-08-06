@@ -9,7 +9,7 @@ function rowsToGraph(data) {
 	keychains = []
 
 	for (var i = 0; i < keys.length; i++) {
-		keychains.push(keys[i].replace("|","/").split("/"));
+		keychains.push(keys[i].replace("|","/").replace("_"," ").replace(":0","").split("/"));
 	}
 
 	for (var i = 0; i < keychains.length; i++) {
@@ -58,7 +58,7 @@ function validEntries(data,row){
 
 function generateTitle(row) {
 	var titleArray = [];
-	var keychain = row.replace("|","/").split("/");
+	var keychain = row.replace("|","/").replace("_"," ").replace(":0","").split("/");
 	var len = keychain.length;
 	titleArray.push(keychain[len - 2].replace(/[^0-9a-z]/gi, ' ').replace(/[0-9]/g, ''));
 	titleArray.push(keychain[len - 4].replace(/[^0-9a-z]/gi, ' ').replace(/[0-9]/g, ''));
