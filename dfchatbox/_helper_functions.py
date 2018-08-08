@@ -293,3 +293,28 @@ def closestPatientName(enteredName,database=0):
     print(bestPerformers)
     print(minimum)
     return bestPerformers
+
+def getECGpdfLink(data):
+    data = str(data)
+
+    lower = re.search("'uri': {'@class': 'DV_URI', 'value': '",data).span()[1]
+
+    if not lower:
+        return None
+    else:
+        lower = lower.span()[1]
+
+    data = data[lower:]
+
+    upper = re.search("'",data)
+
+    if not upper:
+        return None
+    else:
+        upper = upper.span()[0]
+
+    data = data[:upper]
+
+    print(data)
+
+    return "https://rest.ehrscape.com/store/rest" + data

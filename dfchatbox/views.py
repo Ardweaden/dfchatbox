@@ -726,7 +726,7 @@ def getECGResultsData(answer_json):
 					print(item)
 					print("\n#################################################################################################\n")
 
-					if "uri" in item:
+					if getECGpdfLink(data):
 						print("URI IN THE FUCKING ITEM!!")
 					else:
 						print("URI NOT IN THE FUCKING ITEM")
