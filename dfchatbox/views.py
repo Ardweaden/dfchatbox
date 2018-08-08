@@ -597,6 +597,7 @@ def getECGResultsData(answer_json):
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
 	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+	url = "/"
 	authorization = "Basic " + base.decode()
 
 	# Match the action -> provide correct data
@@ -715,11 +716,20 @@ def getECGResultsData(answer_json):
 						json_object = {}
 
 			if json_lab_results:	
-				answer = answ_part + " in podan datum "+str(parameter_date)+" sem nasel sledece EKG izvide:"
+				answer = answ_part + " in podan datum " + str(parameter_date) + " sem našel sledeče EKG izvide:"
 		else:
 			for item in js:
 				if item['#0']['archetype_details']['template_id']['value'] == "Measurement ECG Report":
 					datetime_object = datetime.strptime(item['#0']['context']['start_time']['value'].split('T')[0], '%Y-%M-%d')
+
+					print("\n############################################## EKG ##############################################\n")
+					print(item)
+					print("\n#################################################################################################\n")
+
+					if "uri" in item:
+						print("URI IN THE FUCKING ITEM!!")
+					else:
+						print("URI NOT IN THE FUCKING ITEM")
 
 					#json_object['name'] = lab['name']
 					json_object['start_time'] = str(datetime_object)
@@ -735,7 +745,7 @@ def getECGResultsData(answer_json):
 	# Generate the JSON response
 	json_response['answer'] = answer
 	json_response['data'] = json_lab_results
-	json_response['url'] = "/"
+	json_response['url'] = url
 
 	return json_response
 
