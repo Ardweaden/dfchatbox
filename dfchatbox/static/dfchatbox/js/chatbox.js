@@ -719,6 +719,9 @@ $(".socketchatbox-inputMessage-div").keyup(function(t){
     if (sessionStorage.getItem("patientInfo_isDoctor") == "true" && sessionStorage.getItem("logged-in") == 1 && (t.which >= 65 && t.which <= 90)  || (t.which >= 186 && t.which <= 222) || t.which == 8 || t.which == 16 || t.which == 32 || t.which == 8) {
 
         if (!autocompleting && t.which != 8) {
+            if (t.which == 32) {
+                autocompleting = 1
+            }
             return
         }
 
