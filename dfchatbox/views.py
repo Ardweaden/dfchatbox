@@ -722,11 +722,11 @@ def getECGResultsData(answer_json):
 				if item['#0']['archetype_details']['template_id']['value'] == "Measurement ECG Report":
 					datetime_object = datetime.strptime(item['#0']['context']['start_time']['value'].split('T')[0], '%Y-%M-%d')
 
-					print("\n############################################## EKG ##############################################\n")
-					print(item)
-					print("\n#################################################################################################\n")
+					# print("\n############################################## EKG ##############################################\n")
+					# print(item)
+					# print("\n#################################################################################################\n")
 
-					if getECGpdfLink(data):
+					if getECGpdfLink(item):
 						print("URI IN THE FUCKING ITEM!!")
 					else:
 						print("URI NOT IN THE FUCKING ITEM")
