@@ -318,4 +318,6 @@ def getECGpdfLink(data):
 
     print(data)
 
-    return "https://rest.ehrscape.com/store/rest" + data
+    return data
+
+    #return "https://rest.ehrscape.com/store/rest" + data

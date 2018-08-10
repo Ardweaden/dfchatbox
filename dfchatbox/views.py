@@ -773,6 +773,7 @@ def getAllEntries(answer_json):
 	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
 	authorization = "Basic " + base.decode()
 	answer = ""
+	answ_part = "Za pacienta "
 
 	# Match the action -> provide correct data
 	parameter_action = answer_json['result']['action']
