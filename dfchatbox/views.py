@@ -728,6 +728,8 @@ def getECGResultsData(answer_json):
 
 					if getECGpdfLink(item):
 						print("URI IN THE FUCKING ITEM!!")
+						url = getECGpdfLink(item)
+						print(url)
 					else:
 						print("URI NOT IN THE FUCKING ITEM")
 

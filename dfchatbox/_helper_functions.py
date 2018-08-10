@@ -7,6 +7,7 @@ from dfchatbox.models import Patient
 
 import json
 import apiai
+import re
 
 
 def organise_entries(entries):
