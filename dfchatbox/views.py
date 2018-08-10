@@ -838,6 +838,7 @@ def getAllEntries(answer_json):
 			json_response['url'] = "/"
 			json_response['answer'] = "Nimate dovoljenja za to poizvedbo."
 			json_response['data'] = []
+			json_response['ehrid'] = ehrId
 
 			return json_response
 
