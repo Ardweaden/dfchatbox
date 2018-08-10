@@ -298,7 +298,7 @@ def closestPatientName(enteredName,database=0):
 def getECGpdfLink(data):
     data = str(data)
 
-    lower = re.search("'uri': {'@class': 'DV_URI', 'value': '",data).span()[1]
+    lower = re.search("'uri': {'@class': 'DV_URI', 'value': '",data)
 
     if not lower:
         return None
