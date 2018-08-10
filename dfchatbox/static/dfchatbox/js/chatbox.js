@@ -714,11 +714,11 @@ $("#logout").click(function(){
 
 //AUTOCOMPLETE WHEN USER IS DOCTOR
 $(".socketchatbox-inputMessage-div").keyup(function(t){
-    console.log(t);
+    console.log(t.which, autocompleting);
     console.log($(this).children()[1].value);
-    if (sessionStorage.getItem("patientInfo_isDoctor") == "true" && sessionStorage.getItem("logged-in") == 1 && (t.which >= 65 && t.which <= 90)  || (t.which >= 186 && t.which <= 222) || t.which == 8 || t.which == 16 || t.which == 32 && autocompleting == 1) {
+    if (sessionStorage.getItem("patientInfo_isDoctor") == "true" && sessionStorage.getItem("logged-in") == 1 && (t.which >= 65 && t.which <= 90)  || (t.which >= 186 && t.which <= 222) || t.which == 8 || t.which == 16 || t.which == 32 || t.which == 8) {
 
-        if (!autocompleting) {
+        if (!autocompleting && t.which != 8) {
             return
         }
 
@@ -734,12 +734,26 @@ $(".socketchatbox-inputMessage-div").keyup(function(t){
             sessionStorage.setItem("current_word",current_word);
         }
         else if (t.which == 8) {
-            current_word = current_word.slice(0,-1);
-            sessionStorage.setItem("current_word",current_word);
+            if (autocompleting) {
+                current_word = current_word.slice(0,-1);
+                sessionStorage.setItem("current_word",current_word);
+                console.log("Word after deleting: " + current_word);
 
-            if (current_word.length <= 2) {
-                $("#autocomplete").html("");
-                $("#autocomplete").css("display","none");
+                if (current_word.length <= 2) {
+                    $("#autocomplete").html("");
+                    $("#autocomplete").css("display","none");
+                }
+            }
+            else {
+                console.log("autocompleting is 0!!!");
+                current_word = $(this).children()[1].value.split(" ");
+                current_word = current_word[current_word.length - 1];
+                sessionStorage.setItem("current_word",current_word);
+
+                if (current_word.length <= 2) {
+                    $("#autocomplete").html("");
+                    $("#autocomplete").css("display","none");
+                }
             }
         }
         else if (t.which == 16) {
@@ -759,6 +773,7 @@ $(".socketchatbox-inputMessage-div").keyup(function(t){
                 console.log("Recommendation is: " + patients[i]);
                 $("#autocomplete").html(patients[i]);
                 $("#autocomplete").css("display","block");
+                autocompleting = 1;
                 return;
             }
             
