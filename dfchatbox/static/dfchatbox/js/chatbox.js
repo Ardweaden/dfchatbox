@@ -558,7 +558,7 @@ function communicate(message,j){
                 listOfPatients = listOfPatients + data[i] + "<br><br>"
             }
 
-            reply_others = '<div style="padding-bottom:1%;width:300px" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><span class="socketchatbox-messageBody socketchatbox-messageBody-others" style="width:200px;">' + listOfPatients + '</span><br></div></div>';
+            reply_others = '<div style="padding-bottom:1%" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><span class="socketchatbox-messageBody socketchatbox-messageBody-others" style="width:400px;">' + listOfPatients + '</span><br></div></div>';
 
             $(".socketchatbox-chatArea").append(reply_others);
 
