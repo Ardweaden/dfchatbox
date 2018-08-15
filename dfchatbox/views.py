@@ -307,7 +307,7 @@ def webhook(request):
 	print("\nFull access: ",fullAccess,"\n")
 
 	#	Checks if user is logged in
-	if [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["is_authenticated"] == "false" and parameter_action != "patientInfo":
+	if [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["is_authenticated"] == "false" and parameter_action != "patientInfo" or parameter_action != "getHelp":
 		json_response = {"responseType": "not-authenticated"}
 		json_response['data'] = ""
 		json_response['url'] = "/"
@@ -1294,11 +1294,11 @@ def getMyDoctor(answer_json):
 
 
 def getHelp():
-	help_list = ['Za prikaz podatkov o pacientu vpišite "Prikaži podatke o pacientu <ime in priimek>"', 
-	'Za prikaz vseh vpisov vpišite "Vsi vpisi <ime in priimek>"',
-	'Za iskanje po vpisih vpišite "Išči <iskana fraza> pacientu <ime in priimek>"',
-	'Za prikaz laboratorijskih izvidov vpišite "Prikaži laboratorijske izvide <ime in priimek>"',
-	'Za prikaz doktorja vpišite "Moj doktor"']
+	help_list = ['Za prikaz podatkov o pacientu vpišite &quot;Prikaži podatke o pacientu <ime in priimek>&quot;', 
+	'Za prikaz vseh vpisov vpišite &quot;Vsi vpisi <ime in priimek>&quot;',
+	'Za iskanje po vpisih vpišite &quot;Išči <iskana fraza> pacientu <ime in priimek>&quot;',
+	'Za prikaz laboratorijskih izvidov vpišite &quot;Prikaži laboratorijske izvide <ime in priimek>&quot;',
+	'Za prikaz vaših zdravnikov vpišite &quot;Moj doktor&quot;']
 
 	json_response = {"responseType": "PatientList"}
 	json_response['url'] = "/"
