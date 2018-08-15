@@ -449,7 +449,7 @@ def getLabResultsData(answer_json):
 
 	if fullAccess == "false":
 		allowed_ehrids = [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_ehrid"]
-	elif [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"][0] == "true":
+	elif [context for context in answer_json["result"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"] == "true":
 		doctor = Doctor.objects.get()
 		allowed_ehrids = doctor.patient_set.all()
 		allowed_ehrids = [i.ehrid for i in allowed_ehrids]
