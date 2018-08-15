@@ -352,6 +352,9 @@ def webhook(request):
 		print("myDoctor")
 		json_response = getMyDoctor(answer_json)
 		print(json_response)
+	if parameter_action == "getHelp":
+		print("getHelp")
+		json_response = getHelp()
 
 	if "new_name" in json_response:
 		new_name = json_response["new_name"]
@@ -1290,3 +1293,15 @@ def getMyDoctor(answer_json):
 
 
 
+def getHelp():
+	help_list = ['Za prikaz podatkov o pacientu vpišite "Prikaži podatke o pacientu <ime in priimek>"', 
+	'Za prikaz vseh vpisov vpišite "Vsi vpisi <ime in priimek>"',
+	'Za iskanje po vpisih vpišite "Išči <iskana fraza> pacientu <ime in priimek>"',
+	'Za prikaz laboratorijskih izvidov vpišite "Prikaži laboratorijske izvide <ime in priimek>"',
+	'Za prikaz doktorja vpišite "Moj doktor"']
+
+	json_response = {"responseType": "PatientList"}
+	json_response['url'] = "/"
+	json_response['answer'] = "Za dodatno pomoč kontaktirajte razvijalca."
+	json_response['data'] = help_list
+	return json_response
