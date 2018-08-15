@@ -549,6 +549,27 @@ function communicate(message,j){
 
         }
 
+        else if (response_type == "getHelp") {
+            console.log(data)
+
+            listOfPatients = "";
+
+            for (var i = 0; i < data.length; i++) {
+                listOfPatients = listOfPatients + data[i] + "<br><br>"
+            }
+
+            reply_others = '<div style="padding-bottom:1%;width:300px" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><span class="socketchatbox-messageBody socketchatbox-messageBody-others" style="width:200px;">' + listOfPatients + '</span><br></div></div>';
+
+            $(".socketchatbox-chatArea").append(reply_others);
+
+            disable_input(false);
+
+            $("#inputField").focus();
+
+            document.getElementById("wrapper-others" + j).scrollIntoView({behavior: "smooth"});
+
+        }
+
            
         }
         catch(err) {

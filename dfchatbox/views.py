@@ -1294,13 +1294,13 @@ def getMyDoctor(answer_json):
 
 
 def getHelp():
-	help_list = ['Za prikaz podatkov o pacientu vpišite &quot;Prikaži podatke o pacientu <ime in priimek>&quot;', 
-	'Za prikaz vseh vpisov vpišite &quot;Vsi vpisi <ime in priimek>&quot;',
-	'Za iskanje po vpisih vpišite &quot;Išči <iskana fraza> pacientu <ime in priimek>&quot;',
-	'Za prikaz laboratorijskih izvidov vpišite &quot;Prikaži laboratorijske izvide <ime in priimek>&quot;',
+	help_list = ['Za prikaz podatkov o pacientu vpišite &quot;Prikaži podatke o pacientu &lt;ime in priimek&gt;&quot;', 
+	'Za prikaz vseh vpisov vpišite &quot;Vsi vpisi &lt;ime in priimek&gt;&quot;',
+	'Za iskanje po vpisih vpišite &quot;Išči &lt;iskana fraza&gt; pacientu &lt;ime in priimekv&quot;',
+	'Za prikaz laboratorijskih izvidov vpišite &quot;Prikaži laboratorijske izvide &lt;ime in priimek&gt;&quot;',
 	'Za prikaz vaših zdravnikov vpišite &quot;Moj doktor&quot;']
 
-	json_response = {"responseType": "PatientList"}
+	json_response = {"responseType": "getHelp"}
 	json_response['url'] = "/"
 	json_response['answer'] = "Za dodatno pomoč kontaktirajte razvijalca."
 	json_response['data'] = help_list
