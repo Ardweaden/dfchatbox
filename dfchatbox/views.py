@@ -510,7 +510,7 @@ def getLabResultsData(answer_json):
 	json_lab_results = []
 	json_object = {} 
 
-	ehrId,json_response = getPatientEHRID(json_response)
+	ehrId,answer_json = getPatientEHRID(answer_json)
 
 	# Obtain ehrID of patient from name
 	# queryUrl = baseUrl + "/demographics/party/query"
@@ -636,7 +636,7 @@ def getECGResultsData(answer_json):
 	json_lab_results = []
 	json_object = {} 
 
-	ehrId, json_response = getPatientEHRID(json_response)
+	ehrId, answer_json = getPatientEHRID(answer_json)
 
 	# Obtain ehrID of patient from name
 	# queryUrl = baseUrl + "/demographics/party/query"
@@ -798,7 +798,7 @@ def getAllEntries(answer_json):
 	json_entries = []
 	json_object = {} 
 
-	ehrId,json_response = getPatientEHRID(json_response)
+	ehrId,answer_json = getPatientEHRID(answer_json)
 
 	# Obtain ehrID of patient from name
 	# queryUrl = baseUrl + "/demographics/party/query"
@@ -918,7 +918,7 @@ def getEntryData(answer_json):
 	print(numberList)
 	numberList = list(map(int,numberList[0].split(",")))
 	#ehrId = answer_json['result']['fulfillment']['data']['ehrid']
-	ehrId,json_response = getPatientEHRID(json_response)
+	ehrId,answer_json = getPatientEHRID(answer_json)
 	# queryUrl = baseUrl + "/demographics/party/query"
 
 	# parameter_name =answer_json['result']['contexts'][0]['parameters']['given-name']
@@ -1283,7 +1283,7 @@ def getMyDoctor(answer_json):
 def getHelp():
 	help_list = ['Za prikaz podatkov o pacientu vpišite &quot;Prikaži podatke o pacientu &lt;ime in priimek&gt;&quot;', 
 	'Za prikaz vseh vpisov vpišite &quot;Vsi vpisi &lt;ime in priimek&gt;&quot;',
-	'Za iskanje po vpisih vpišite &quot;Išči &lt;iskana fraza&gt; pacientu &lt;ime in priimekv&quot;',
+	'Za iskanje po vpisih vpišite &quot;Išči &lt;iskana fraza&gt; pacientu &lt;ime in priimek&quot;',
 	'Za prikaz laboratorijskih izvidov vpišite &quot;Prikaži laboratorijske izvide &lt;ime in priimek&gt;&quot;',
 	'Za prikaz vaših zdravnikov vpišite &quot;Moj doktor&quot;']
 
