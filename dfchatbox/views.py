@@ -511,53 +511,6 @@ def getLabResultsData(answer_json):
 
 	ehrId,answer_json,json_response = getPatientEHRID(answer_json,json_response)
 
-	# Obtain ehrID of patient from name
-	# queryUrl = baseUrl + "/demographics/party/query"
-
-	# parameter_name =answer_json['result']['parameters']['given-name']
-	# parameter_last_name =answer_json['result']['parameters']['last-name']
-
-	# if parameter_name != "":
-	# 	searchData.append({"key": "firstNames", "value": parameter_name})
-	# if parameter_last_name != "":
-	# 	searchData.append({"key": "lastNames", "value": parameter_last_name})
-
-	# #Use provided ehrid
-	# parameter_ehrid =answer_json['result']['parameters']['ehrid']
-
-	# if parameter_ehrid == "":
-	# 	r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
-
-	# 	if r.status_code == 200:
-	# 		js = json.loads(r.text)
-	# 		ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-	# 		print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-	# 		answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
-
-	# if parameter_ehrid != "":
-	# 	ehrId = str(parameter_ehrid)
-	# 	answ_part = "Za ehrid "+ehrId
-	# elif ehrId == "":
-	# 	# User entered the wrong name, we try again
-	# 	searchData = []
-
-	# 	parameter_name, parameter_last_name = list(closestPatientName(parameter_name + " " + parameter_last_name,database=1)[-1])
-
-	# 	searchData.append({"key": "firstNames", "value": parameter_name})
-	# 	searchData.append({"key": "lastNames", "value": parameter_last_name})
-
-	# 	r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
-
-	# 	if r.status_code == 200:
-	# 		js = json.loads(r.text)
-	# 		ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-	# 		print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-
-	# 		answer = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title() + "? "
-
-	# 		json_response['new_name'] = parameter_name
-	# 		json_response['new_lastname'] = parameter_last_name
-
 	#User wants to see lab results for a specific date or date period.
 	if ehrId != '':
 		parameter_date_range =answer_json['result']['parameters']['date-period']
@@ -635,54 +588,6 @@ def getECGResultsData(answer_json):
 	json_object = {} 
 
 	ehrId, answer_json, json_response = getPatientEHRID(answer_json,json_response)
-
-	# Obtain ehrID of patient from name
-	# queryUrl = baseUrl + "/demographics/party/query"
-
-	# parameter_name =answer_json['result']['parameters']['given-name']
-	# parameter_last_name =answer_json['result']['parameters']['last-name']
-
-	# if parameter_name != "":
-	# 	searchData.append({"key": "firstNames", "value": parameter_name})
-	# if parameter_last_name != "":
-	# 	searchData.append({"key": "lastNames", "value": parameter_last_name})
-
-	# #Use provided ehrid
-	# parameter_ehrid =answer_json['result']['parameters']['ehrid']
-
-	# if parameter_ehrid == "":
-	# 	r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
-
-	# 	if r.status_code == 200:
-	# 		js = json.loads(r.text)
-	# 		ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-	# 		print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-	# 		answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
-
-	
-	# if parameter_ehrid != "":
-	# 	ehrId = str(parameter_ehrid)
-	# 	answ_part = "Za ehrid "+ehrId
-	# elif ehrId == "":
-	# 	# User entered the wrong name, we try again
-	# 	searchData = []
-
-	# 	parameter_name, parameter_last_name = list(closestPatientName(parameter_name + " " + parameter_last_name,database=1)[-1])
-
-	# 	searchData.append({"key": "firstNames", "value": parameter_name})
-	# 	searchData.append({"key": "lastNames", "value": parameter_last_name})
-
-	# 	r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
-
-	# 	if r.status_code == 200:
-	# 		js = json.loads(r.text)
-	# 		ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-	# 		print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-
-	# 		answer = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title() + "? "
-
-	# 		json_response['new_name'] = parameter_name
-	# 		json_response['new_lastname'] = parameter_last_name
 
 	#User wants to see lab results for a specific date or date period.
 	if ehrId != '':
@@ -797,56 +702,6 @@ def getAllEntries(answer_json):
 
 	ehrId,answer_json,json_response = getPatientEHRID(answer_json,json_response)
 
-	# Obtain ehrID of patient from name
-	# queryUrl = baseUrl + "/demographics/party/query"
-
-	# parameter_name =answer_json['result']['parameters']['given-name']
-	# parameter_last_name =answer_json['result']['parameters']['last-name']
-
-	# if parameter_name != "":
-	# 	searchData.append({"key": "firstNames", "value": parameter_name})
-	# if parameter_last_name != "":
-	# 	searchData.append({"key": "lastNames", "value": parameter_last_name})
-
-	# #Use provided ehrid
-	# parameter_ehrid = answer_json['result']['parameters']['ehrid']
-
-	# if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "" and context["parameters"]["user_isDoctor"] != "true":
-	# 	parameter_ehrid = context["parameters"]["user_ehrid"]
-
-	# if parameter_ehrid == "":
-	# 	r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
-
-	# 	if r.status_code == 200:
-	# 		js = json.loads(r.text)
-	# 		ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-	# 		print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-	# 		answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
-
-
-	# if parameter_ehrid != "":
-	# 	ehrId = str(parameter_ehrid)
-	# elif ehrId == "":
-	# 	# User entered the wrong name, we try again
-	# 	searchData = []
-
-	# 	parameter_name, parameter_last_name = list(closestPatientName(parameter_name + " " + parameter_last_name,database=1)[-1])
-
-	# 	searchData.append({"key": "firstNames", "value": parameter_name})
-	# 	searchData.append({"key": "lastNames", "value": parameter_last_name})
-
-	# 	r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
-
-	# 	if r.status_code == 200:
-	# 		js = json.loads(r.text)
-	# 		ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-	# 		print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-
-	# 		answer = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title() + "? "
-
-	# 		json_response['new_name'] = parameter_name
-	# 		json_response['new_lastname'] = parameter_last_name
-
 	if ehrId != '':
 
 		if ehrId not in allowed_ehrids:
@@ -915,54 +770,6 @@ def getEntryData(answer_json):
 	numberList = list(map(int,numberList[0].split(",")))
 	#ehrId = answer_json['result']['fulfillment']['data']['ehrid']
 	ehrId,answer_json,json_response = getPatientEHRID(answer_json,json_response)
-	# queryUrl = baseUrl + "/demographics/party/query"
-
-	# parameter_name =answer_json['result']['contexts'][0]['parameters']['given-name']
-	# parameter_last_name =answer_json['result']['contexts'][0]['parameters']['last-name']
-
-	# if parameter_name != "":
-	# 	searchData.append({"key": "firstNames", "value": parameter_name})
-	# if parameter_last_name != "":
-	# 	searchData.append({"key": "lastNames", "value": parameter_last_name})
-
-	# #Use provided ehrid
-	# parameter_ehrid = answer_json['result']['parameters']['ehrid']
-
-	# if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "" and context["parameters"]["user_isDoctor"] != "true":
-	# 	parameter_ehrid = context["parameters"]["user_ehrid"]
-		
-	# if not(parameter_ehrid):
-	# 	r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
-
-	# 	if r.status_code == 200:
-	# 		js = json.loads(r.text)
-	# 		ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-	# 		print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-	# 		answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
-
-	
-	# if parameter_ehrid != "":
-	# 	ehrId = str(parameter_ehrid)
-	# else:
-	# 	# User entered the wrong name, we try again
-	# 	searchData = []
-
-	# 	parameter_name, parameter_last_name = list(closestPatientName(parameter_name + " " + parameter_last_name,database=1)[-1])
-
-	# 	searchData.append({"key": "firstNames", "value": parameter_name})
-	# 	searchData.append({"key": "lastNames", "value": parameter_last_name})
-
-	# 	r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
-
-	# 	if r.status_code == 200:
-	# 		js = json.loads(r.text)
-	# 		ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-	# 		print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
-
-	# 		answer = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title() + "? "
-
-	# 		json_response['new_name'] = parameter_name
-	# 		json_response['new_lastname'] = parameter_last_name
 
 	if ehrId != '':
 
