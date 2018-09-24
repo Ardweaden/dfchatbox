@@ -1051,6 +1051,7 @@ def searchForEntry(answer_json):
 	parameter_action = answer_json['result']['action']
 	json_response = {"responseType": "search"}
 	json_entries = []
+	searchData = []
 	data = []
 	answer = ""
 
