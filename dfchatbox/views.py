@@ -380,7 +380,6 @@ def getPatientInfoData(answer_json):
 
 	queryUrl = baseUrl + "/demographics/party/query"
 
-	searchData = []
 	json_response = {"responseType": "userInfo"}
 	json_object = {}
 
@@ -506,7 +505,6 @@ def getLabResultsData(answer_json):
 	# Match the action -> provide correct data
 	parameter_action = answer_json['result']['action']
 	json_response = {"responseType": "list"}
-	searchData = []
 	json_lab_results = []
 	json_object = {} 
 
@@ -632,7 +630,6 @@ def getECGResultsData(answer_json):
 	# Match the action -> provide correct data
 	parameter_action = answer_json['result']['action']
 	json_response = {"responseType": "list"}
-	searchData = []
 	json_lab_results = []
 	json_object = {} 
 
@@ -794,7 +791,6 @@ def getAllEntries(answer_json):
 	# Match the action -> provide correct data
 	parameter_action = answer_json['result']['action']
 	json_response = {"responseType": "button"}
-	searchData = []
 	json_entries = []
 	json_object = {} 
 
@@ -908,7 +904,6 @@ def getEntryData(answer_json):
 	# Match the action -> provide correct data
 	parameter_action = answer_json['result']['action']
 	json_response = {"responseType": "entry"}
-	searchData = []
 	json_entries = []
 
 	response = json_response
@@ -1055,7 +1050,6 @@ def searchForEntry(answer_json):
 	# Match the action -> provide correct data
 	parameter_action = answer_json['result']['action']
 	json_response = {"responseType": "search"}
-	searchData = []
 	json_entries = []
 	data = []
 	answer = ""
