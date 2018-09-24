@@ -432,7 +432,7 @@ def getAllowedEhrids(answer_json):
 	print("\nALLOWED EHRIDS: \n",allowed_ehrids)
 	return allowed_ehrids
 
-def getPatientEHRID(answer_json):
+def getPatientEHRID(answer_json,json_response):
 	searchData = []
 	#Authorisation setup
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
@@ -489,7 +489,7 @@ def getPatientEHRID(answer_json):
 			json_response['new_lastname'] = parameter_last_name
 
 
-	return ehrId,json_response
+	return ehrId,answer_json,json_response
 
 
 def getLabResultsData(answer_json):
@@ -509,7 +509,7 @@ def getLabResultsData(answer_json):
 	json_lab_results = []
 	json_object = {} 
 
-	ehrId,answer_json = getPatientEHRID(answer_json)
+	ehrId,answer_json,json_response = getPatientEHRID(answer_json,json_response)
 
 	# Obtain ehrID of patient from name
 	# queryUrl = baseUrl + "/demographics/party/query"
@@ -634,7 +634,7 @@ def getECGResultsData(answer_json):
 	json_lab_results = []
 	json_object = {} 
 
-	ehrId, answer_json = getPatientEHRID(answer_json)
+	ehrId, answer_json, json_response = getPatientEHRID(answer_json,json_response)
 
 	# Obtain ehrID of patient from name
 	# queryUrl = baseUrl + "/demographics/party/query"
@@ -795,7 +795,7 @@ def getAllEntries(answer_json):
 	json_entries = []
 	json_object = {} 
 
-	ehrId,answer_json = getPatientEHRID(answer_json)
+	ehrId,answer_json,json_response = getPatientEHRID(answer_json,json_response)
 
 	# Obtain ehrID of patient from name
 	# queryUrl = baseUrl + "/demographics/party/query"
@@ -914,7 +914,7 @@ def getEntryData(answer_json):
 	print(numberList)
 	numberList = list(map(int,numberList[0].split(",")))
 	#ehrId = answer_json['result']['fulfillment']['data']['ehrid']
-	ehrId,answer_json = getPatientEHRID(answer_json)
+	ehrId,answer_json,json_response = getPatientEHRID(answer_json,json_response)
 	# queryUrl = baseUrl + "/demographics/party/query"
 
 	# parameter_name =answer_json['result']['contexts'][0]['parameters']['given-name']
