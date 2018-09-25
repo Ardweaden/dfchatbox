@@ -8,6 +8,11 @@ var welcome_message = "Pozdravljeni, sem ThinkEHR robotski pomočnik! Za prijavo
 $(document).ready(function(){
     //localStorage.removeItem("sessionID");
     //session_isValid();
+
+    if (sessionStorage.getItem("index") == null) {
+        sessionStorage.setItem("index",0);
+    }
+    
     $("#socketchatbox-sendFileBtn").css("background","#9a969a");
     $(".arrow-right").css("border-left","25px solid #bcbabb");
 
@@ -104,13 +109,13 @@ function session_isValid() {
     }
 };
 
-//SET SESSION INDEX
+/*//SET SESSION INDEX
 $(document).ready(function(){
     if (sessionStorage.getItem("index") == null) {
         sessionStorage.setItem("index",0);
     }
 });
-
+*/
 //RETURNS CURRENT TIME
 function cur_date() {
     var n = new Date
