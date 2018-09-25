@@ -33,8 +33,8 @@ def organise_entries(entries):
 
 def translate(input,api_link="http://translate.dis-apps.ijs.si/translate?sentence="):
     input=input.replace(",","").replace("("," ").replace(")"," ").replace("-"," ")
-    url = api_link +input
-    req = requests.g et(url)
+    url = api_link + input
+    req = requests.get(url)
     if req.text == '{"errors": {"sentence": "Invalid text value provided"}}' or req.text[1:-3] == '':
         output=""
         words=input.split(" ")
