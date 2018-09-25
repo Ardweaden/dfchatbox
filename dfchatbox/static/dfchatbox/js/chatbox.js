@@ -11,8 +11,9 @@ $(document).ready(function(){
     $("#socketchatbox-sendFileBtn").css("background","#9a969a");
     $(".arrow-right").css("border-left","25px solid #bcbabb");
 
-    $(".socketchatbox-chatArea").append('<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="Welcome_message"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime"></span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + welcome_message + '</span><br></div></div>');
-    document.getElementById("Welcome_message").scrollIntoView({behavior: "smooth"});
+    welcome_bubble = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="Welcome_message"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime"></span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + welcome_message + '</span><br></div></div>';
+    $(".socketchatbox-chatArea").append(welcome_bubble);
+    saveElement(welcome_bubble);
 
     sessionStorage.setItem("current_word","");
 

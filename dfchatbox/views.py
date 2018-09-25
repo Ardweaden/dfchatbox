@@ -29,6 +29,8 @@ import numpy as np
 # Create your views here.
 # -*- coding: utf-8 -*-
 
+credentials = b'ales.tavcar@ijs.si:ehrscape4alestavcar'
+
 @require_http_methods(['POST','GET'])
 def index(request):
 	if request.method == 'POST':
@@ -349,7 +351,7 @@ def PermissionCompliant(answer_json):
 def getPatientInfoData(answer_json):
 
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
-	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+	base = base64.b64encode(credentials)
 	authorization = "Basic " + base.decode()
 
 	queryUrl = baseUrl + "/demographics/party/query"
@@ -412,7 +414,7 @@ def getPatientEHRID(answer_json,json_response):
 	answ_part = ""
 	#Authorisation setup
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
-	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+	base = base64.b64encode(credentials)
 	authorization = "Basic " + base.decode()
 
 	queryUrl = baseUrl + "/demographics/party/query"
@@ -477,7 +479,7 @@ def getLabResultsData(answer_json):
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	#ehrId = 'd8dcc924-edaf-4df5-8b84-e9e6d0ec590f'
 	ehrId = ''
-	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+	base = base64.b64encode(credentials)
 	authorization = "Basic " + base.decode()
 
 	# Match the action -> provide correct data
@@ -556,7 +558,7 @@ def getECGResultsData(answer_json):
 
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
-	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+	base = base64.b64encode(credentials)
 	url = "/"
 	authorization = "Basic " + base.decode()
 	answ_part = "Za pacienta "
@@ -662,7 +664,7 @@ def getAllEntries(answer_json):
 
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
-	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+	base = base64.b64encode(credentials)
 	authorization = "Basic " + base.decode()
 	answer = ""
 
@@ -721,7 +723,7 @@ def getEntryData(answer_json):
 	print("\n\n ############################################################## \n\n")
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
-	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+	base = base64.b64encode(credentials)
 	authorization = "Basic " + base.decode()
 
 	# Match the action -> provide correct data
@@ -805,7 +807,7 @@ def searchForEntry(answer_json):
 
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
-	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+	base = base64.b64encode(credentials)
 	authorization = "Basic " + base.decode()
 
 	# Match the action -> provide correct data
