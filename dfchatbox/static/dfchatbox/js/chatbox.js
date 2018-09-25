@@ -8,11 +8,11 @@ var welcome_message = "Pozdravljeni, sem ThinkEHR robotski pomočnik! Za prijavo
 $(document).ready(function(){
     //localStorage.removeItem("sessionID");
     //session_isValid();
-
-    if (sessionStorage.getItem("index") == null) {
+    var index = sessionStorage.getItem("index")
+    if (isNaN(index)) {
         sessionStorage.setItem("index",0);
     }
-    
+
     $("#socketchatbox-sendFileBtn").css("background","#9a969a");
     $(".arrow-right").css("border-left","25px solid #bcbabb");
 
