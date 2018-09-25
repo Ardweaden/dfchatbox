@@ -512,6 +512,8 @@ def getLabResultsData(answer_json):
 
 	ehrId,answer_json,json_response, answ_part = getPatientEHRID(answer_json,json_response)
 
+	print("Answer part: >",answ_part,"<")
+
 	if answ_part == "":
 		answ_part = "Za pacienta"
 
@@ -563,7 +565,7 @@ def getLabResultsData(answer_json):
 				json_lab_results.append(json_object)
 				json_object = {}
 				if json_lab_results:	
-					answer = answ_part + " sem nasel sledece laboratorijske izvide:"
+					answer = answ_part + " sem nasel sledeče laboratorijske izvide:"
 	else: 
 		answer = "Za podanega pacienta nisem nasel podatkov v sistemu."
 	# Generate the JSON response
