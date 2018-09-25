@@ -512,6 +512,9 @@ def getLabResultsData(answer_json):
 
 	ehrId,answer_json,json_response, answ_part = getPatientEHRID(answer_json,json_response)
 
+	if answ_part == None:
+		answ_part = "Za pacienta"
+
 	#User wants to see lab results for a specific date or date period.
 	if ehrId != '':
 		parameter_date_range =answer_json['result']['parameters']['date-period']
