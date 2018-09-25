@@ -16,7 +16,7 @@ $(document).ready(function(){
     $("#socketchatbox-sendFileBtn").css("background","#9a969a");
     $(".arrow-right").css("border-left","25px solid #bcbabb");
 
-    welcome_bubble = '<div style="padding-bottom:10%;" class="socketchatbox-message-wrapper" id="Welcome_message"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime"></span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + welcome_message + '</span><br></div></div>';
+    welcome_bubble = '<div style="padding-bottom:13%;" class="socketchatbox-message-wrapper" id="Welcome_message"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime"></span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + welcome_message + '</span><br></div></div>';
     $(".socketchatbox-chatArea").append(welcome_bubble);
     saveElement(welcome_bubble);
     j = 1;
