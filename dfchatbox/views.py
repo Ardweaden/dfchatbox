@@ -381,6 +381,7 @@ def getPatientInfoData(answer_json):
 
 	json_response = {"responseType": "userInfo"}
 	json_object = {}
+	searchData = []
 
 	parameter_name =answer_json['result']['parameters']['given-name']
 	parameter_last_name =answer_json['result']['parameters']['last-name']
@@ -1002,23 +1003,11 @@ def searchForEntry(answer_json):
 
 				indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
 				print("\n\ndata length is: ",len(indicesList),"\n\n")
-				#cache.set("dataLength",len(indicesList),None)
-				#print(cache.get("dataLength"))
-
-				#for i in range(len(indicesList)):
-				#	cache.set("{}".format(i),data[indicesList[i]],None)
 
 				data = []
 
-				# if len(bestPerformersIndices) >= 3:
-				# 	for i in range(3):
-				# 		data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0])})
-				# else:
-				# 	for i in range(len(bestPerformersValues)):
-				# 		data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0])})
-
 				for i in range(len(bestPerformersIndices)):
-					data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0]), "name" : " ".join(bestPerformers[i])})
+					data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0]), "name" : " ".join(bestPerformers[i]).capitalize()})
 				
 
 	else: 
