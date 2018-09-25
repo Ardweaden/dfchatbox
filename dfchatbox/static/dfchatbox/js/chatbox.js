@@ -427,7 +427,8 @@ function communicate(message,j){
                 var slo_keys = ["Ime","Priimek","Spol","Datum rojstva"];
 
                 if (data['gender'] == "MALE"){
-                    data[keys[1]] = "Moški";
+                    //data[keys[1]] = "Moški";
+                    data["gender"] = "Moški"
                 }
                 else {
                     data['gender'] = "Ženski";
@@ -919,8 +920,6 @@ $(document).on("click", ".choice_btn", function(){
     message1 = document.getElementById(event.target.id).name;
     message2 = document.getElementById(event.target.id).innerHTML;
     message = [message1,message2];
-    console.log("!!!!!!!!!!!!!!!!!!!!!!");
-    console.log($(this).parent(),$(this).parent().eq(-1));
     $(this).parent().parent().parent().removeClass("choice_btn_wrapper");
     $(".choice_btn_wrapper").remove();
     $(".choice_btn").fadeOut(100, function(){ $(this).remove();});
