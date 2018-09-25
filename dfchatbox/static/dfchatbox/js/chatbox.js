@@ -497,7 +497,7 @@ function communicate(message,j){
 
                     saveElement(reply_others);
 
-                    reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["name"] + ':<br><button style="margin-top:1%;" name="getE ' + data[i]['index'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[i]['value'] + '</button></span><br></div></div>'
+                    reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper choice_btn_wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + data[i]["name"] + ':<br><button style="margin-top:1%;" name="getE ' + data[i]['index'] + '" class="choice_btn socketchatbox-messageBody socketchatbox-messageBody-me" id="btn' + i + j + '" type="button">' + data[i]['value'] + '</button></span><br></div></div>'
 
                     $(".socketchatbox-chatArea").append(reply_others);
 
@@ -919,6 +919,8 @@ $(document).on("click", ".choice_btn", function(){
     message1 = document.getElementById(event.target.id).name;
     message2 = document.getElementById(event.target.id).innerHTML;
     message = [message1,message2];
+    $(this).parent().removeClass("choice_btn_wrapper");
+    $(".choice_btn_wrapper").remove();
     $(".choice_btn").fadeOut(100, function(){ $(this).remove();});
     console.log("++++ USER MESSAGE ++++  >  " + message);
     communicate(message,j);

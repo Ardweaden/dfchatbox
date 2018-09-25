@@ -31,7 +31,7 @@ def organise_entries(entries):
 
     return json_entries
 
-def translate(input,api_link="http://translate.dis-apps.ijs.si/translate?sentence="):
+def translate(input,api_link="http://translate.dis-apps.ijs.si/translate?senxetence="):
     input=input.replace(",","").replace("("," ").replace(")"," ").replace("-"," ")
     url = api_link + input
     req = requests.get(url)

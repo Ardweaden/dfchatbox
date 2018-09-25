@@ -48,10 +48,6 @@ def index(request):
 		user_status = request.user.is_authenticated
 
 		if user_status:
-			#PATIENT INFO FROM LOGIN DATA
-			# patientInfo_patientName = request.POST['name']
-			# patientInfo_patientSurname = request.POST['surname']
-			# patientInfo_patientEhrid = request.POST['ehrid']
 
 			if hasattr(request.user,"doctor"):
 				patientInfo_isDoctor = True
@@ -63,19 +59,7 @@ def index(request):
 				patientInfo_patientSurname = request.user.patient.surname
 				patientInfo_patientEhrid = request.user.patient.ehrid
 
-		#	Get user ehrid
-		#user_ehrid = request.user.ehrid
 
-		#print("user input: ", message)
-
-		#url = "http://translate.dis-apps.ijs.si/translate?sentence=" + message
-
-		# response = requests.get(url)
-		# translation = response.text[1:-3]
-
-		# try:
-		# 	int(message.replace(",",""))
-		# except:
 		if message[:5] != "getE ":
 			#BECAUSE IJS SERVER ISN'T WORKING OTHER API
 			translation = translate(message,api_link="http://translation-api.docker-e9.ijs.si/translate?sentence=")
@@ -120,8 +104,6 @@ def index(request):
 		print(answer_json)
 
 		text_answer = answer_json['result']['fulfillment']['messages'][0]['speech']
-
-		#text_answer = text_answer.replace('\\','\\\\')
 
 		print(text_answer)
 
