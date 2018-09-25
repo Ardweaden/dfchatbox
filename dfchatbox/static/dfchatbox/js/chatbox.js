@@ -428,7 +428,7 @@ function communicate(message,j){
 
                 if (data['gender'] == "MALE"){
                     //data[keys[1]] = "Moški";
-                    data["gender"] = "Moški"
+                    data['gender'] = "Moški"
                 }
                 else {
                     data['gender'] = "Ženski";
