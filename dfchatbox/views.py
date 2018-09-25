@@ -433,7 +433,7 @@ def getAllowedEhrids(answer_json):
 
 def getPatientEHRID(answer_json,json_response):
 	searchData = []
-	answ_part = None
+	answ_part = ""
 	#Authorisation setup
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
