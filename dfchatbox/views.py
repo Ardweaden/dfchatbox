@@ -130,6 +130,7 @@ def index(request):
 
 @require_http_methods(['POST'])
 def check_links(request):
+	# Not in use currently
 	if request.method == 'POST':
 		message = request.POST['message']
 
@@ -173,22 +174,14 @@ def check_links(request):
 
 @require_http_methods(['GET'])
 def entry_tree(request):
-	#dataLength = request.session['dataLength']
-	#dataLength = request.COOKIES['dataLength']
-	print(cache.get("dataLength"))
 	dataLength = cache.get("dataLength")
 	cache.delete("dataLength")
-
 	print("\n=== DATA LENGTH @ ENTRY_TREE: ===>  ", dataLength,"\n")
 	dataList = []
 
 	for i in range(int(dataLength)):
-		#dataList.append(request.session['{}'.format(i)])
-		#dataList.append(request.COOKIES['{}'.format(i)])
 		dataList.append(cache.get('{}'.format(i)))
 		cache.delete('{}'.format(i))
-
-	#print("=== DATA @ ENTRY_TREE: ===>  ", dataList)
 
 	return render(request,'dfchatbox/tree.html',{'data': json.dumps(dataList)})
 
@@ -609,8 +602,6 @@ def getECGResultsData(answer_json):
 					datetime_object = datetime.strptime(item['#0']['context']['start_time']['value'].split('T')[0], '%Y-%M-%d')
 
 					if dateFrom <= datetime_object <= dateTo:
-						#print(lab['name']+" = "+lab['name']+" time: "+str(datetime_object))
-						#json_object['name'] = lab['name']
 						json_object['start_time'] = str(datetime_object)
 						json_object['setting'] = item['#0']['context']['setting']['value']
 						json_lab_results.append(json_object)
@@ -629,8 +620,6 @@ def getECGResultsData(answer_json):
 					datetime_object = datetime.strptime(item['#0']['context']['start_time']['value'].split('T')[0], '%Y-%M-%d')
 
 					if dateFrom <= datetime_object <= dateTo:
-						#print(lab['name']+" = "+lab['name']+" time: "+str(datetime_object))
-						#json_object['name'] = lab['name']
 						json_object['start_time'] = str(datetime_object)
 						json_object['setting'] = item['#0']['context']['setting']['value']
 						json_lab_results.append(json_object)
@@ -642,10 +631,6 @@ def getECGResultsData(answer_json):
 			for item in js:
 				if item['#0']['archetype_details']['template_id']['value'] == "Measurement ECG Report":
 					datetime_object = datetime.strptime(item['#0']['context']['start_time']['value'].split('T')[0], '%Y-%M-%d')
-
-					# print("\n############################################## EKG ##############################################\n")
-					# print(item)
-					# print("\n#################################################################################################\n")
 
 					if getECGpdfLink(item):
 						print("URI IN THE FUCKING ITEM!!")
@@ -715,11 +700,6 @@ def getAllEntries(answer_json):
 		else:
 			answer = answer + "Za podanega pacienta sem našel naslednje vpise v sistemu:"
 
-			# for counter,item in enumerate(js):
-			# 	json_object['name'] = item['#0']['archetype_details']['template_id']['value']
-			# 	json_object['value'] = str(counter)
-			# 	json_entries.append(json_object)
-			# 	json_object = {}
 			json_entries = organise_entries(js)
 
 	else: 
@@ -750,12 +730,10 @@ def getEntryData(answer_json):
 	json_entries = []
 
 	response = json_response
-	#json_object = {}
 
 	numberList = answer_json['result']['contexts'][0]['parameters']['numberList']
 	print(numberList)
 	numberList = list(map(int,numberList[0].split(",")))
-	#ehrId = answer_json['result']['fulfillment']['data']['ehrid']
 	ehrId,answer_json,json_response, answ_part = getPatientEHRID(answer_json,json_response)
 
 	if ehrId != '':
@@ -783,10 +761,7 @@ def getEntryData(answer_json):
 		else:
 			answer = "Našel sem podatke o vpisu."
 
-			# request.session['dataLength'] = len(numberList)
-			# response.set_cookie("dataLength",len(numberList))
 			cache.set("dataLength",len(numberList),None)
-			#print("dataLength @ getEntryData ==> ",cache.get("dataLength"))
 
 			json_response['url'] = "/entry_tree"
 
@@ -804,17 +779,8 @@ def getEntryData(answer_json):
 						json_entries = json.loads(r.text)['composition']
 						print("======================== JSON ENTRIES ========================")
 						print(numberList.index(counter))
-						#print(json_entries)
 						print("===============================================================")
-						#request.session[numberList.index(counter)] = json_entries
-						#response.set_cookie("{}".format([numberList.index(counter)],json_entries))
 						cache.set("{}".format(numberList.index(counter)),json_entries,None)
-						#print("data @ getEntryData ==> ",cache.get("{}".format(numberList.index(counter))))
-
-						#json_entries = str(json_entries).replace("/","~")
-						#json_response['url'] = "/entry_tree/{}".format(str(json_entries))
-						#print("=== JSON URL of length ", len(json_response['url']) ," ===> ",json_response['url'])
-						#break
 
 					else:
 						answer = "Prišlo je do napake. Prosim, poskusite ponovno."
@@ -856,8 +822,6 @@ def searchForEntry(answer_json):
 
 	response = json_response
 	#json_object = {}
-
-	#ehrId = answer_json['result']['fulfillment']['data']['ehrid']
 
 	queryUrl = baseUrl + "/demographics/party/query"
 
@@ -937,8 +901,6 @@ def searchForEntry(answer_json):
 		else:
 			#answer = "Našel sem podatke o vpisu."
 
-			#cache.set("dataLength",len(numberList),None)
-
 			json_response['url'] = "/"
 
 			for counter,item in enumerate(js):
@@ -956,15 +918,6 @@ def searchForEntry(answer_json):
 					#print(numberList.index(counter))
 					#print(json_entries)
 					print("===============================================================")
-					#request.session[numberList.index(counter)] = json_entries
-					#response.set_cookie("{}".format([numberList.index(counter)],json_entries))
-					#cache.set("{}".format(numberList.index(counter)),json_entries,None)
-					#print("data @ getEntryData ==> ",cache.get("{}".format(numberList.index(counter))))
-
-					#json_entries = str(json_entries).replace("/","~")
-					#json_response['url'] = "/entry_tree/{}".format(str(json_entries))
-					#print("=== JSON URL of length ", len(json_response['url']) ," ===> ",json_response['url'])
-					#break
 					data.append(json_entries)
 
 				else:
@@ -976,7 +929,6 @@ def searchForEntry(answer_json):
 				bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1)
 				bestPerformersValues = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
 				print("Best performers values:\n",bestPerformersValues)
-				#answer = bestPerformersValues[0]
 				print("\n************************ ANSWER ************************\n")
 				print(answer)
 				print("\n************************ ANSWER ************************\n")
@@ -1000,8 +952,6 @@ def searchForEntry(answer_json):
 	# Generate the JSON response
 	json_response['answer'] = answer
 	json_response['data'] = data
-	#json_response['data'] = [{"some":"data"}]
-	#json_response['data'] = json_entries
 
 	return json_response
 
@@ -1062,7 +1012,7 @@ def getMyDoctor(answer_json):
 def getHelp():
 	help_list = ['Za prikaz podatkov o pacientu vpišite &quot;Prikaži podatke o pacientu &lt;ime in priimek&gt;&quot;', 
 	'Za prikaz vseh vpisov vpišite &quot;Vsi vpisi &lt;ime in priimek&gt;&quot;',
-	'Za iskanje po vpisih vpišite &quot;Išči &lt;iskana fraza&gt; pacientu &lt;ime in priimek&quot;',
+	'Za iskanje po vpisih vpišite &quot;Išči &lt;iskana fraza&gt; pacientu &lt;ime in priimek&gt&quot;',
 	'Za prikaz laboratorijskih izvidov vpišite &quot;Prikaži laboratorijske izvide &lt;ime in priimek&gt;&quot;',
 	'Za prikaz vaših zdravnikov vpišite &quot;Moj doktor&quot;']
 
