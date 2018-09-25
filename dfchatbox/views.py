@@ -433,6 +433,7 @@ def getAllowedEhrids(answer_json):
 
 def getPatientEHRID(answer_json,json_response):
 	searchData = []
+	answ_part = None
 	#Authorisation setup
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
@@ -489,7 +490,7 @@ def getPatientEHRID(answer_json,json_response):
 			json_response['new_lastname'] = parameter_last_name
 
 
-	return ehrId,answer_json,json_response
+	return ehrId,answer_json,json_response,answ_part
 
 
 def getLabResultsData(answer_json):
@@ -509,7 +510,7 @@ def getLabResultsData(answer_json):
 	json_lab_results = []
 	json_object = {} 
 
-	ehrId,answer_json,json_response = getPatientEHRID(answer_json,json_response)
+	ehrId,answer_json,json_response, answ_part = getPatientEHRID(answer_json,json_response)
 
 	#User wants to see lab results for a specific date or date period.
 	if ehrId != '':
@@ -587,7 +588,7 @@ def getECGResultsData(answer_json):
 	json_lab_results = []
 	json_object = {} 
 
-	ehrId, answer_json, json_response = getPatientEHRID(answer_json,json_response)
+	ehrId, answer_json, json_response, answ_part = getPatientEHRID(answer_json,json_response)
 
 	#User wants to see lab results for a specific date or date period.
 	if ehrId != '':
@@ -700,7 +701,7 @@ def getAllEntries(answer_json):
 	json_entries = []
 	json_object = {} 
 
-	ehrId,answer_json,json_response = getPatientEHRID(answer_json,json_response)
+	ehrId,answer_json,json_response, answ_part = getPatientEHRID(answer_json,json_response)
 
 	if ehrId != '':
 
@@ -769,7 +770,7 @@ def getEntryData(answer_json):
 	print(numberList)
 	numberList = list(map(int,numberList[0].split(",")))
 	#ehrId = answer_json['result']['fulfillment']['data']['ehrid']
-	ehrId,answer_json,json_response = getPatientEHRID(answer_json,json_response)
+	ehrId,answer_json,json_response, answ_part = getPatientEHRID(answer_json,json_response)
 
 	if ehrId != '':
 
