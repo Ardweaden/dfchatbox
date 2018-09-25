@@ -919,7 +919,9 @@ $(document).on("click", ".choice_btn", function(){
     message1 = document.getElementById(event.target.id).name;
     message2 = document.getElementById(event.target.id).innerHTML;
     message = [message1,message2];
-    $(this).parent().eq(-1).removeClass("choice_btn_wrapper");
+    console.log("!!!!!!!!!!!!!!!!!!!!!!");
+    console.log($(this).parent(),$(this).parent().eq(-1));
+    $(this).parent().parent().parent().removeClass("choice_btn_wrapper");
     $(".choice_btn_wrapper").remove();
     $(".choice_btn").fadeOut(100, function(){ $(this).remove();});
     console.log("++++ USER MESSAGE ++++  >  " + message);
