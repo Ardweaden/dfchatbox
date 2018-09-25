@@ -450,7 +450,7 @@ def getPatientEHRID(answer_json,json_response):
 
 	#Use provided ehrid
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
-	context = [context_n for context_n in answer_json["result"]["contexts"] if context_n["name"] == "user_data"]
+	context = [context_n for context_n in answer_json["result"]["contexts"] if context_n["name"] == "user_data"][0]
 
 	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "" and context["parameters"]["user_isDoctor"] != "true":
 		parameter_ehrid = context["parameters"]["user_ehrid"]
@@ -891,7 +891,7 @@ def searchForEntry(answer_json):
 
 	#Use provided ehrid
 	parameter_ehrid = answer_json['result']['parameters']['ehrid']
-	context = [context_n for context_n in answer_json["result"]["contexts"] if context_n["name"] == "user_data"]
+	context = [context_n for context_n in answer_json["result"]["contexts"] if context_n["name"] == "user_data"][0]
 
 	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "" and context["parameters"]["user_isDoctor"] != "true":
 		parameter_ehrid = context["parameters"]["user_ehrid"]
