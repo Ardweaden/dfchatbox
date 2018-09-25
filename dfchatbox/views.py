@@ -512,8 +512,6 @@ def getLabResultsData(answer_json):
 
 	ehrId,answer_json,json_response, answ_part = getPatientEHRID(answer_json,json_response)
 
-	print("Answer part: >",answ_part,"<")
-
 	if answ_part == "":
 		answ_part = "Za pacienta"
 

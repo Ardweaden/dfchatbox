@@ -320,6 +320,8 @@ function communicate(message,j){
                 }
                 disable_input(false);
 
+                document.getElementById("data" + j + (i-1)).scrollIntoView({behavior: "smooth"});
+
                 $("#inputField").focus();
             }
 
