@@ -9,6 +9,7 @@ $(document).ready(function(){
     //session_isValid();
     $("#socketchatbox-sendFileBtn").css("background","#9a969a");
     $(".arrow-right").css("border-left","25px solid #bcbabb");
+    $(".socketchatbox-chatArea").append('<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="Welcome_message"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime"></span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">Pozdravljeni, sem ThinkEHR robotski pomočnik! Za prijavo kliknite na ime na zgornjem levem robu pogovornega okenca.</span><br></div></div>');
 
     sessionStorage.setItem("current_word","");
 
@@ -31,6 +32,8 @@ $(document).ready(function(){
         $.post(url,function(response){console.log(response)});
     }
     //console.log("SESSION ID: " + localStorage.getItem("sessionID"));
+
+
 
 
     console.log("\npatientInfo_name: " + patientInfo_name + "\npatientInfo_lastname: " + patientInfo_lastname + "\npatientInfo_ehrid: " + patientInfo_ehrid + "\npatientInfo_isDoctor: " + patientInfo_isDoctor);
