@@ -4,6 +4,7 @@ var autocompleting = 1;
 var global_username = "Uporabnik";
 var patientInfo_name, patientInfo_lastname, patientInfo_ehrid,patientInfo_patients,patientInfo_isDoctor;
 var welcome_message = "Pozdravljeni, sem ThinkEHR robotski pomočnik! Za prijavo kliknite na ime na zgornjem levem robu pogovornega okenca.";
+var greeting = true;
 
 $(document).ready(function(){
     //localStorage.removeItem("sessionID");
@@ -16,11 +17,14 @@ $(document).ready(function(){
     $("#socketchatbox-sendFileBtn").css("background","#9a969a");
     $(".arrow-right").css("border-left","25px solid #bcbabb");
 
-    welcome_bubble = '<div style="padding-bottom:13%;" class="socketchatbox-message-wrapper" id="Welcome_message"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime"></span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + welcome_message + '</span><br></div></div>';
-    $(".socketchatbox-chatArea").append(welcome_bubble);
-    saveElement(welcome_bubble);
-    j = 1;
+    if (greeting) {
+        welcome_bubble = '<div style="padding-bottom:13%;" class="socketchatbox-message-wrapper" id="Welcome_message"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime"></span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + welcome_message + '</span><br></div></div>';
+        $(".socketchatbox-chatArea").append(welcome_bubble);
+        saveElement(welcome_bubble);
+    }
 
+    j = 1;
+    
     sessionStorage.setItem("current_word","");
 
     user_status = sessionStorage.getItem("logged-in");
