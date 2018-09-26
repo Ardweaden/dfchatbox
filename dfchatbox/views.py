@@ -25,7 +25,7 @@ import requests
 import base64
 from datetime import datetime
 import numpy as np
-from dfchatbox._auth import credentials
+from dfchatbox._auth import credentials,CLIENT_ACCESS_TOKEN
 
 # Create your views here.
 # -*- coding: utf-8 -*-
@@ -67,15 +67,6 @@ def index(request):
 
 			if translation != "":
 				message = translation
-
-		#print("Message is ",message)
-
-		#THINKEHR
-		#CLIENT_ACCESS_TOKEN = "631305ebeec449618ddeeb2f96a681e9"
-		#WAITING LINES
-		#CLIENT_ACCESS_TOKEN = "15bddeda0b5246cba6cd27fcd67576a3"
-		#MyEHR
-		CLIENT_ACCESS_TOKEN = "7f7cb0e7be2e4b83b08b7106485a2078"
 
 		contexts = [{
 		  "lifespan": 5,
@@ -223,14 +214,12 @@ def login_page(request):
 			return JsonResponse(json.dumps({'success': 0, 'message': 'Napačno ime ali geslo',"username": "Uporabnik"}),safe=False)
 
 def logout_page(request):
-	#print("Let's log out! Username: ", request.POST["username"],", password: ",request.POST["password"])
 
 	if request.method == "POST":
 		logout(request)
 		return JsonResponse(json.dumps({'success': 1, 'message': 'Odjava je bila uspešna',"username": "Uporabnik"}),safe=False)
 
 
-@csrf_exempt
 def webhook(request):
 
 	answer_json = json.loads(request.body)
