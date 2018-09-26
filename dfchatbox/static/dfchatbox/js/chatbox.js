@@ -659,6 +659,8 @@ $("#socketchatbox-top").click(function(element){
 //OPENS LOGIN/LOGOUT PAGE
 $("#toLogin").click(function(){
     if ($("#socketchatbox-showHideChatbox").html() != "↓"){
+        console.log("This should now open the window")
+        $("#socketchatbox-top").click(); 
         return
     }
     console.log("It runs login-logout click");
