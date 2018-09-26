@@ -25,11 +25,10 @@ import requests
 import base64
 from datetime import datetime
 import numpy as np
+from dfchatbox._auth import credentials
 
 # Create your views here.
 # -*- coding: utf-8 -*-
-
-credentials = b'ales.tavcar@ijs.si:ehrscape4alestavcar'
 
 @require_http_methods(['POST','GET'])
 def index(request):

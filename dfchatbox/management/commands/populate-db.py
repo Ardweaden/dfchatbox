@@ -6,11 +6,12 @@ import json
 import base64
 import requests
 import numpy as np
+from dfchatbox._auth import credentials
 
 def allPatients():
     baseUrl = 'https://rest.ehrscape.com/rest/v1'
     ehrId = ''
-    base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+    base = base64.b64encode(credentials)
     authorization = "Basic " + base.decode()
 
     aql = "/query?aql=select e/ehr_id from EHR e contains COMPOSITION a"
@@ -29,7 +30,7 @@ def allPatients():
         return 0
 
 def patientName(ehrId):
-    base = base64.b64encode(b'ales.tavcar@ijs.si:ehrscape4alestavcar')
+    base = base64.b64encode(credentials)
     authorization = "Basic " + base.decode()
     r = requests.get("https://rest.ehrscape.com/rest/v1/demographics/party/query/?ehrId={}".format(ehrId),headers={"Authorization": authorization, 'content-type': 'application/json'})
     if r.status_code != 200:
