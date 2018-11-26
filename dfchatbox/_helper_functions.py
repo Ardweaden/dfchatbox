@@ -31,20 +31,27 @@ def organise_entries(entries):
 
     return json_entries
 
-def translate(input,api_link="http://translate.dis-apps.ijs.si/translate?senxetence="):
+def translate(input,api_link="http://translate.dis-apps.ijs.si/translate?sentence=",yandex=False,yandex_link="https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20181126T094814Z.5af6ccc536a3d1d8.b4fb12893e5c327830c7a1f69e9242617d6042ea&lang=sl-en&text="):
     input=input.replace(",","").replace("("," ").replace(")"," ").replace("-"," ")
-    url = api_link + input
-    req = requests.get(url)
-    if req.text == '{"errors": {"sentence": "Invalid text value provided"}}' or req.text[1:-3] == '':
-        output=""
-        words=input.split(" ")
-        if(len(words)>1):
-            for word in words:
-                if word:
-                    output+=translate(word)+" "
-            return output
-        return input
-    return req.text[1:-3]
+    if not yandex:
+        url = api_link + input
+        req = requests.get(url)
+        if req.text == '{"errors": {"sentence": "Invalid text value provided"}}' or req.text[1:-3] == '':
+            output=""
+            words=input.split(" ")
+            if(len(words)>1):
+                for word in words:
+                    if word:
+                        output+=translate(word)+" "
+                return output
+            return input
+        return req.text[1:-3]
+    else:
+        url = yandex_link + input
+        req = requests.get(url)
+        res = json.loads(req.text)
+        return res["text"][0]
+
 
 
 def levenshteinDistance(s1, s2):
