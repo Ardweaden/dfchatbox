@@ -224,6 +224,7 @@ def logout_page(request):
 
 def webhook(request):
 
+	full_answer = json.loads(request.text)
 	answer_json = json.loads(request.body)
 	
 	print("=========== WEBHOOK =============")
@@ -232,7 +233,7 @@ def webhook(request):
 	print(answer_json)
 	print(request.user.is_authenticated)
 	print(request.user)
-	print(answer_json)
+	print(full_answer)
 	print("\n\n ******************************************* \n\n ")
 
 
