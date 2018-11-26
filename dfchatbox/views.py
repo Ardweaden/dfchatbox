@@ -245,7 +245,7 @@ def webhook(request):
 	print("\nFull access: ",fullAccess,"\n")
 
 	#	Checks if user is logged in
-	if [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["is_authenticated"] == "false" and parameter_action != "patientInfo" and parameter_action != "getHelp":
+	if [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["is_authenticated"] == "false" and parameter_action != "patientInfo" and parameter_action != "getHelp":
 		json_response = {"responseType": "not-authenticated"}
 		json_response['data'] = ""
 		json_response['url'] = "/"
@@ -299,7 +299,7 @@ def webhook(request):
 		del json_response["new_name"]
 		new_lastname = json_response["new_lastname"]
 		del  json_response["new_lastname"]
-		response_data["contextOut"] = answer_json["queryResult"]["contexts"]
+		response_data["contextOut"] = answer_json["queryResult"]["outputContexts"]
 
 		for context in response_data["contextOut"]:
 			context["parameters"]["given-name"] = new_name
@@ -321,20 +321,20 @@ def webhook(request):
 			)
 
 def PermissionCompliant(answer_json):
-	print("\n***contexts: ",answer_json["queryResult"]["contexts"],"***\n")
-	isDoctor = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
+	print("\n***contexts: ",answer_json["queryResult"]["outputContexts"],"***\n")
+	isDoctor = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
 
 	if isDoctor == "true":
-		name = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
-		surname = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+		name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
+		surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
 
 		user = Doctor.objects.get(name=name,surname=surname)
 
 		return user.fullAccess
 	
 	else:
-		name = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
-		surname = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+		name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
+		surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
 
 		user = Patient.objects.get(name=name,surname=surname)
 
@@ -387,7 +387,7 @@ def getAllowedEhrids(answer_json):
 	print("Getting allowedEhrids")
 
 	fullAccess = answer_json["fullAccess"]
-	context = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]
+	context = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]
 
 	if fullAccess == False:
 		allowed_ehrids = [context["parameters"]["user_ehrid"]]
@@ -421,7 +421,7 @@ def getPatientEHRID(answer_json,json_response):
 
 	#Use provided ehrid
 	parameter_ehrid = answer_json['queryResult']['parameters']['ehrid']
-	context = [context_n for context_n in answer_json["queryResult"]["contexts"] if context_n["name"] == "user_data"][0]
+	context = [context_n for context_n in answer_json["queryResult"]["outputContexts"] if context_n["name"] == "user_data"][0]
 
 	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "" and context["parameters"]["user_isDoctor"] != "true":
 		parameter_ehrid = context["parameters"]["user_ehrid"]
@@ -836,7 +836,7 @@ def searchForEntry(answer_json):
 
 	#Use provided ehrid
 	parameter_ehrid = answer_json['queryResult']['parameters']['ehrid']
-	context = [context_n for context_n in answer_json["queryResult"]["contexts"] if context_n["name"] == "user_data"][0]
+	context = [context_n for context_n in answer_json["queryResult"]["outputContexts"] if context_n["name"] == "user_data"][0]
 
 	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "" and context["parameters"]["user_isDoctor"] != "true":
 		parameter_ehrid = context["parameters"]["user_ehrid"]
@@ -951,13 +951,13 @@ def searchForEntry(answer_json):
 
 
 def getMyPatients(answer_json):
-	isDoctor = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
+	isDoctor = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
 
 	json_response = {"responseType": "PatientList"}
 
 	if isDoctor == "true":
-		doctor_name = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
-		doctor_surname = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+		doctor_name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
+		doctor_surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
 
 		doctor = Doctor.objects.get(name=doctor_name,surname=doctor_surname)
 		all_patients = list(doctor.patient_set.all())
@@ -980,11 +980,11 @@ def getMyPatients(answer_json):
 def getMyDoctor(answer_json):
 	json_response = {"responseType": "PatientList"}
 
-	isDoctor = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
+	isDoctor = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
 
 	if isDoctor == "false":
-		name = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
-		surname = [context for context in answer_json["queryResult"]["contexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+		name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
+		surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
 
 		patient = Patient.objects.get(name=name,surname=surname)
 
