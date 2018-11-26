@@ -63,7 +63,7 @@ def index(request):
 
 		if message[:5] != "getE ":
 			#BECAUSE IJS SERVER ISN'T WORKING OTHER API
-			translation = translate(message,api_link="http://translation-api.docker-e9.ijs.si/translate?sentence=")
+			translation = translate(message,api_link="http://translation-api.docker-e9.ijs.si/translate?sentence=",yandex=True)
 
 			if translation != "":
 				message = translation
