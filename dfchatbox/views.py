@@ -68,6 +68,8 @@ def index(request):
 			if translation != "":
 				message = translation
 
+		print("*** message: ",message,"***\n")
+
 		contexts = [{
 		  "lifespan": 5,
 		  "name": "user_data",
