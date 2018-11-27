@@ -310,14 +310,21 @@ def webhook(request):
 
 	answer = json_response['answer']
 	del json_response['answer']
-	response_data['speech'] = warning + answer
-	response_data['displayText'] = answer
-	response_data['data'] = json_response
-	response_data['source'] = "thinkEHR"
-	print("\n\n ******************************************* \n\n ")
+	# response_data['speech'] = warning + answer
+	# response_data['displayText'] = answer
+	# response_data['data'] = json_response
+	# response_data['source'] = "thinkEHR"
+	# print("\n\n ******************************************* \n\n ")
 	#print(response_data)
 	#print("\n\n ******************************************* \n\n ")
 	#print("=========== END WEBHOOK =============")
+
+	response_data['fulfillmentText'] = warning + answer
+	response_data['displayText'] = "fulfillmentMessages": [{"text": [answer],}]
+	response_data['payload'] = json_response
+	response_data['source'] = "thinkEHR"
+	print("\n\n ******************************************* \n\n ")
+
 	return HttpResponse(
 			json.dumps(response_data, indent=4),
 			content_type="application/json"
@@ -386,15 +393,10 @@ def getPatientInfoData(answer_json):
 		answer = "Za podano ime nisem našel ustreznih vnosov."	
 
 
-	# json_response['answer'] = answer
-	# json_response['data'] = json_object
-	# json_response['url'] = "/"
-	# json_response['speech'] = answer
-
-	json_response['fulfillmentText'] = answer
-	json_response['payload'] = json_object
-	#json_response['url'] = "/"
-	json_response['fulfillmentMessages'] = [{"text": [answer],}]
+	json_response['answer'] = answer
+	json_response['data'] = json_object
+	json_response['url'] = "/"
+	json_response['speech'] = answer
 
 	print("$$$$\n",json_response,"\n$$$$")
 
