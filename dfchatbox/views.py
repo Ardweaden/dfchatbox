@@ -631,7 +631,7 @@ def getECGResultsData(answer_json):
 						#print("URI IN THE FUCKING ITEM!!")
 						url = getECGpdfLink(item)
 						#print(url)
-					else:
+					#else:
 						#print("URI NOT IN THE FUCKING ITEM")
 
 					#json_object['name'] = lab['name']
