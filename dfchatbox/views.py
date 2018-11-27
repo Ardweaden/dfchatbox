@@ -42,9 +42,9 @@ def index(request):
 		patientInfo_patientEhrid = None
 		patientInfo_isDoctor = None
 
-		print("*****SESSION ID*****   ",sessionID)
+		#print("*****SESSION ID*****   ",sessionID)
 
-		print("\n\n*****USER STATUS*****\nUser: ",request.user,"\nIs authenticated: ",request.user.is_authenticated,"\n\n")
+		#print("\n\n*****USER STATUS*****\nUser: ",request.user,"\nIs authenticated: ",request.user.is_authenticated,"\n\n")
 
 		user_status = request.user.is_authenticated
 
@@ -68,7 +68,7 @@ def index(request):
 			if translation != "":
 				message = translation
 
-		print("*** message: ",message,"***\n")
+		#print("*** message: ",message,"***\n")
 
 		contexts = [{
 		  "lifespan": 5,
@@ -95,11 +95,11 @@ def index(request):
 
 		answer_json = json.loads(data)
 
-		print(answer_json)
+		#print(answer_json)
 
 		text_answer = answer_json['queryResult']['fulfillment']['messages'][0]['speech']
 
-		print(text_answer)
+		#print(text_answer)
 
 		data = ""
 		response_type = ""
@@ -108,14 +108,14 @@ def index(request):
 		if 'data' in answer_json['queryResult']['fulfillment']:
 		    data = answer_json['queryResult']['fulfillment']['data']['data']
 		    response_type = answer_json['queryResult']['fulfillment']['data']['responseType']
-		    print("RESPONSE TYPE: ",response_type)
+		    #print("RESPONSE TYPE: ",response_type)
 		    url = answer_json['queryResult']['fulfillment']['data']['url']
 		    if url[:5] != "https" and url[0] != "/": 
 		    	url = "https:" + url[5:]
 
 		    
 
-		print("data: ",data)
+		#print("data: ",data)
 
 		return HttpResponse('{{"text_answer":"{0}","response_type":"{1}","data":"{2}","url":"{3}"}}'.format(text_answer,response_type,data,url))
 	else:
@@ -130,12 +130,12 @@ def check_links(request):
 
 		urls = re.findall("((https://www|http://www|www\.|http://|https://).*?(?=(www\.|http://|https://|$)))", message)
 
-		print("These are the urls: ", urls)
+		#print("These are the urls: ", urls)
 
 		if len(urls) != 0:
 			url = urls[0][0]
 
-			print("We'll check this url: ", url)
+			#print("We'll check this url: ", url)
 
 			html = requests.get(url)
 
@@ -170,7 +170,7 @@ def check_links(request):
 def entry_tree(request):
 	dataLength = cache.get("dataLength")
 	cache.delete("dataLength")
-	print("\n=== DATA LENGTH @ ENTRY_TREE: ===>  ", dataLength,"\n")
+	#print("\n=== DATA LENGTH @ ENTRY_TREE: ===>  ", dataLength,"\n")
 	dataList = []
 
 	for i in range(int(dataLength)):
@@ -180,14 +180,14 @@ def entry_tree(request):
 	return render(request,'dfchatbox/tree.html',{'data': json.dumps(dataList)})
 
 def login_page(request):
-	print("Let's log in! Username: ", request.POST["username"],", password: ",request.POST["password"])
+	#print("Let's log in! Username: ", request.POST["username"],", password: ",request.POST["password"])
 
 	if request.method == "POST":
 		user = authenticate(username=request.POST["username"], password=request.POST["password"])
 
 		if user is not None:
 			login(request, user)
-			print("\n\nUser is authenticated: ",request.user.is_authenticated,"\n\n")
+			#print("\n\nUser is authenticated: ",request.user.is_authenticated,"\n\n")
 
 			#	GET NAME, SURNAME AND EHRID FROM DATABASE
 			#	FOR NOW I'LL HAVE DEFAULTS
@@ -228,12 +228,12 @@ def webhook(request):
 	
 	print("=========== WEBHOOK =============")
 
-	print("\n\n ******************************************* \n\n ")
-	print(answer_json)
-	print(request.user.is_authenticated)
-	print(request.user)
-	print(request)
-	print("\n\n ******************************************* \n\n ")
+	#print("\n\n ******************************************* \n\n ")
+	#print(answer_json)
+	#print(request.user.is_authenticated)
+	#print(request.user)
+	#print(request)
+	#print("\n\n ******************************************* \n\n ")
 
 
 	parameter_action = answer_json['queryResult']['action']
@@ -242,7 +242,7 @@ def webhook(request):
 	warning = ""
 	fullAccess = PermissionCompliant(answer_json)
 	answer = "Prosim ponovno postavite zahtevo."
-	print("\nFull access: ",fullAccess,"\n")
+	#print("\nFull access: ",fullAccess,"\n")
 
 	#	Checks if user is logged in
 	if [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["is_authenticated"] == "false" and parameter_action != "patientInfo" and parameter_action != "getHelp":
@@ -312,16 +312,16 @@ def webhook(request):
 	response_data['data'] = json_response
 	response_data['source'] = "thinkEHR"
 	print("\n\n ******************************************* \n\n ")
-	print(response_data)
-	print("\n\n ******************************************* \n\n ")
-	print("=========== END WEBHOOK =============")
+	#print(response_data)
+	#print("\n\n ******************************************* \n\n ")
+	#print("=========== END WEBHOOK =============")
 	return HttpResponse(
 			json.dumps(response_data, indent=4),
 			content_type="application/json"
 			)
 
 def PermissionCompliant(answer_json):
-	print("\n***contexts: ",answer_json["queryResult"]["outputContexts"],"***\n")
+	#print("\n***contexts: ",answer_json["queryResult"]["outputContexts"],"***\n")
 	session = answer_json["session"] + "/"
 	isDoctor = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_isDoctor"]
 
@@ -361,8 +361,8 @@ def getPatientInfoData(answer_json):
 	if parameter_last_name != "":
 		searchData.append({"key": "lastNames", "value": parameter_last_name})
 
-	print("queryUrl: ", queryUrl)
-	print("searchData: ", searchData)
+	#print("queryUrl: ", queryUrl)
+	#print("searchData: ", searchData)
 
 	r = requests.post(queryUrl, data=json.dumps(searchData), headers={"Authorization": authorization, 'content-type': 'application/json'})
 
@@ -385,7 +385,7 @@ def getPatientInfoData(answer_json):
 	return json_response
 
 def getAllowedEhrids(answer_json):
-	print("Getting allowedEhrids")
+	#print("Getting allowedEhrids")
 
 	fullAccess = answer_json["fullAccess"]
 	context = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]
@@ -399,7 +399,7 @@ def getAllowedEhrids(answer_json):
 		allowed_ehrids = doctor.patient_set.all()
 		allowed_ehrids = [i.ehrid for i in allowed_ehrids]
 
-	print("\nALLOWED EHRIDS: \n",allowed_ehrids)
+	#print("\nALLOWED EHRIDS: \n",allowed_ehrids)
 	return allowed_ehrids
 
 def getPatientEHRID(answer_json,json_response):
@@ -433,7 +433,7 @@ def getPatientEHRID(answer_json,json_response):
 		if r.status_code == 200:
 			js = json.loads(r.text)
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
+			#print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
 			answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
 
 	
@@ -453,7 +453,7 @@ def getPatientEHRID(answer_json,json_response):
 		if r.status_code == 200:
 			js = json.loads(r.text)
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
+			#print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
 
 			answer = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title() + "? "
 
@@ -465,7 +465,7 @@ def getPatientEHRID(answer_json,json_response):
 
 
 def getLabResultsData(answer_json):
-	print(answer_json)
+	#print(answer_json)
 
 	allowed_ehrids = getAllowedEhrids(answer_json)
 
@@ -502,7 +502,7 @@ def getLabResultsData(answer_json):
 			for lab in js:
 				datetime_object = datetime.strptime(lab['time'].split('T')[0], '%Y-%M-%d')
 				if dateFrom <= datetime_object <= dateTo:
-					print(lab['name']+" = "+lab['name']+" time: "+str(datetime_object))
+					#print(lab['name']+" = "+lab['name']+" time: "+str(datetime_object))
 					json_object['name'] = lab['name']
 					json_object['value'] = str(lab['value'])+" "+lab['unit']
 					json_object['date'] = str(datetime_object)
@@ -511,13 +511,13 @@ def getLabResultsData(answer_json):
 			if json_lab_results:	
 				answer = answ_part + " in podani casovni okvir sem nasel sledece izvide laboratorijskih preiskav:"
 		elif parameter_date != "":
-			print(parameter_date)
+			#print(parameter_date)
 			dateFrom  = datetime.strptime(parameter_date, '%Y-%M-%d')
 			dateTo  = dateFrom
 			for lab in js:
 				datetime_object = datetime.strptime(lab['time'].split('T')[0], '%Y-%M-%d')
 				if dateFrom <= datetime_object <= dateTo:
-					print(lab['name']+" = "+lab['name']+" time: "+str(datetime_object))
+					#print(lab['name']+" = "+lab['name']+" time: "+str(datetime_object))
 					json_object['name'] = lab['name']
 					json_object['value'] = str(lab['value'])+" "+lab['unit']
 					json_object['date'] = str(datetime_object)
@@ -606,7 +606,7 @@ def getECGResultsData(answer_json):
 				answer = answ_part + " in podani casovni okvir sem nasel sledece izvide EKG preiskav:"
 
 		elif parameter_date != "":
-			print(parameter_date)
+			#print(parameter_date)
 			dateFrom  = datetime.strptime(parameter_date, '%Y-%M-%d')
 			dateTo  = dateFrom
 
@@ -628,11 +628,11 @@ def getECGResultsData(answer_json):
 					datetime_object = datetime.strptime(item['#0']['context']['start_time']['value'].split('T')[0], '%Y-%M-%d')
 
 					if getECGpdfLink(item):
-						print("URI IN THE FUCKING ITEM!!")
+						#print("URI IN THE FUCKING ITEM!!")
 						url = getECGpdfLink(item)
-						print(url)
+						#print(url)
 					else:
-						print("URI NOT IN THE FUCKING ITEM")
+						#print("URI NOT IN THE FUCKING ITEM")
 
 					#json_object['name'] = lab['name']
 					json_object['start_time'] = str(datetime_object)
@@ -711,9 +711,9 @@ def getAllEntries(answer_json):
 def getEntryData(answer_json):
 	allowed_ehrids = getAllowedEhrids(answer_json)
 
-	print("\n\n ############################################################## \n\n")
-	print(answer_json)
-	print("\n\n ############################################################## \n\n")
+	#print("\n\n ############################################################## \n\n")
+	#print(answer_json)
+	#print("\n\n ############################################################## \n\n")
 	baseUrl = 'https://rest.ehrscape.com/rest/v1'
 	ehrId = ''
 	base = base64.b64encode(credentials)
@@ -727,7 +727,7 @@ def getEntryData(answer_json):
 	response = json_response
 
 	numberList = answer_json['queryResult']['contexts'][0]['parameters']['numberList']
-	print(numberList)
+	#print(numberList)
 	numberList = list(map(int,numberList[0].split(",")))
 	ehrId,answer_json,json_response, answ_part = getPatientEHRID(answer_json,json_response)
 
@@ -772,9 +772,9 @@ def getEntryData(answer_json):
 
 					if r.status_code == 200:
 						json_entries = json.loads(r.text)['composition']
-						print("======================== JSON ENTRIES ========================")
-						print(numberList.index(counter))
-						print("===============================================================")
+						#print("======================== JSON ENTRIES ========================")
+						#print(numberList.index(counter))
+						#print("===============================================================")
 						cache.set("{}".format(numberList.index(counter)),json_entries,None)
 
 					else:
@@ -813,7 +813,7 @@ def searchForEntry(answer_json):
 
 	message = answer_json['queryResult']['parameters']['search-phrase']
 	message = " ".join(message)
-	print("The search phrase is: ",message)
+	#print("The search phrase is: ",message)
 
 	response = json_response
 	#json_object = {}
@@ -848,7 +848,7 @@ def searchForEntry(answer_json):
 		if r.status_code == 200:
 			js = json.loads(r.text)
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
+			#print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
 
 	if parameter_ehrid != "":
 		ehrId = str(parameter_ehrid)
@@ -866,7 +866,7 @@ def searchForEntry(answer_json):
 		if r.status_code == 200:
 			js = json.loads(r.text)
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
+			#print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
 
 			answer = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title() + "? "
 
@@ -909,10 +909,10 @@ def searchForEntry(answer_json):
 
 				if r.status_code == 200:
 					json_entries = json.loads(r.text)['composition']
-					print("======================== JSON ENTRIES ========================")
-					#print(numberList.index(counter))
-					#print(json_entries)
-					print("===============================================================")
+					#print("======================== JSON ENTRIES ========================")
+					##print(numberList.index(counter))
+					##print(json_entries)
+					#print("===============================================================")
 					data.append(json_entries)
 
 				else:
@@ -923,15 +923,15 @@ def searchForEntry(answer_json):
 			if data:
 				bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1)
 				bestPerformersValues = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
-				print("Best performers values:\n",bestPerformersValues)
-				print("\n************************ ANSWER ************************\n")
-				print(answer)
-				print("\n************************ ANSWER ************************\n")
+				#print("Best performers values:\n",bestPerformersValues)
+				#print("\n************************ ANSWER ************************\n")
+				#print(answer)
+				#print("\n************************ ANSWER ************************\n")
 				answer = answer + "Našel sem naslednje podatke, ki se skladajo s poizvedbo: "
 				saveBestPerformersDataToCache(data,bestPerformersIndices)
 
 				indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
-				print("\n\ndata length is: ",len(indicesList),"\n\n")
+				#print("\n\ndata length is: ",len(indicesList),"\n\n")
 
 				data = []
 
@@ -964,8 +964,8 @@ def getMyPatients(answer_json):
 		all_patients = list(doctor.patient_set.all())
 
 		all_patients = [patient.name.title() + " " + patient.surname.title() for patient in all_patients]
-		print("\nPATIENTS:")
-		print(all_patients)
+		#print("\nPATIENTS:")
+		#print(all_patients)
 
 		json_response['url'] = "/"
 		json_response['answer'] = "Našel sem vse vaše paciente: "
