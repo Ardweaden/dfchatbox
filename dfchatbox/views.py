@@ -105,11 +105,11 @@ def index(request):
 		response_type = ""
 		url = ""
 
-		if 'data' in answer_json['queryResult']['fulfillment']:
-		    data = answer_json['queryResult']['fulfillment']['data']['data']
-		    response_type = answer_json['queryResult']['fulfillment']['data']['responseType']
+		if 'data' in answer_json['result']['fulfillment']:
+		    data = answer_json['result']['fulfillment']['data']['data']
+		    response_type = answer_json['result']['fulfillment']['data']['responseType']
 		    #print("RESPONSE TYPE: ",response_type)
-		    url = answer_json['queryResult']['fulfillment']['data']['url']
+		    url = answer_json['result']['fulfillment']['data']['url']
 		    if url[:5] != "https" and url[0] != "/": 
 		    	url = "https:" + url[5:]
 
