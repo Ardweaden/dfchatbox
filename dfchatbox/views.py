@@ -322,7 +322,7 @@ def webhook(request):
 
 def PermissionCompliant(answer_json):
 	#print("\n***contexts: ",answer_json["queryResult"]["outputContexts"],"***\n")
-	session = answer_json["session"] + "/"
+	session = answer_json["session"] + "/contexts/"
 	isDoctor = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_isDoctor"]
 
 	if isDoctor == "true":
