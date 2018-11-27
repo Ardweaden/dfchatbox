@@ -97,7 +97,7 @@ def index(request):
 
 		print(answer_json)
 
-		text_answer = answer_json['queryResult']['fulfillment']['messages'][0]['speech']
+		text_answer = answer_json['result']['fulfillment']['messages'][0]['speech']
 
 		#print(text_answer)
 
