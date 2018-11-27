@@ -40,7 +40,7 @@ def index(request):
 		patientInfo_patientName = None
 		patientInfo_patientSurname = None
 		patientInfo_patientEhrid = None
-		patientInfo_isDoctor = None
+		patientInfo_isDoctor = False
 
 		#print("*****SESSION ID*****   ",sessionID)
 
