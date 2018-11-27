@@ -246,6 +246,7 @@ def webhook(request):
 
 	#	Checks if user is logged in
 	if [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["is_authenticated"] == "false" and parameter_action != "patientInfo" and parameter_action != "getHelp":
+		print("$$$ HERE $$$")
 		json_response = {"responseType": "not-authenticated"}
 		json_response['data'] = ""
 		json_response['url'] = "/"
@@ -253,6 +254,7 @@ def webhook(request):
 		response_data['displayText'] = "Za iskanje se morate prijaviti."
 		response_data['data'] = json_response
 		response_data['source'] = "thinkEHR"
+		print(response_data)
 		return HttpResponse(
 			json.dumps(response_data, indent=4),
 			content_type="application/json"
