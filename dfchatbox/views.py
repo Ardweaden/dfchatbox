@@ -979,13 +979,14 @@ def searchForEntry(answer_json):
 
 
 def getMyPatients(answer_json):
-	isDoctor = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
+	session = answer_json["session"] + "/contexts/"
+	isDoctor = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_isDoctor"]
 
 	json_response = {"responseType": "PatientList"}
 
 	if isDoctor == "true":
-		doctor_name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
-		doctor_surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+		doctor_name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_patientName"]
+		doctor_surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_patientSurname"]
 
 		doctor = Doctor.objects.get(name=doctor_name,surname=doctor_surname)
 		all_patients = list(doctor.patient_set.all())
@@ -1008,13 +1009,14 @@ def getMyPatients(answer_json):
 		return json_response
 
 def getMyDoctor(answer_json):
+	session = answer_json["session"] + "/contexts/"
 	json_response = {"responseType": "PatientList"}
 
-	isDoctor = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
+	isDoctor = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_isDoctor"]
 
 	if isDoctor == "false":
-		name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
-		surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+		name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_patientName"]
+		surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_patientSurname"]
 
 		patient = Patient.objects.get(name=name,surname=surname)
 
