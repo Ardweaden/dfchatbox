@@ -324,6 +324,7 @@ def webhook(request):
 	response_data['payload'] = json_response
 	response_data['source'] = "thinkEHR"
 	print("\n\n ******************************************* \n\n ")
+	print(response_data)
 
 	return HttpResponse(
 			json.dumps(response_data, indent=4),
