@@ -143,11 +143,12 @@ function typing(start,typer) {
 };
 
 //AUTOMATICALLY ENABLE INPUT FIELD IF RESPONSE TAKES TOO LONG
-// function auto_enable_input(time_limit) {
-//     console.log("It has been disabled");
-//     setTimeout(disable_input,time_limit,0);
-//     console.log("It has been enabled");
-// }
+function auto_enable_input(time_limit) {
+    console.log("It has been disabled");
+    setTimeout(disable_input,time_limit,0);
+    $("#typing_wrapper").remove();
+    console.log("It has been enabled");
+}
 
 
 //DISABLES THE INPUT FIELD WHEN INPUT IS BEING PROCESSED
@@ -157,7 +158,7 @@ function disable_input(start) {
         $("#socketchatbox-sendFileBtn").css("background","#9a969a");
         $(".arrow-right").css("border-left","25px solid #bcbabb");
         $(".socketchatbox-inputMessage").css("border","1px solid #9a969a");
-        setTimeout(disable_input,wait_time_limit,0);
+        auto_enable_input(wait_time_limit);
     }
     else {
         $("#inputField").prop('disabled', false);
