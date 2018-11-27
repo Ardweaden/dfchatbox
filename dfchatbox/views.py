@@ -228,12 +228,12 @@ def webhook(request):
 	
 	print("=========== WEBHOOK =============")
 
-	#print("\n\n ******************************************* \n\n ")
-	#print(answer_json)
+	print("\n\n ******************************************* \n\n ")
+	print(answer_json)
 	#print(request.user.is_authenticated)
 	#print(request.user)
 	#print(request)
-	#print("\n\n ******************************************* \n\n ")
+	print("\n\n ******************************************* \n\n ")
 
 
 	parameter_action = answer_json['queryResult']['action']
