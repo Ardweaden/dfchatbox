@@ -389,6 +389,7 @@ def getPatientInfoData(answer_json):
 	json_response['answer'] = answer
 	json_response['data'] = json_object
 	json_response['url'] = "/"
+	json_response['speech'] = answer
 
 	print("$$$$\n",json_response,"\n$$$$")
 
@@ -551,6 +552,7 @@ def getLabResultsData(answer_json):
 	json_response['answer'] = answer
 	json_response['data'] = json_lab_results
 	json_response['url'] = "/"
+	json_response['speech'] = answer
 
 	return json_response
 
@@ -581,6 +583,7 @@ def getECGResultsData(answer_json):
 			json_response['url'] = "/"
 			json_response['answer'] = "Nimate dovoljenja za to poizvedbo."
 			json_response['data'] = []
+			json_response['speech'] = answer
 
 			return json_response
 
@@ -659,6 +662,7 @@ def getECGResultsData(answer_json):
 	json_response['answer'] = answer
 	json_response['data'] = json_lab_results
 	json_response['url'] = url
+	json_response['speech'] = answer
 
 	return json_response
 
@@ -686,6 +690,7 @@ def getAllEntries(answer_json):
 			json_response['answer'] = "Nimate dovoljenja za to poizvedbo."
 			json_response['data'] = []
 			json_response['ehrid'] = ehrId
+			json_response['speech'] = answer
 
 			return json_response
 
@@ -714,7 +719,7 @@ def getAllEntries(answer_json):
 	json_response['answer'] = answer
 	json_response['data'] = json_entries
 	json_response['url'] = "/"
-
+	json_response['speech'] = answer
 
 	return json_response
 
@@ -747,6 +752,7 @@ def getEntryData(answer_json):
 			json_response['url'] = "/"
 			json_response['answer'] = "Nimate dovoljenja za to poizvedbo."
 			json_response['data'] = []
+			json_response['speech'] = answer
 
 			return json_response
 
@@ -801,6 +807,7 @@ def getEntryData(answer_json):
 	json_response['answer'] = answer
 	json_response['data'] = [{"some":"data"}]
 	#json_response['data'] = json_entries
+	json_response['speech'] = answer
 
 	return json_response
 
@@ -889,6 +896,7 @@ def searchForEntry(answer_json):
 			json_response['url'] = "/"
 			json_response['answer'] = "Nimate dovoljenja za to poizvedbo."
 			json_response['data'] = []
+			json_response['speech'] = answer
 
 			return json_response
 
@@ -957,6 +965,7 @@ def searchForEntry(answer_json):
 	# Generate the JSON response
 	json_response['answer'] = answer
 	json_response['data'] = data
+	json_response['speech'] = answer
 
 	return json_response
 
@@ -980,12 +989,14 @@ def getMyPatients(answer_json):
 		json_response['url'] = "/"
 		json_response['answer'] = "Našel sem vse vaše paciente: "
 		json_response['data'] = all_patients
+		json_response['speech'] = answer
 		return json_response
 
 	else:
 		json_response['url'] = "/"
 		json_response['answer'] = "Ta poizvedba ni veljavna. Ste morda želeli iskati svojega zdravnika?"
 		json_response['data'] = ""
+		json_response['speech'] = "Ta poizvedba ni veljavna. Ste morda želeli iskati svojega zdravnika?"
 		return json_response
 
 def getMyDoctor(answer_json):
@@ -1004,12 +1015,13 @@ def getMyDoctor(answer_json):
 		json_response['url'] = "/"
 		json_response['answer'] = "To je seznam vaših zdravnikov: "
 		json_response['data'] = [doctor]
-
+		json_response['speech'] = answer
 		return json_response
 	else:
 		json_response['url'] = "/"
 		json_response['answer'] = "Ta poizvedba ni veljavna. Ste morda želeli iskati svoje paciente?"
 		json_response['data'] = ""
+		json_response['speech'] = "Ta poizvedba ni veljavna. Ste morda želeli iskati svoje paciente?"
 		return json_response
 
 
@@ -1025,4 +1037,5 @@ def getHelp():
 	json_response['url'] = "/"
 	json_response['answer'] = "Za dodatno pomoč kontaktirajte razvijalca."
 	json_response['data'] = help_list
+	json_response['speech'] = "Za dodatno pomoč kontaktirajte razvijalca."
 	return json_response
