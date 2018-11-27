@@ -322,19 +322,20 @@ def webhook(request):
 
 def PermissionCompliant(answer_json):
 	print("\n***contexts: ",answer_json["queryResult"]["outputContexts"],"***\n")
-	isDoctor = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_isDoctor"]
+	session = answer_json["session"] + "/"
+	isDoctor = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_isDoctor"]
 
 	if isDoctor == "true":
-		name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
-		surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+		name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_patientName"]
+		surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_patientSurname"]
 
 		user = Doctor.objects.get(name=name,surname=surname)
 
 		return user.fullAccess
 	
 	else:
-		name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientName"]
-		surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]["parameters"]["user_patientSurname"]
+		name = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_patientName"]
+		surname = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]["parameters"]["user_patientSurname"]
 
 		user = Patient.objects.get(name=name,surname=surname)
 
