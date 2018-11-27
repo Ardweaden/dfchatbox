@@ -320,12 +320,12 @@ def webhook(request):
 	#print("=========== END WEBHOOK =============")
 
 	response_data['fulfillmentText'] = warning + answer
-	response_data["fulfillmentMessages"] = [{"text": [answer]}]
+	#response_data["fulfillmentMessages"] = [{"text": [answer]}]
 	response_data['payload'] = json_response
 	response_data['source'] = "thinkEHR"
-	print("\n\n ******************************************* \n\n ")
 	print(response_data)
-
+	print("\n\n ******************************************* \n\n ")
+	
 	return HttpResponse(
 			json.dumps(response_data, indent=4),
 			content_type="application/json"
