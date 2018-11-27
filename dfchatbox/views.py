@@ -386,10 +386,15 @@ def getPatientInfoData(answer_json):
 		answer = "Za podano ime nisem našel ustreznih vnosov."	
 
 
-	json_response['answer'] = answer
-	json_response['data'] = json_object
-	json_response['url'] = "/"
-	json_response['speech'] = answer
+	# json_response['answer'] = answer
+	# json_response['data'] = json_object
+	# json_response['url'] = "/"
+	# json_response['speech'] = answer
+
+	json_response['fulfillmentText'] = answer
+	json_response['payload'] = json_object
+	#json_response['url'] = "/"
+	json_response['fulfillmentMessages'] = [{"text": [answer],}]
 
 	print("$$$$\n",json_response,"\n$$$$")
 
