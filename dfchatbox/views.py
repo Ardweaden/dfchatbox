@@ -998,7 +998,7 @@ def getMyPatients(answer_json):
 		json_response['url'] = "/"
 		json_response['answer'] = "Našel sem vse vaše paciente: "
 		json_response['data'] = all_patients
-		json_response['speech'] = answer
+		json_response['speech'] = "Našel sem vse vaše paciente: "
 		return json_response
 
 	else:
