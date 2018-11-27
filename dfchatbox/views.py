@@ -250,9 +250,9 @@ def webhook(request):
 		json_response = {"responseType": "not-authenticated"}
 		json_response['data'] = ""
 		json_response['url'] = "/"
-		response_data['speech'] = "Za iskanje se morate prijaviti."
-		response_data['displayText'] = "Za iskanje se morate prijaviti."
-		response_data['data'] = json_response
+		response_data['fulfillmentText'] = "Za iskanje se morate prijaviti."
+		#response_data['displayText'] = "Za iskanje se morate prijaviti."
+		response_data['payload'] = json_response
 		response_data['source'] = "thinkEHR"
 		print(response_data)
 		return HttpResponse(
