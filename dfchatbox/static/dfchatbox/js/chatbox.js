@@ -5,7 +5,7 @@ var global_username = "Uporabnik";
 var patientInfo_name, patientInfo_lastname, patientInfo_ehrid,patientInfo_patients,patientInfo_isDoctor;
 var welcome_message = "Pozdravljeni, sem ThinkEHR robotski pomočnik! Za prijavo kliknite na ime na zgornjem levem robu pogovornega okenca.";
 var greeting = true;
-var wait_time_limit = 1000;
+var wait_time_limit = 10000;
 
 $(document).ready(function(){
     //localStorage.removeItem("sessionID");
@@ -142,6 +142,13 @@ function typing(start,typer) {
     }
 };
 
+//AUTOMATICALLY ENABLE INPUT FIELD IF RESPONSE TAKES TOO LONG
+// function auto_enable_input(time_limit) {
+//     console.log("It has been disabled");
+//     setTimeout(disable_input,time_limit,0);
+//     console.log("It has been enabled");
+// }
+
 
 //DISABLES THE INPUT FIELD WHEN INPUT IS BEING PROCESSED
 function disable_input(start) {
@@ -150,7 +157,7 @@ function disable_input(start) {
         $("#socketchatbox-sendFileBtn").css("background","#9a969a");
         $(".arrow-right").css("border-left","25px solid #bcbabb");
         $(".socketchatbox-inputMessage").css("border","1px solid #9a969a");
-        setTimeout(disable_input(),wait_time_limit,0);
+        setTimeout(disable_input,wait_time_limit,0);
     }
     else {
         $("#inputField").prop('disabled', false);
