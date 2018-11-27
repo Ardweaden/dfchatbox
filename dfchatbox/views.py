@@ -390,6 +390,8 @@ def getPatientInfoData(answer_json):
 	json_response['data'] = json_object
 	json_response['url'] = "/"
 
+	print("$$$$\n",json_response,"\n$$$$")
+
 	return json_response
 
 def getAllowedEhrids(answer_json):
