@@ -276,7 +276,8 @@ def webhook(request):
 		print("allEntries")
 		json_response = getAllEntries(answer_json)
 		print("\n$$$$$$$$$$$$$$$$$$$$\n",json_response,"\n$$$$$$$$$$$$$$$$$$$$\n")
-		response_data['ehrid'] = json_response['ehrid']
+		response_data["fulfillmentMessages"] = [{"ehrid": json_response["ehrid"]}]
+		#response_data['ehrid'] = json_response['ehrid']
 		del json_response['ehrid']
 	if parameter_action == "getEntry":
 		print("getEntry")
