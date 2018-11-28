@@ -18,7 +18,7 @@ def organise_entries(entries,date=False,date_range=False):
     print(date,date_range)
 
     for counter,item in enumerate(entries):
-        print("###############################\n",item,"\n###############################")
+        print("###############################\n",item['#0']["context"]["start_time"]["value"],"\n###############################")
         json_object_name = item['#0']['archetype_details']['template_id']['value']
         json_object_value = str(counter)
 
