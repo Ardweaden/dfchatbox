@@ -838,6 +838,7 @@ def searchForEntry(answer_json):
 	searchData = []
 	data = []
 	answer = ""
+	session = answer_json["session"] + "/contexts/"
 
 	message = answer_json['queryResult']['parameters']['search-phrase']
 	message = " ".join(message)
@@ -865,7 +866,7 @@ def searchForEntry(answer_json):
 
 	#Use provided ehrid
 	parameter_ehrid = answer_json['queryResult']['parameters']['ehrid']
-	context = [context_n for context_n in answer_json["queryResult"]["outputContexts"] if context_n["name"] == "user_data"][0]
+	context = [context_n for context_n in answer_json["queryResult"]["outputContexts"] if context_n["name"] == session + "user_data"][0]
 
 	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "" and context["parameters"]["user_isDoctor"] != "true":
 		parameter_ehrid = context["parameters"]["user_ehrid"]
