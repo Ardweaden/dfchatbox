@@ -275,6 +275,7 @@ def webhook(request):
 	if parameter_action == "allEntries":
 		print("allEntries")
 		json_response = getAllEntries(answer_json)
+		print("\n$$$$$$$$$$$$$$$$$$$$\n",json_response,"\n$$$$$$$$$$$$$$$$$$$$\n")
 		response_data['ehrid'] = json_response['ehrid']
 		del json_response['ehrid']
 	if parameter_action == "getEntry":
@@ -696,10 +697,10 @@ def getAllEntries(answer_json):
 
 		if ehrId not in allowed_ehrids:
 			json_response['url'] = "/"
-			json_response['fulfillmentText'] = "Nimate dovoljenja za to poizvedbo."
-			json_response['payload'] = []
+			json_response['answer'] = "Nimate dovoljenja za to poizvedbo."
+			json_response['data'] = []
 			json_response['ehrid'] = ehrId
-			#json_response['fulfillmentText'] = answer
+			json_response['speech'] = answer
 
 			return json_response
 
@@ -725,10 +726,10 @@ def getAllEntries(answer_json):
 		answer = "Za podanega pacienta nisem nasel podatkov v sistemu."
 		json_response['ehrid'] = ehrId
 	# Generate the JSON response
-	json_response['fulfillmentText'] = answer
-	json_response['payload'] = json_entries
+	json_response['answer'] = answer
+	json_response['data'] = json_entries
 	json_response['url'] = "/"
-	#json_response['speech'] = answer
+	json_response['speech'] = answer
 
 	return json_response
 
