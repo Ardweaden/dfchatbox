@@ -378,6 +378,8 @@ function communicate(message,j){
                 
                 disable_input(false);
 
+                document.getElementById("showAllEntries").scrollIntoView({behavior: "smooth"});
+
                 $("#inputField").focus();
             }
 
