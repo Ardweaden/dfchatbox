@@ -432,8 +432,8 @@ def getPatientEHRID(answer_json,json_response):
 	queryUrl = baseUrl + "/demographics/party/query"
 	session = answer_json["session"] + "/contexts/"
 
-	parameter_name = answer_json['queryResult']['contexts'][0]['parameters']['given-name']
-	parameter_last_name = answer_json['queryResult']['contexts'][0]['parameters']['last-name']
+	parameter_name = answer_json['queryResult']['outputContexts'][0]['parameters']['given-name']
+	parameter_last_name = answer_json['queryResult']['outputContexts'][0]['parameters']['last-name']
 
 	if parameter_name != "":
 		searchData.append({"key": "firstNames", "value": parameter_name})
@@ -750,7 +750,7 @@ def getEntryData(answer_json):
 
 	response = json_response
 
-	numberList = answer_json['queryResult']['contexts'][0]['parameters']['numberList']
+	numberList = answer_json['queryResult']['outputContexts'][0]['parameters']['numberList']
 	#print(numberList)
 	numberList = list(map(int,numberList[0].split(",")))
 	ehrId,answer_json,json_response, answ_part = getPatientEHRID(answer_json,json_response)
@@ -847,8 +847,8 @@ def searchForEntry(answer_json):
 	queryUrl = baseUrl + "/demographics/party/query"
 
 	try:
-		parameter_name =answer_json['queryResult']['contexts'][0]['parameters']['given-name']
-		parameter_last_name =answer_json['queryResult']['contexts'][0]['parameters']['last-name']
+		parameter_name =answer_json['queryResult']['outputContexts'][0]['parameters']['given-name']
+		parameter_last_name =answer_json['queryResult']['outputContexts'][0]['parameters']['last-name']
 	except:
 		try:
 			parameter_name =answer_json['queryResult']['parameters']['given-name']
