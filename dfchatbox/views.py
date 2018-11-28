@@ -477,7 +477,7 @@ def getPatientEHRID(answer_json,json_response):
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
 			#print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
 
-			answer = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title() + "? "
+			answ_part = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title() + "? "
 
 			json_response['new_name'] = parameter_name
 			json_response['new_lastname'] = parameter_last_name
