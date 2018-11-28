@@ -304,9 +304,9 @@ def webhook(request):
 		del json_response["new_name"]
 		new_lastname = json_response["new_lastname"]
 		del  json_response["new_lastname"]
-		response_data["contextOut"] = answer_json["queryResult"]["outputContexts"]
+		response_data["outputContexts"] = answer_json["queryResult"]["outputContexts"]
 
-		for context in response_data["contextOut"]:
+		for context in response_data["outputContexts"]:
 			context["parameters"]["given-name"] = new_name
 			context["parameters"]["last-name"] = new_lastname
 
