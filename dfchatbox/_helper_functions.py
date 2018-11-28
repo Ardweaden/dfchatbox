@@ -10,7 +10,7 @@ import apiai
 import re
 
 
-def organise_entries(entries,date=False,date_range=False)
+def organise_entries(entries,date=False,date_range=False):
     json_entries = []
     names = []
     json_object = {}
