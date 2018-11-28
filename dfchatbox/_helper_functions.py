@@ -52,7 +52,7 @@ def valid_date(item_date,date,date_range):
         else:
             return False
     elif date_range:
-        if item_date >= date_range["startDate"] and item_date <= date_range["endDate"]:
+        if item_date >= date_range["startDate"][:10] and item_date <= date_range["endDate"][:10]:
             return True
         else:
             return False

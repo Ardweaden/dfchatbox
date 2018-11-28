@@ -729,10 +729,10 @@ def getAllEntries(answer_json):
 				answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu:"
 				json_entries = organise_entries(js)
 			elif parameter_date_range != "":
-				answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu za časovno obdobje {}:".format(parameter_date_range)
+				answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu za časovno obdobje med {} in {}:".format(parameter_date_range["startDate"][:10],parameter_date_range["endDate"][:10])
 				json_entries = organise_entries(js,date_range=parameter_date_range)
 			elif parameter_date != "":
-				answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu za datum {}:".format(parameter_date)
+				answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu za datum {}:".format(parameter_date[:10])
 				json_entries = organise_entries(js,date=parameter_date)
 
 		if len(json_entries) == 0:
