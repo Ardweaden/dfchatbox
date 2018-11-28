@@ -599,7 +599,7 @@ def getECGResultsData(answer_json):
 			return json_response
 
 		parameter_date_range =answer_json['queryResult']['parameters']['date-period']
-		parameter_date =answer_json['result']['parameters']['date']
+		parameter_date =answer_json['queryResult']['parameters']['date']
 
 		aql = "/query?aql=select a from EHR e[ehr_id/value='{}'] contains COMPOSITION a".format(ehrId)
 
