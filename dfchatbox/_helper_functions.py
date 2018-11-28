@@ -15,7 +15,7 @@ def organise_entries(entries,date=False,date_range=False):
     names = []
     json_object = {}
 
-    print(data,date_range)
+    print(date,date_range)
 
     for counter,item in enumerate(entries):
         print("###############################\n",item,"\n###############################")
