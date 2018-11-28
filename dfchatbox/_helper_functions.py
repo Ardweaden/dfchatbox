@@ -18,8 +18,16 @@ def organise_entries(entries,date=False,date_range=False):
     print(date,date_range)
 
     for counter,item in enumerate(entries):
-        print("###############################\n",item)
-        print("\n",item['#0']["context"]["start_time"]["value"],"\n###############################")
+        #print("###############################\n",item)
+        #print("\n",item['#0']["context"]["start_time"]["value"],"\n###############################")
+        try:
+            item_date = item['#0']["context"]["start_time"]["value"]
+            if not valid_date(item_date,date,date_range):
+                continue
+        except:
+            print("No date in the context")
+            continue
+
         json_object_name = item['#0']['archetype_details']['template_id']['value']
         json_object_value = str(counter)
 
@@ -34,6 +42,20 @@ def organise_entries(entries,date=False,date_range=False):
             json_object = {}
 
     return json_entries
+
+def valid_date(item_date,date,date_range):
+    item_date = item_date[:10]
+
+    if date:
+        if item_date == date[:10]:
+            return True
+        else:
+            return False
+    elif date_range:
+        if item_date >= date_range["startDate"] and item_date <= date_range["endDate"]:
+            return True
+        else:
+            return False+
 
 def translate(input,api_link="http://translate.dis-apps.ijs.si/translate?sentence=",yandex=False):
     input=input.replace(",","").replace("("," ").replace(")"," ").replace("-"," ")
