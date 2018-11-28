@@ -405,9 +405,9 @@ def getPatientInfoData(answer_json):
 
 def getAllowedEhrids(answer_json):
 	#print("Getting allowedEhrids")
-
+	session = answer_json["session"] + "/contexts/"
 	fullAccess = answer_json["fullAccess"]
-	context = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == "user_data"][0]
+	context = [context for context in answer_json["queryResult"]["outputContexts"] if context["name"] == session + "user_data"][0]
 
 	if fullAccess == False:
 		allowed_ehrids = [context["parameters"]["user_ehrid"]]
@@ -430,6 +430,7 @@ def getPatientEHRID(answer_json,json_response):
 	authorization = "Basic " + base.decode()
 
 	queryUrl = baseUrl + "/demographics/party/query"
+	session = answer_json["session"] + "/contexts/"
 
 	parameter_name = answer_json['queryResult']['contexts'][0]['parameters']['given-name']
 	parameter_last_name = answer_json['queryResult']['contexts'][0]['parameters']['last-name']
@@ -441,7 +442,7 @@ def getPatientEHRID(answer_json,json_response):
 
 	#Use provided ehrid
 	parameter_ehrid = answer_json['queryResult']['parameters']['ehrid']
-	context = [context_n for context_n in answer_json["queryResult"]["outputContexts"] if context_n["name"] == "user_data"][0]
+	context = [context_n for context_n in answer_json["queryResult"]["outputContexts"] if context_n["name"] == session + "user_data"][0]
 
 	if parameter_name == "" and parameter_last_name == "" and parameter_ehrid == "" and context["parameters"]["user_isDoctor"] != "true":
 		parameter_ehrid = context["parameters"]["user_ehrid"]
