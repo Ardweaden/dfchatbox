@@ -55,7 +55,7 @@ def valid_date(item_date,date,date_range):
         if item_date >= date_range["startDate"] and item_date <= date_range["endDate"]:
             return True
         else:
-            return False+
+            return False
 
 def translate(input,api_link="http://translate.dis-apps.ijs.si/translate?sentence=",yandex=False):
     input=input.replace(",","").replace("("," ").replace(")"," ").replace("-"," ")
