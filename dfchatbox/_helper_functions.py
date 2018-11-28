@@ -10,12 +10,15 @@ import apiai
 import re
 
 
-def organise_entries(entries):
+def organise_entries(entries,date=False,date_range=False)
     json_entries = []
     names = []
     json_object = {}
 
+    print(data,date_range)
+
     for counter,item in enumerate(entries):
+        print("###############################\n",item,"\n###############################")
         json_object_name = item['#0']['archetype_details']['template_id']['value']
         json_object_value = str(counter)
 

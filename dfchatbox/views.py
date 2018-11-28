@@ -693,7 +693,7 @@ def getAllEntries(answer_json):
 	parameter_action = answer_json['queryResult']['action']
 	json_response = {"responseType": "button"}
 	json_entries = []
-	json_object = {} 
+	json_object = {}
 
 	ehrId,answer_json,json_response, answ_part = getPatientEHRID(answer_json,json_response)
 
@@ -722,9 +722,22 @@ def getAllEntries(answer_json):
 		if not len(js):
 			answer = "Podani pacient nima vpisov v sistemu."
 		else:
-			answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu:"
+			parameter_date_range =answer_json['queryResult']['parameters']['date-period']
+			parameter_date =answer_json['queryResult']['parameters']['date']
 
-			json_entries = organise_entries(js)
+			if parameter_date_range == "" and parameter_date == "":
+				answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu:"
+				json_entries = organise_entries(js)
+			elif parameter_date_range != "":
+				answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu v časovnem obdobju {}:".format(parameter_date_range)
+				json_entries = organise_entries(js,date_range=parameter_date_range)
+			elif parameter_date != "":
+				answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu za datum {}:".format(parameter_date)
+				json_entries = organise_entries(js,date=parameter_date)
+
+		if len(json_entries) == 0:
+			print("NO VALUES FOR SPECIFIED DATES OR DATE RANGE")
+			answer = "Za podanega pacienta nisem našel podatkov za ta datum oziroma časovno obdobje."
 
 	else: 
 		answer = "Za podanega pacienta nisem nasel podatkov v sistemu."
