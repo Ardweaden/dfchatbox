@@ -348,6 +348,8 @@ function communicate(message,j){
                 disable_input(false);
 
                 document.getElementById("holder" + j + (i-1)).scrollIntoView({behavior: "smooth"});
+                console.log("Vals at list are ",j,(i-1));
+
 
                 $("#inputField").focus();
             }
