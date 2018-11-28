@@ -585,9 +585,10 @@ def getECGResultsData(answer_json):
 	json_lab_results = []
 	json_object = {} 
 
-	ehrId, answer_json, json_response, answ_part = getPatientEHRID(answer_json,json_response)
+	ehrId, answer_json, json_response, answ_part2 = getPatientEHRID(answer_json,json_response)
 
-	print("#####	ekg answ part ===== ",answ_part)
+	if answ_part2 != "":
+		answ_part = answ_part2
 
 	#User wants to see lab results for a specific date or date period.
 	if ehrId != '':
