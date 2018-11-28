@@ -719,7 +719,7 @@ def getAllEntries(answer_json):
 		if not len(js):
 			answer = "Podani pacient nima vpisov v sistemu."
 		else:
-			answer = answer + "Za podanega pacienta sem našel naslednje vpise v sistemu:"
+			answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu:"
 
 			json_entries = organise_entries(js)
 
