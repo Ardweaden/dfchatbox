@@ -457,6 +457,7 @@ def getPatientEHRID(answer_json,json_response):
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
 			#print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
 			answ_part = "Za pacienta "+parameter_name+" "+parameter_last_name
+			parameter_ehrid = ehrId
 
 	
 	if parameter_ehrid != "":
@@ -893,7 +894,7 @@ def searchForEntry(answer_json):
 		if r.status_code == 200:
 			js = json.loads(r.text)
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
-			#print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
+			print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
 
 	if parameter_ehrid != "":
 		ehrId = str(parameter_ehrid)
