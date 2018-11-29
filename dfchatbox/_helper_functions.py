@@ -140,7 +140,8 @@ def search_in_data(data,phrase,hung=0,date=False,date_range=False):
                 continue
         except:
             print("No date in the context")
-            continue
+            if date or date_range:
+                continue
 
         a = [j.replace("|","/").split("/") for j in list(data[i].keys())]
         new_a = list(a)

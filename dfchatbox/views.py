@@ -972,12 +972,15 @@ def searchForEntry(answer_json):
 				parameter_date =answer_json['queryResult']['parameters']['date']
 
 				if parameter_date_range == "" and parameter_date == "":
+					print("No date or date range specified.")
 					answer = answer + "Našel sem naslednje podatke, ki se skladajo s poizvedbo: "
 					bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1)
 				elif parameter_date_range != "":
+					print("No date range specified.")
 					answer = answer + "Našel sem naslednje podatke, ki se skladajo s poizvedboza časovno obdobje med {} in {}:".format(parameter_date_range["startDate"][:10],parameter_date_range["endDate"][:10])
 					bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1,date_range=parameter_date_range)
 				elif parameter_date != "":
+					print("No date specified.")
 					answer = answer + "Našel sem naslednje podatke, ki se skladajo s poizvedbo za datum {}:".format(parameter_date[:10])
 					bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1,date=parameter_date)
 				#########
