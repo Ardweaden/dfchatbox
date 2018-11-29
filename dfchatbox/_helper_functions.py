@@ -56,6 +56,8 @@ def valid_date(item_date,date,date_range):
             return True
         else:
             return False
+    elif not date and not date_range:
+        return True
 
 def translate(input,api_link="http://translate.dis-apps.ijs.si/translate?sentence=",yandex=False):
     input=input.replace(",","").replace("("," ").replace(")"," ").replace("-"," ")
