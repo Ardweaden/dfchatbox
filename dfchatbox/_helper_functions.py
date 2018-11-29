@@ -124,7 +124,7 @@ def weightedLevenshteinDistance(searchList,phrase,hung=0):
     return sum(minimums)/len(minimums)
 
 
-def search_in_data(data,phrase,hung=0):
+def search_in_data(data,phrase,hung=0,date=False,date_range=False):
     fitsArray = []
     maxLev = float("inf")
 
@@ -132,6 +132,14 @@ def search_in_data(data,phrase,hung=0):
     bestPerformersIndices = []
     
     for i in range(len(data)):
+        try:
+            item_date = data[i]['#0']["context"]["start_time"]["value"]
+            if not valid_date(item_date,date,date_range):
+                continue
+        except:
+            print("No date in the context")
+            continue
+
         a = [j.replace("|","/").split("/") for j in list(data[i].keys())]
         new_a = list(a)
     

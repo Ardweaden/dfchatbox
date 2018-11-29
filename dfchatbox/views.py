@@ -967,13 +967,25 @@ def searchForEntry(answer_json):
 					break
 
 			if data:
-				bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1)
+				#########
+				parameter_date_range =answer_json['queryResult']['parameters']['date-period']
+				parameter_date =answer_json['queryResult']['parameters']['date']
+
+				if parameter_date_range == "" and parameter_date == "":
+					answer = answer + "Našel sem naslednje podatke, ki se skladajo s poizvedbo: "
+					bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1)
+				elif parameter_date_range != "":
+					answer = answer + "Našel sem naslednje podatke, ki se skladajo s poizvedboza časovno obdobje med {} in {}:".format(parameter_date_range["startDate"][:10],parameter_date_range["endDate"][:10])
+					bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1,date_range=parameter_date_range)
+				elif parameter_date != "":
+					answer = answer + "Našel sem naslednje podatke, ki se skladajo s poizvedbo za datum {}:".format(parameter_date[:10])
+					bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1,date=parameter_date)
+				#########
 				bestPerformersValues = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
 				#print("Best performers values:\n",bestPerformersValues)
 				#print("\n************************ ANSWER ************************\n")
 				#print(answer)
 				#print("\n************************ ANSWER ************************\n")
-				answer = answer + "Našel sem naslednje podatke, ki se skladajo s poizvedbo: "
 				saveBestPerformersDataToCache(data,bestPerformersIndices)
 
 				indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
