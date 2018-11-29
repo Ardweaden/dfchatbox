@@ -166,10 +166,10 @@ def search_in_data(data,phrase,hung=0,date=False,date_range=False):
                 maxLev = LevDist
                 bestFit = [new_a[k]]
         
-    print("\n fitsArray: ")
-    print(fitsArray[-1])
-    print("\n Best performers:\n",bestPerformers)
-    print("\n Best performers indices:\n",bestPerformersIndices)
+    # print("\n fitsArray: ")
+    # print(fitsArray[-1])
+    # print("\n Best performers:\n",bestPerformers)
+    # print("\n Best performers indices:\n",bestPerformersIndices)
     return bestPerformers,np.array(bestPerformersIndices)
 
 def strippedKeys(data):

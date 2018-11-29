@@ -981,20 +981,27 @@ def searchForEntry(answer_json):
 					answer = answer + "Našel sem naslednje podatke, ki se skladajo s poizvedbo za datum {}:".format(parameter_date[:10])
 					bestPerformers,bestPerformersIndices = search_in_data(data,message,hung=1,date=parameter_date)
 				#########
-				bestPerformersValues = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
-				#print("Best performers values:\n",bestPerformersValues)
-				#print("\n************************ ANSWER ************************\n")
-				#print(answer)
-				#print("\n************************ ANSWER ************************\n")
-				saveBestPerformersDataToCache(data,bestPerformersIndices)
+				if len(bestPerformers) == 0:
+					print("NO RESULTS FOUND")
+					answer = "Za podanega pacienta in dani datum/časovno obdobje nisem našel rezultatov."
+					data = []
+					json_response['url'] = "/"
+				else:
 
-				indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
-				#print("\n\ndata length is: ",len(indicesList),"\n\n")
+					bestPerformersValues = valuesOfBestPerformers(data,bestPerformers,bestPerformersIndices)
+					#print("Best performers values:\n",bestPerformersValues)
+					#print("\n************************ ANSWER ************************\n")
+					#print(answer)
+					#print("\n************************ ANSWER ************************\n")
+					saveBestPerformersDataToCache(data,bestPerformersIndices)
 
-				data = []
+					indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
+					#print("\n\ndata length is: ",len(indicesList),"\n\n")
 
-				for i in range(len(bestPerformersIndices)):
-					data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0]), "name" : " ".join(bestPerformers[i]).capitalize()})
+					data = []
+
+					for i in range(len(bestPerformersIndices)):
+						data.append({"value" : bestPerformersValues[i], "index" : str(bestPerformersIndices[i][0]), "name" : " ".join(bestPerformers[i]).capitalize()})
 				
 
 	else: 
