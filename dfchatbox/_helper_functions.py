@@ -135,7 +135,9 @@ def search_in_data(data,phrase,hung=0,date=False,date_range=False):
     
     for i in range(len(data)):
         try:
-            item_date = data[i]['#0']["context"]["start_time"]["value"]
+            #item_date = data[i]['#0']["context"]["start_time"]["value"]
+            item_date = data[i][list(data[i].keys())[0][:-4] + + "context/start_time"]
+            print(item_date)
             if not valid_date(item_date,date,date_range):
                 continue
         except:
