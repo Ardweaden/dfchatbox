@@ -175,7 +175,7 @@ def search_in_data(data,phrase,hung=0,date=False,date_range=False):
         
     # print("\n fitsArray: ")
     # print(fitsArray[-1])
-    # print("\n Best performers:\n",bestPerformers)
+    print("\n Best performers:\n",bestPerformers)
     # print("\n Best performers indices:\n",bestPerformersIndices)
     return bestPerformers,np.array(bestPerformersIndices)
 
