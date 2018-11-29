@@ -140,7 +140,7 @@ def search_in_data(data,phrase,hung=0,date=False,date_range=False):
                 continue
         except:
             print("No date in the context")
-            print("#########$$$$$$$$##########\n",data,"\n#########$$$$$$$$##########")
+            print("#########$$$$$$$$##########\n",data[i],"\n#########$$$$$$$$##########")
             if date or date_range:
                 continue
 
