@@ -478,7 +478,7 @@ def getPatientEHRID(answer_json,json_response):
 			ehrId = js['parties'][0]['partyAdditionalInfo'][0]['value']
 			#print("Found ehrid "+ehrId+" for user "+parameter_name+" "+parameter_last_name)
 
-			answ_part = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title() + "? "
+			answ_part = "V bazi nisem našel pacienta s tem imenom. Ste morda mislili " + parameter_name.title() + " " + parameter_last_name.title() + "? Za slednjega pacienta"
 
 			json_response['new_name'] = parameter_name
 			json_response['new_lastname'] = parameter_last_name
@@ -696,6 +696,8 @@ def getAllEntries(answer_json):
 	json_entries = []
 	json_object = {}
 
+	answ_part = "Za podanega pacienta"
+
 	ehrId,answer_json,json_response, answ_part = getPatientEHRID(answer_json,json_response)
 
 	if ehrId != '':
@@ -727,13 +729,13 @@ def getAllEntries(answer_json):
 			parameter_date =answer_json['queryResult']['parameters']['date']
 
 			if parameter_date_range == "" and parameter_date == "":
-				answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu:"
+				answer = answ_part + " sem našel naslednje vpise v sistemu:"
 				json_entries = organise_entries(js)
 			elif parameter_date_range != "":
-				answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu za časovno obdobje med {} in {}:".format(parameter_date_range["startDate"][:10],parameter_date_range["endDate"][:10])
+				answer = answ_part + " sem našel naslednje vpise v sistemu za časovno obdobje med {} in {}:".format(parameter_date_range["startDate"][:10],parameter_date_range["endDate"][:10])
 				json_entries = organise_entries(js,date_range=parameter_date_range)
 			elif parameter_date != "":
-				answer = answ_part + "Za podanega pacienta sem našel naslednje vpise v sistemu za datum {}:".format(parameter_date[:10])
+				answer = answ_part + " sem našel naslednje vpise v sistemu za datum {}:".format(parameter_date[:10])
 				json_entries = organise_entries(js,date=parameter_date)
 
 		if len(json_entries) == 0:
