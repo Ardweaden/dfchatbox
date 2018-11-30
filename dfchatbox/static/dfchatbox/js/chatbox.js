@@ -245,7 +245,7 @@ function communicate(message,j){
 
         }
 
-    else if (response_type != "entry" || response_type != "search") {
+    else {
         //APPEND THE MESSAGE THERE ARE NO URLS 
         typing(0,"me");
 
@@ -360,7 +360,8 @@ function communicate(message,j){
                 //DATA IS DICTIONARY
                 console.log("entry");
                 var keys = Object.keys(data);
-                console.log(keys);
+                console.log("keys",keys);
+                console.log(data);
 
                 var disabled = localStorage.getItem("disableAllEntries");
 
