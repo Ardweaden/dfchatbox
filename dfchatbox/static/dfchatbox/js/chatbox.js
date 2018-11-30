@@ -245,7 +245,7 @@ function communicate(message,j){
 
         }
 
-    else {
+    else if (response_type != "entry" || response_type != "search") {
         //APPEND THE MESSAGE THERE ARE NO URLS 
         typing(0,"me");
 
