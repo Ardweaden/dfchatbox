@@ -803,6 +803,7 @@ def getEntryData(answer_json):
 			answer = "Našel sem podatke o vpisu."
 
 			cache.set("dataLength",len(numberList),None)
+			print("length of number list @ get entry data")
 
 			json_response['url'] = "/entry_tree"
 
@@ -821,9 +822,9 @@ def getEntryData(answer_json):
 					if r.status_code == 200:
 						print(" setting cache ....")
 						json_entries = json.loads(r.text)['composition']
-						#print("======================== JSON ENTRIES ========================")
-						#print(numberList.index(counter))
-						#print("===============================================================")
+						print("======================== JSON ENTRIES @ getEntryData ========================")
+						print(numberList.index(counter))
+						print("=============================================================================")
 						cache.set("{}".format(numberList.index(counter)),json_entries,None)
 						print(" setting cache done")
 
