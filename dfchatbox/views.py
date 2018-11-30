@@ -816,12 +816,16 @@ def getEntryData(answer_json):
 
 					r = requests.get(queryUrl, headers={"Authorization": authorization, 'content-type': 'application/json'})
 
+					print("Here we'll be setting the cache if everything is ok")
+
 					if r.status_code == 200:
+						print(" setting cache ....")
 						json_entries = json.loads(r.text)['composition']
 						#print("======================== JSON ENTRIES ========================")
 						#print(numberList.index(counter))
 						#print("===============================================================")
 						cache.set("{}".format(numberList.index(counter)),json_entries,None)
+						print(" setting cache done")
 
 					else:
 						answer = "Prišlo je do napake. Prosim, poskusite ponovno."
