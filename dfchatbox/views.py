@@ -168,7 +168,7 @@ def check_links(request):
 
 @require_http_methods(['GET'])
 def entry_tree(request):
-	print("request @ entry_tree\n",request,"\n")
+	print("request @ entry_tree\n",request.text,"\n")
 	dataLength = cache.get("dataLength")
 	cache.delete("dataLength")
 	print("\n=== DATA LENGTH @ ENTRY_TREE: ===>  ", dataLength,"\n")
