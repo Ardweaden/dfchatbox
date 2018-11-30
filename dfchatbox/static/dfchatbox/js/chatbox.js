@@ -302,7 +302,10 @@ function communicate(message,j){
             typing(0,"others");
 
             //APPENDS TEXT RESPONSE
-            console.log("TEXT RESPONSE ======> ",response)
+            console.log("TEXT RESPONSE ======> ",response);
+            if (response_type == "entry") {
+                console.log("Perhaps we shoouldn't append")
+            }
             var reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + response['text_answer'] + '</span><br></div></div>';
 
             $(".socketchatbox-chatArea").append(reply_others);
