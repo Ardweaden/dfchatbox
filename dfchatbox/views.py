@@ -751,6 +751,8 @@ def getAllEntries(answer_json):
 	json_response['url'] = "/"
 	json_response['speech'] = answer
 
+	print("json_entries @ getAllEntries\n\n",json_entries,"\n")
+
 	return json_response
 
 def getEntryData(answer_json):
@@ -803,7 +805,7 @@ def getEntryData(answer_json):
 			answer = "Našel sem podatke o vpisu."
 
 			cache.set("dataLength",len(numberList),None)
-			print("length of number list @ get entry data is ",len(numberList))
+			print("length of number list @ get entry data is",len(numberList))
 
 			json_response['url'] = "/entry_tree"
 
@@ -1025,6 +1027,8 @@ def searchForEntry(answer_json):
 	json_response['answer'] = answer
 	json_response['data'] = data
 	json_response['speech'] = answer
+
+	print("data @ getAllEntries\n\n",dataprint("json_entries @ getAllEntries\n\n",json_entries,"\n"),"\n")
 
 	return json_response
 
