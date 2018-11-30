@@ -1028,7 +1028,7 @@ def searchForEntry(answer_json):
 	json_response['data'] = data
 	json_response['speech'] = answer
 
-	print("data @ getAllEntries\n\n",dataprint("json_entries @ getAllEntries\n\n",json_entries,"\n"),"\n")
+	print("data @ getAllEntries\n\n",data,"\n")
 
 	return json_response
 
