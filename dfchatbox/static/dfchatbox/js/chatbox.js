@@ -5,7 +5,8 @@ var global_username = "Uporabnik";
 var patientInfo_name, patientInfo_lastname, patientInfo_ehrid,patientInfo_patients,patientInfo_isDoctor;
 var welcome_message = "Pozdravljeni, sem ThinkEHR robotski pomočnik! Za prijavo kliknite na ime na zgornjem levem robu pogovornega okenca.";
 var greeting = true;
-var wait_time_limit = 10000;
+var wait_time_limit = 15000;
+var current_timeout = false;
 
 $(document).ready(function(){
     //localStorage.removeItem("sessionID");
@@ -145,7 +146,7 @@ function typing(start,typer) {
 //AUTOMATICALLY ENABLE INPUT FIELD IF RESPONSE TAKES TOO LONG
 function auto_enable_input(time_limit) {
     console.log("It has been disabled");
-    setTimeout(disable_input,time_limit,0);
+    current_timeout = setTimeout(disable_input,time_limit,0);
     $("#typing_wrapper").remove();
     console.log("It has been enabled");
 }
@@ -276,6 +277,9 @@ function communicate(message,j){
     $.post(window.location.href, {"message": message, "sessionID": sessionID, "name": patientInfo_name, "surname": patientInfo_lastname, "ehrid": patientInfo_ehrid},function(response){
 
         try {
+            if (current_timeout != false) {
+                clearTimeout(current_timeout);
+            }
             //DIALOGFLOW RESPONSE CONTAINS DATA
             response = response.replace(/\n/g, "\\n");
             response = response.replace(/\r/g, "\\r");
