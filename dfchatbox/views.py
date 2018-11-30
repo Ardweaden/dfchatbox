@@ -1003,7 +1003,7 @@ def searchForEntry(answer_json):
 					#print("\n************************ ANSWER ************************\n")
 					#print(answer)
 					#print("\n************************ ANSWER ************************\n")
-					saveBestPerformersDataToCache(data,bestPerformersIndices)
+					#saveBestPerformersDataToCache(data,bestPerformersIndices)
 
 					indicesList = list(set(np.array(bestPerformersIndices)[:,0]))
 					#print("\n\ndata length is: ",len(indicesList),"\n\n")
