@@ -593,8 +593,11 @@ function communicate(message,j){
                 }
                 catch(err){}
                 
-                console.log("There was an error. This is the url: ", response['url']);
-                $("body").append('<iframe frameborder="0" style="overflow:hidden;height:100%;width:100%" id="URLiFrame" src="' + response['url'] + '" height="100%" width="100%"></iframe>')
+                if (response_type != "search") {}
+                    console.log("There was an error. This is the url: ", response['url']);
+                    console.log(response_type);
+                    $("body").append('<iframe frameborder="0" style="overflow:hidden;height:100%;width:100%" id="URLiFrame" src="' + response['url'] + '" height="100%" width="100%"></iframe>')
+                }
             }
 
             typing(0,"others");
