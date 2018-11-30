@@ -302,6 +302,7 @@ function communicate(message,j){
             typing(0,"others");
 
             //APPENDS TEXT RESPONSE
+            console.log("TEXT RESPONSE ======> ",response)
             var reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + response['text_answer'] + '</span><br></div></div>';
 
             $(".socketchatbox-chatArea").append(reply_others);
@@ -598,7 +599,7 @@ function communicate(message,j){
                 }
                 catch(err){}
                 
-                if (response_type != "search") {
+                if (response_type != "search" || response_type != "entry") {
                     console.log("There was an error. This is the url: ", response['url']);
                     console.log(response_type);
                     $("body").append('<iframe frameborder="0" style="overflow:hidden;height:100%;width:100%" id="URLiFrame" src="' + response['url'] + '" height="100%" width="100%"></iframe>')
