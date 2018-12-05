@@ -388,7 +388,12 @@ function communicate(message,j){
                 
                 disable_input(false);
 
-                document.getElementById("showAllEntries").scrollIntoView({behavior: "smooth"});
+                try {
+                    document.getElementById("showAllEntries").scrollIntoView({behavior: "smooth"});
+                }
+                catch(err){
+                    console.log("ERROR ",err)
+                }
 
                 $("#inputField").focus();
             }
