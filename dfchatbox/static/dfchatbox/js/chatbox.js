@@ -606,7 +606,7 @@ function communicate(message,j){
                 if (response_type != "search" || response_type != "entry") {
                     console.log("There was an error. This is the url: ", response['url']);
                     console.log(response_type);
-                    $("body").append('<iframe frameborder="0" style="overflow:hidden;height:100%;width:100%" id="URLiFrame" src="' + response['url'] + '" height="100%" width="100%"></iframe>')
+                    //$("body").append('<iframe frameborder="0" style="overflow:hidden;height:100%;width:100%" id="URLiFrame" src="' + response['url'] + '" height="100%" width="100%"></iframe>')
                 }
             }
 
