@@ -7,7 +7,7 @@ var welcome_message = "Pozdravljeni, sem ThinkEHR robotski pomočnik! Za prijavo
 var greeting = true;
 var wait_time_limit = 15000;
 var current_timeout = false;
-var response_type == "";
+var response_type = "";
 
 $(document).ready(function(){
     //localStorage.removeItem("sessionID");
