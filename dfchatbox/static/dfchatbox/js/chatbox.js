@@ -7,6 +7,7 @@ var welcome_message = "Pozdravljeni, sem ThinkEHR robotski pomočnik! Za prijavo
 var greeting = true;
 var wait_time_limit = 15000;
 var current_timeout = false;
+var response_type == "";
 
 $(document).ready(function(){
     //localStorage.removeItem("sessionID");
@@ -304,7 +305,7 @@ function communicate(message,j){
             //APPENDS TEXT RESPONSE
             console.log("TEXT RESPONSE ======> ",response);
             if (response_type == "entry") {
-                console.log("Perhaps we shoouldn't append")
+                console.log("Perhaps we shouldn't append")
             }
             var reply_others = '<div style="padding-bottom:1%;" class="socketchatbox-message-wrapper" id="wrapper-others' + j + '"><div class="socketchatbox-message socketchatbox-message-others"><div class="socketchatbox-username">DialogFlow<span class="socketchatbox-messagetime">' + date + '</span></div><span class="socketchatbox-messageBody socketchatbox-messageBody-others">' + response['text_answer'] + '</span><br></div></div>';
 
